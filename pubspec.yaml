@@ -28,6 +28,12 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  google_fonts: ^6.1.0
+  theme_provider: ^0.6.0
+  adaptive_theme: ^3.4.1
+  adaptive_theme_fluent_ui: ^1.2.0
+  carousel_slider: ^4.2.1
+  provider: ^6.0.5
   flutter:
     sdk: flutter
 
