@@ -1,3 +1,5 @@
+//import 'dart:async';
+
 //import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:fantasy_weather_app/Widgets/themes.dart';
 import 'package:flutter/material.dart';
@@ -11,9 +13,15 @@ import 'dart:math';
 void main() {
   runApp(const MyApp());
 }
+class MyApp extends StatefulWidget {
+  const MyApp({ super.key });
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  bool isSwitched = false;
 
 
   // This widget is the root of your application.
@@ -21,15 +29,20 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context)  => MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        theme: ThemeClass.darkTheme,
-        darkTheme: ThemeClass.darkTheme,
-        themeMode: ThemeMode.system,
+        theme: isSwitched ? ThemeClass.darkTheme : ThemeClass.lightTheme,
         home:  Scaffold(
-            appBar: AppBar(
-               title: const Text('Always Dark Mode')
-            ),
-        ),
-    );
+          appBar: AppBar(title: const Text('The Ultimate Switch'), actions: [
+           Switch(
+             activeColor: Colors.greenAccent,
+             value: isSwitched,
+             onChanged: (value){
+                setState((){
+                  isSwitched = !isSwitched;
+                });
+             })
+        ]),
+    ),
+  );
 }
 
 class MyHomePage extends StatefulWidget {
@@ -69,37 +82,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-
-    // final width = MediaQuery.of(context).size.width;
-    // final bool isLargeScreen = width > 800;
-
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
         child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
