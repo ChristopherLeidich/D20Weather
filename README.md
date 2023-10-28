@@ -4,7 +4,7 @@ A Flutter project for the creation of a Fantasy Weather App meant for Applicatio
 [Pathfinder](https://paizo.com/pathfinder), [D&D](https://en.wikipedia.org/wiki/Dungeons_%26_Dragons), [Shadowrun](https://pegasus.de/shadowrun), etc.
 Later Iterations will have Changing Theme Styles available. Please Wait for further Notice.
 
-##Editors
+## Editors
 The Following Program is solely Edited by the 2 Product Owners Christopher Leidich(@inf3900) and Francesco Quarta(@inf4144). 
 If you have any questions whatsoever concerning Licences or general question please refer to on the 2 Editors.
 
