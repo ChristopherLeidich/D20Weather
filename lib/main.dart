@@ -1,5 +1,5 @@
 //import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:fantasy_weather_app/themes.dart';
+import 'package:fantasy_weather_app/Widgets/themes.dart';
 import 'package:flutter/material.dart';
 //import 'package:carousel_slider/carousel_slider.dart';
 //import 'package:flutter/services.dart';
@@ -24,21 +24,16 @@ class MyApp extends StatelessWidget {
         theme: ThemeClass.darkTheme,
         darkTheme: ThemeClass.darkTheme,
         themeMode: ThemeMode.system,
-        home: const MyHomePage(title: 'Adaptive Theme Demo',),
+        home:  Scaffold(
+            appBar: AppBar(
+               title: const Text('Always Dark Mode')
+            ),
+        ),
     );
 }
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   final String title;
 
@@ -50,6 +45,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   double _doubleValue = 0.0;
   String _printableValue = '0.0';
+  String _preSymbol = '+';
 
   void _incrementCounter() {
     setState(() {
@@ -60,6 +56,12 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
       //external factory Random([int? seed]);
+      var boolValue = Random().nextBool();
+      if(boolValue == true){
+        _preSymbol ='+';
+      }else{
+        _preSymbol ='-';
+      }
       _doubleValue = Random().nextDouble() * 6;
       _printableValue = _doubleValue.toStringAsFixed(1);
     });
@@ -69,7 +71,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
     // by the _incrementCounter method above.
-    //
+
+    // final width = MediaQuery.of(context).size.width;
+    // final bool isLargeScreen = width > 800;
+
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
@@ -108,7 +113,7 @@ class _MyHomePageState extends State<MyHomePage> {
               'The Current Temperature is '
             ),
             Text(
-              _printableValue,
+              _preSymbol + _printableValue,
               style: Theme.of(context).textTheme.headlineMedium,
             ),
             const Text(
