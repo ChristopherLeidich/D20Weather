@@ -1,6 +1,8 @@
 # fantasy_weather_app
 
-A new Flutter project.
+A Flutter project for the creation of a Fantasy Weather App meant for Application in Pen&Paper Systems like 
+[Pathfinder](https://paizo.com/pathfinder), [D&D](https://en.wikipedia.org/wiki/Dungeons_%26_Dragons), [Shadowrun](https://pegasus.de/shadowrun), etc.
+Later Iterations will have Changing Theme Styles available. Please Wait for further Notice.
 
 ## Getting Started
 
