@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 //import 'package:carousel_slider/carousel_slider.dart';
 //import 'package:flutter/services.dart';
 //import 'package:google_fonts/google_fonts.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 import 'dart:math';
 
@@ -48,7 +49,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   double _doubleValue = 0.0;
-  String _printableValue = '';
+  String _printableValue = '0.0';
 
   void _incrementCounter() {
     setState(() {
@@ -59,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
       // called again, and so nothing would appear to happen.
       _counter++;
       //external factory Random([int? seed]);
-      _doubleValue = Random().nextDouble() * 56;
+      _doubleValue = Random().nextDouble() * 6;
       _printableValue = _doubleValue.toStringAsFixed(1);
     });
   }
