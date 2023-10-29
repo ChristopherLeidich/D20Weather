@@ -23,31 +23,26 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  bool isSwitched = false;
+  bool isSwitched = false;    //Default Status of the Light Dark Mode Switch
 
   int _counter = 0;
-  double _doubleValue = 0.0;
-  String _printableValue = '0.0';
-  String _preSymbol = '+';
+  double _doubleValue = 0.0;    //used for generating a random double Value
+  String _printableValue = '0.0'; //this is the temperature that gets printed in the End
+  String _preSymbol = '+';      //Symbol for negative/Positive Temperatures
 
 
   void _incrementCounter() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
       _counter++;
       //external factory Random([int? seed]);
-      var boolValue = Random().nextBool();
+      var boolValue = Random().nextBool();    //randomizes the Symbol initialized in line 31
       if(boolValue == true){
         _preSymbol ='+';
       }else{
         _preSymbol ='-';
       }
-      _doubleValue = Random().nextDouble() * 6;
-      _printableValue = _doubleValue.toStringAsFixed(1);
+      _doubleValue = Random().nextDouble() * 36;     // generates a random double-Value between 0.0 and 36.0
+      _printableValue = _doubleValue.toStringAsFixed(1);  //fixes the length of digits after the , to 1 (e.g. 1.1 instead of 1.00000001)
     });
   }
   // This widget is the root of your application.
@@ -55,9 +50,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context)  => MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        theme: isSwitched ? ThemeClass.darkTheme : ThemeClass.lightTheme,
+        theme: isSwitched ? ThemeClass.darkTheme : ThemeClass.lightTheme,   //initializes the Switch with lightTheme created in the themes folder
         home:  Scaffold(
-          appBar: AppBar(title: const Text('The Ultimate Switch'), actions: [
+          appBar: AppBar(title: const Text('The Ultimate Switch'), actions: [   // gives the Switch its functionality
            Switch(
              activeColor: Colors.greenAccent,
              value: isSwitched,

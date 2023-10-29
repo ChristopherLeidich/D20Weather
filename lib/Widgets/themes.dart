@@ -1,16 +1,16 @@
 
 import 'package:flutter/material.dart';
 
-// class ThemeProvider extends ChangeNotifier{
-//   ThemeMode themeMode = ThemeMode.dark;
-//
-//   bool get isDarkMode => themeMode == ThemeMode.dark;
-//
-//   void toggleTheme(bool isOn){
-//     themeMode = isOn ? ThemeMode.dark : ThemeMode.light;
-//     notifyListeners();
-//   }
-// }
+class ThemeProvider extends ChangeNotifier{
+  ThemeMode themeMode = ThemeMode.dark;
+
+  bool get isDarkMode => themeMode == ThemeMode.dark;
+
+  void toggleTheme(bool isOn){
+    themeMode = isOn ? ThemeMode.dark : ThemeMode.light;
+    notifyListeners();
+  }
+}
 
 class ThemeClass{
   Color lightPrimaryColor = const Color(0xFFDF0054);
