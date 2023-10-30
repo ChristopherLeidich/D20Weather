@@ -184,7 +184,8 @@ class CarouselSliderWidget extends StatelessWidget {
         Container(
           color: Colors.green,
           child: const Center(
-            child: Text('+ 28 °C'),
+            child:
+              Text('+ 28 °C'),
           ),
         ),
         Container(
