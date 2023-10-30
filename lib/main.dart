@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: /*isDarkTheme ? ThemeClass.darkTheme :*/ ThemeClass.lightTheme,
+      theme: /*isDarkTheme ? ThemeClass.darkTheme :*/ ThemeClass.darkTheme,
       home: const MyCustomAppBar(),
     );
   }
@@ -70,7 +70,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('My Custom AppBar'),
+        title: const Text('The App'),
         actions: [
           const MyMenuButton(),
           MyStatefulWidgetWidget(
@@ -143,14 +143,13 @@ class MyStatefulWidgetWidget extends StatelessWidget {
     return Row(
       children: [
         IconButton(
-          icon: const Icon(Icons.add),
+          icon: isDarkTheme ? const Icon(Icons.brightness_4) : const Icon(Icons.brightness_7),
           onPressed: toggleTheme, // Toggle theme when pressed
         ),
-        const Text('Toggle Theme'),
-        Icon(
-          isDarkTheme ? Icons.brightness_4 : Icons.brightness_7,
+       /* Icon(
+          //isDarkTheme ? Icons.brightness_4 : Icons.brightness_7,
           color: isDarkTheme ? ThemeClass().darkPrimaryColor : ThemeClass().lightPrimaryColor,
-        ),
+        ),*/
       ],
     );
   }
