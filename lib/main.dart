@@ -5,12 +5,12 @@
 import 'package:flutter/material.dart';
 
 import 'Widgets/themes.dart';
-//import 'package:carousel_slider/carousel_slider.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 //import 'package:flutter/services.dart';
 //import 'package:google_fonts/google_fonts.dart';
 //import 'package:qr_flutter/qr_flutter.dart';
 
-import 'dart:math';
+//import 'dart:math';
 
 
 void main() {
@@ -42,9 +42,9 @@ class MyCustomAppBar extends StatefulWidget {
 class _MyCustomAppBarState extends State<MyCustomAppBar> {
   bool isDarkTheme = false; // Added a boolean to track the theme
 
-  double _doubleValue = 0.0;    //used for generating a random double Value
-  String _printableValue = '0.0'; //this is the temperature that gets printed in the End
-  String _preSymbol = '+';      //Symbol for negative/Positive Temperatures
+  //double _doubleValue = 0.0;    //used for generating a random double Value
+  //String _printableValue = '0.0'; //this is the temperature that gets printed in the End
+  //String _preSymbol = '+';      //Symbol for negative/Positive Temperatures
 
   void toggleTheme() {
     setState(() {
@@ -52,7 +52,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
     });
   }
 
-  void _incrementCounter() {
+  /*void _incrementCounter() {
     setState(() {
       //external factory Random([int? seed]);
       var boolValue = Random().nextBool();    //randomizes the Symbol initialized in line 31
@@ -64,7 +64,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
       _doubleValue = Random().nextDouble() * 36;     // generates a random double-Value between 0.0 and 36.0
       _printableValue = _doubleValue.toStringAsFixed(1);  //fixes the length of digits after the , to 1 (e.g. 1.1 instead of 1.00000001)
     });
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +79,9 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
           ),
         ],
       ),
-      body: Center(
+      body: const CarouselSliderWidget(), // Use the CarouselSliderWidget in the body
+    );
+      /*Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
@@ -101,7 +103,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+    );*/
 
   }
 }
@@ -151,6 +153,53 @@ class MyStatefulWidgetWidget extends StatelessWidget {
           color: isDarkTheme ? ThemeClass().darkPrimaryColor : ThemeClass().lightPrimaryColor,
         ),*/
       ],
+    );
+  }
+}
+
+class CarouselSliderWidget extends StatelessWidget {
+  const CarouselSliderWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CarouselSlider(
+      items: [
+        Container(
+          color: Colors.transparent,
+          child: Stack(
+            alignment: Alignment.center,
+              children: [
+              Image.asset('assets/glacier.jpg'),
+                const Center(
+                  child: Text('- 10 °C',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 64,
+                    ),
+                  ),
+                ),
+            ],
+          ),
+        ),
+        Container(
+          color: Colors.green,
+          child: const Center(
+            child: Text('+ 28 °C'),
+          ),
+        ),
+        Container(
+          color: Colors.yellow,
+          child: const Center(
+            child: Text('+ 41 °C'),
+          ),
+        ),
+      ],
+      options: CarouselOptions(
+        autoPlay: false,
+        enlargeCenterPage: true,
+        aspectRatio: 2.0,
+        enableInfiniteScroll: true,
+      ),
     );
   }
 }
