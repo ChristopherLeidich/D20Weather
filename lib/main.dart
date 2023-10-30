@@ -1,15 +1,122 @@
 //import 'dart:async';
 
 //import 'package:adaptive_theme/adaptive_theme.dart';
-import 'package:fantasy_weather_app/Widgets/themes.dart';
+//import 'package:fantasy_weather_app/Widgets/themes.dart';
 import 'package:flutter/material.dart';
+
+import 'Widgets/themes.dart';
 //import 'package:carousel_slider/carousel_slider.dart';
 //import 'package:flutter/services.dart';
 //import 'package:google_fonts/google_fonts.dart';
 //import 'package:qr_flutter/qr_flutter.dart';
 
-import 'dart:math';
+//import 'dart:math';
 
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeClass.lightTheme, // Set the initial theme to light
+      home: const MyCustomAppBar(),
+    );
+  }
+}
+
+class MyCustomAppBar extends StatefulWidget {
+  const MyCustomAppBar({super.key});
+
+  @override
+  State<MyCustomAppBar> createState() => _MyCustomAppBarState();
+}
+
+class _MyCustomAppBarState extends State<MyCustomAppBar> {
+  bool isDarkTheme = false; // Added a boolean to track the theme
+
+  void toggleTheme() {
+    setState(() {
+      isDarkTheme = !isDarkTheme;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('My Custom AppBar'),
+        actions: [
+          const MyMenuButton(),
+          MyStatefulWidgetWidget(
+            toggleTheme: toggleTheme,
+            isDarkTheme: isDarkTheme,
+          ),
+        ],
+      ),
+      body: const Center(
+        child: Text('Your Content Goes Here'),
+      ),
+    );
+  }
+}
+
+class MyMenuButton extends StatelessWidget {
+  const MyMenuButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton(
+      itemBuilder: (context) {
+        return [
+          const PopupMenuItem(
+            value: 1,
+            child: Text('Option 1'),
+          ),
+          const PopupMenuItem(
+            value: 2,
+            child: Text('Option 2'),
+          ),
+          const PopupMenuItem(
+            value: 3,
+            child: Text('Option 3'),
+          ),
+        ];
+      },
+    );
+  }
+}
+
+class MyStatefulWidgetWidget extends StatelessWidget {
+  final VoidCallback toggleTheme;
+  final bool isDarkTheme;
+
+  const MyStatefulWidgetWidget({super.key, required this.toggleTheme, required this.isDarkTheme});
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        IconButton(
+          icon: const Icon(Icons.add),
+          onPressed: toggleTheme, // Toggle theme when pressed
+        ),
+        const Text('Toggle Theme'),
+        Icon(
+          isDarkTheme ? Icons.brightness_4 : Icons.brightness_7,
+          color: isDarkTheme ? ThemeClass().darkPrimaryColor : ThemeClass().lightPrimaryColor,
+        ),
+      ],
+    );
+  }
+}
+
+/*
 void main() {
   runApp(const MyApp(title: '',));
 }
@@ -312,3 +419,4 @@ class _ProfileIcon extends StatelessWidget {
 //     );
 //   }
 // }
+*/
