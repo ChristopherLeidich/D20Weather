@@ -10,7 +10,7 @@ import 'Widgets/themes.dart';
 //import 'package:google_fonts/google_fonts.dart';
 //import 'package:qr_flutter/qr_flutter.dart';
 
-//import 'dart:math';
+import 'dart:math';
 
 
 void main() {
@@ -20,11 +20,13 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  //get isDarkTheme => _MyCustomAppBarState;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeClass.lightTheme, // Set the initial theme to light
+      theme: /*isDarkTheme ? ThemeClass.darkTheme :*/ ThemeClass.lightTheme,
       home: const MyCustomAppBar(),
     );
   }
@@ -40,9 +42,27 @@ class MyCustomAppBar extends StatefulWidget {
 class _MyCustomAppBarState extends State<MyCustomAppBar> {
   bool isDarkTheme = false; // Added a boolean to track the theme
 
+  double _doubleValue = 0.0;    //used for generating a random double Value
+  String _printableValue = '0.0'; //this is the temperature that gets printed in the End
+  String _preSymbol = '+';      //Symbol for negative/Positive Temperatures
+
   void toggleTheme() {
     setState(() {
       isDarkTheme = !isDarkTheme;
+    });
+  }
+
+  void _incrementCounter() {
+    setState(() {
+      //external factory Random([int? seed]);
+      var boolValue = Random().nextBool();    //randomizes the Symbol initialized in line 31
+      if(boolValue == true){
+        _preSymbol ='+';
+      }else{
+        _preSymbol ='-';
+      }
+      _doubleValue = Random().nextDouble() * 36;     // generates a random double-Value between 0.0 and 36.0
+      _printableValue = _doubleValue.toStringAsFixed(1);  //fixes the length of digits after the , to 1 (e.g. 1.1 instead of 1.00000001)
     });
   }
 
@@ -59,10 +79,30 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
           ),
         ],
       ),
-      body: const Center(
-        child: Text('Your Content Goes Here'),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            const Text(
+                'The Current Temperature is '
+            ),
+            Text(
+              _preSymbol + _printableValue,
+              style: Theme.of(context).textTheme.headlineMedium,
+            ),
+            const Text(
+                '° C'
+            )
+          ],
+        ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _incrementCounter,
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
+
   }
 }
 
