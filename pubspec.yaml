@@ -62,7 +62,10 @@ flutter:
   assets:
     - assets/images/glacier.jpg
     - assets/images/KT3A7OD.jpeg
-    -  assets/images/44.jpg
+    - assets/images/44.jpg
+    - assets/images/1123010.jpg
+    - assets/images/9502ac62b81f208465c7beb0d4338c77.jpg
+    - assets/images/hcXuUBG_1.jpg
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

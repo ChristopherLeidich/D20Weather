@@ -44,35 +44,18 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
   final CarouselController _carouselController = CarouselController();
   int currentIndex = 0;
 
-  //double _doubleValue = 0.0;    //used for generating a random double Value
-  //String _printableValue = '0.0'; //this is the temperature that gets printed in the End
-  //String _preSymbol = '+';      //Symbol for negative/Positive Temperatures
-
   void toggleTheme() {
     setState(() {
       isDarkTheme = !isDarkTheme;
     });
   }
 
-  /*void _incrementCounter() {
-    setState(() {
-      //external factory Random([int? seed]);
-      var boolValue = Random().nextBool();    //randomizes the Symbol initialized in line 31
-      if(boolValue == true){
-        _preSymbol ='+';
-      }else{
-        _preSymbol ='-';
-      }
-      _doubleValue = Random().nextDouble() * 36;     // generates a random double-Value between 0.0 and 36.0
-      _printableValue = _doubleValue.toStringAsFixed(1);  //fixes the length of digits after the , to 1 (e.g. 1.1 instead of 1.00000001)
-    });
-  }*/
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('The App'),
+        title: const Center(child: Text('Primematerial Weather App')),
         actions: [
           const MyMenuButton(),
           MyStatefulWidgetWidget(
@@ -130,6 +113,7 @@ class MyMenuButton extends StatelessWidget {
           const PopupMenuItem(
             value: 1,
             child: Text('Option 1'),
+            //Navigator.pushNamed(context, routeName)
           ),
           const PopupMenuItem(
             value: 2,
@@ -150,6 +134,20 @@ class MyStatefulWidgetWidget extends StatelessWidget {
   final bool isDarkTheme;
 
   const MyStatefulWidgetWidget({super.key, required this.toggleTheme, required this.isDarkTheme});
+
+  /*void _incrementCounter() {
+    setState(() {
+      //external factory Random([int? seed]);
+      var boolValue = Random().nextBool();    //randomizes the Symbol initialized in line 31
+      if(boolValue == true){
+        _preSymbol ='+';
+      }else{
+        _preSymbol ='-';
+      }
+      _doubleValue = Random().nextDouble() * 36;     // generates a random double-Value between 0.0 and 36.0
+      _printableValue = _doubleValue.toStringAsFixed(1);  //fixes the length of digits after the , to 1 (e.g. 1.1 instead of 1.00000001)
+    });
+  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -174,6 +172,10 @@ class CarouselSliderWidget extends StatelessWidget {
   final CarouselController controller;
   final ValueChanged<int> onIndexChanged;
 
+  //double _doubleValue = 0.0;    //used for generating a random double Value
+  //String _printableValue = '0.0'; //this is the temperature that gets printed in the End
+  //String _preSymbol = '+';      //Symbol for negative/Positive Temperatures
+
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
@@ -184,9 +186,12 @@ class CarouselSliderWidget extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
               children: [
-              Image.asset('assets/images/glacier.jpg'),
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Image.asset('assets/images/glacier.jpg'),
+                ),
                 const Center(
-                  child: Text('- 10 °C',
+                  child: Text('- 27 °C',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 64,
@@ -197,11 +202,17 @@ class CarouselSliderWidget extends StatelessWidget {
           ),
         ),
         Container(
-          color: Colors.transparent,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.transparent,
+          ),
           child: Stack(
             alignment: Alignment.center,
             children: [
-              Image.asset('assets/images/KT3A7OD.jpeg'),
+              ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Image.asset('assets/images/KT3A7OD.jpeg'),
+              ),
               const Center(
                 child: Text('+ 260 °C',
                   style: TextStyle(
@@ -214,11 +225,17 @@ class CarouselSliderWidget extends StatelessWidget {
           ),
         ),
         Container(
-          color: Colors.transparent,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.transparent,
+          ),
           child: Stack(
             alignment: Alignment.center,
             children: [
-              Image.asset('assets/images/44.jpg'),
+              ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image.asset('assets/images/9502ac62b81f208465c7beb0d4338c77.jpg'),
+              ),
               const Center(
                 child: Text('+ 36 °C',
                   style: TextStyle(
@@ -232,7 +249,7 @@ class CarouselSliderWidget extends StatelessWidget {
         ),
       ],
       options: CarouselOptions(
-        autoPlay: false,
+        autoPlay: true,
         enlargeCenterPage: true,
         aspectRatio: 2.0,
         enableInfiniteScroll: true,
@@ -252,13 +269,42 @@ class TextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16.0),
-      child: TextField(
+    return const Padding(
+      padding: EdgeInsets.all(16.0),
+      child: Column(      //switch case später einfügen
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text('Mwangi expanse: ',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              )
+          ),
+          Text(
+            'The Mwangi Expanse (pronounced MWAN-gi),archaically also called the Forbidden Jungle,is the catch-all term given to the wild interior of central and western Garund. The Expanse also extends southwards beyond the Inner Sea region,\n\n',
+            //style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          Text('Wetterbedingungen: ',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              )
+          ),
+          Text('8th Umbral Calamity\n'),
+          Text('Wind: ',
+              style: TextStyle(
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              )
+          ),
+          Text('Windrichtung: Westen'),
+          Text('Windgeschwindigkeit: 135 km/h'),
+        ], /*TextField(
         decoration: InputDecoration(
           labelText: 'Hello There $currentIndex',
           border: const OutlineInputBorder(),
         ),
+      ),*/
       ),
     );
   }
