@@ -184,7 +184,7 @@ class CarouselSliderWidget extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
               children: [
-              Image.asset('assets/glacier.jpg'),
+              Image.asset('assets/images/glacier.jpg'),
                 const Center(
                   child: Text('- 10 °C',
                     style: TextStyle(
@@ -197,16 +197,37 @@ class CarouselSliderWidget extends StatelessWidget {
           ),
         ),
         Container(
-          color: Colors.green,
-          child: const Center(
-            child:
-              Text('+ 28 °C'),
+          color: Colors.transparent,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Image.asset('assets/images/KT3A7OD.jpeg'),
+              const Center(
+                child: Text('+ 260 °C',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 64,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
         Container(
-          color: Colors.yellow,
-          child: const Center(
-            child: Text('+ 41 °C'),
+          color: Colors.transparent,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Image.asset('assets/images/44.jpg'),
+              const Center(
+                child: Text('+ 36 °C',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 64,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ],
