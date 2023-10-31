@@ -41,6 +41,8 @@ class MyCustomAppBar extends StatefulWidget {
 
 class _MyCustomAppBarState extends State<MyCustomAppBar> {
   bool isDarkTheme = false; // Added a boolean to track the theme
+  final CarouselController _carouselController = CarouselController();
+  int currentIndex = 0;
 
   //double _doubleValue = 0.0;    //used for generating a random double Value
   //String _printableValue = '0.0'; //this is the temperature that gets printed in the End
@@ -79,7 +81,16 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
           ),
         ],
       ),
-      body: const CarouselSliderWidget(), // Use the CarouselSliderWidget in the body
+      body: Column(
+          children: [
+            CarouselSliderWidget(controller: _carouselController, onIndexChanged: (index) {// Use the CarouselSliderWidget in the body
+              setState(() {
+                currentIndex = index;
+              });
+            }),
+            TextWidget(currentIndex: currentIndex),
+          ],
+      ),
     );
       /*Center(
         child: Column(
@@ -158,11 +169,15 @@ class MyStatefulWidgetWidget extends StatelessWidget {
 }
 
 class CarouselSliderWidget extends StatelessWidget {
-  const CarouselSliderWidget({super.key});
+  const CarouselSliderWidget({super.key, required this.controller, required this.onIndexChanged});
+
+  final CarouselController controller;
+  final ValueChanged<int> onIndexChanged;
 
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
+      carouselController: controller,
       items: [
         Container(
           color: Colors.transparent,
@@ -200,6 +215,29 @@ class CarouselSliderWidget extends StatelessWidget {
         enlargeCenterPage: true,
         aspectRatio: 2.0,
         enableInfiniteScroll: true,
+        onPageChanged: (index, reason) {
+          // Notify the parent widget when the page changes
+          onIndexChanged(index);
+        },
+      ),
+    );
+  }
+}
+
+class TextWidget extends StatelessWidget {
+  final int currentIndex;
+
+  const TextWidget({super.key, required this.currentIndex});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: TextField(
+        decoration: InputDecoration(
+          labelText: 'Hello There $currentIndex',
+          border: const OutlineInputBorder(),
+        ),
       ),
     );
   }
