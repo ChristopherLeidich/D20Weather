@@ -64,15 +64,18 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
           ),
         ],
       ),
-      body: Column(
-          children: [
-            CarouselSliderWidget(controller: _carouselController, onIndexChanged: (index) {// Use the CarouselSliderWidget in the body
-              setState(() {
-                currentIndex = index;
-              });
+      body: AspectRatio(
+                aspectRatio: 10 / 16,
+            child: Column(
+            children: [
+              CarouselSliderWidget(controller: _carouselController, onIndexChanged: (index) {// Use the CarouselSliderWidget in the body
+                setState(() {
+                  currentIndex = index;
+                });
             }),
             TextWidget(currentIndex: currentIndex),
           ],
+        ),
       ),
     );
       /*Center(
@@ -112,16 +115,16 @@ class MyMenuButton extends StatelessWidget {
         return [
           const PopupMenuItem(
             value: 1,
-            child: Text('Option 1'),
+            child: Text('Account'),
             //Navigator.pushNamed(context, routeName)
           ),
           const PopupMenuItem(
             value: 2,
-            child: Text('Option 2'),
+            child: Text('Settings'),
           ),
           const PopupMenuItem(
             value: 3,
-            child: Text('Option 3'),
+            child: Text('Logout'),
           ),
         ];
       },
