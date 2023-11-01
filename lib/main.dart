@@ -3,7 +3,7 @@ import 'dart:async';
 //import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:fantasy_weather_app/Widgets/themes.dart';
 import 'package:flutter/material.dart';
-
+import 'package:fantasy_weather_app/Widgets/caruosel_slider.dart';
 //import 'Widgets/themes.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 //import 'package:flutter/services.dart';
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: /*isDarkTheme ? ThemeClass.darkTheme :*/ ThemeClass.darkTheme,
+      theme: /*isDarkTheme ? ThemeClass.darkTheme :*/ ThemeClass.lightTheme,
       home: const MyCustomAppBar(),
     );
   }
@@ -43,6 +43,7 @@ class MyCustomAppBar extends StatefulWidget {
 
 class _MyCustomAppBarState extends State<MyCustomAppBar> {
   bool isDarkTheme = false; // Added a boolean to track the theme
+
   final CarouselController _carouselController = CarouselController();
   int currentIndex = 0;
   double doubleValues = 0.0;    //used for generating a random double Value
@@ -117,31 +118,6 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
         ),
       ),
     );
-    //final doubleValues = List.generate(3, (index) => Random().nextDouble() * 36);
-      /*Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-                'The Current Temperature is '
-            ),
-            Text(
-              _preSymbol + _printableValue,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const Text(
-                '° C'
-            )
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );*/
-
   }
 }
 
@@ -238,101 +214,6 @@ class MyStatefulWidgetWidget extends StatelessWidget {
   }
 }
 
-class CarouselSliderWidget extends StatelessWidget {
-  const CarouselSliderWidget({super.key, required this.controller, required this.onIndexChanged, required this.printableValue, required this.preSymbol});
-
-  final CarouselController controller;
-  final ValueChanged<int> onIndexChanged;
-
-  final String printableValue; //this is the temperature that gets printed in the End
-  final String preSymbol;      //Symbol for negative/Positive Temperatures
-
-  @override
-  Widget build(BuildContext context) {
-    return CarouselSlider(
-      carouselController: controller,
-      items: [
-        Container(
-          color: Colors.transparent,
-          child: Stack(
-            alignment: Alignment.center,
-              children: [
-                ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.asset('assets/images/glacier.jpg'),
-                ),
-                Center(
-                  child: Text('$preSymbol $printableValue °C',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 64,
-                    ),
-                  ),
-                ),
-            ],
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.transparent,
-          ),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: Image.asset('assets/images/KT3A7OD.jpeg'),
-              ),
-              Center(
-                child: Text('$preSymbol $printableValue °C',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 64,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.transparent,
-          ),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.asset('assets/images/9502ac62b81f208465c7beb0d4338c77.jpg'),
-              ),
-              Center(
-                child: Text('$preSymbol $printableValue °C',
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 64,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-      options: CarouselOptions(
-        autoPlay: true,
-        enlargeCenterPage: true,
-        aspectRatio: 2.0,
-        enableInfiniteScroll: true,
-        onPageChanged: (index, reason) {
-          // Notify the parent widget when the page changes
-          onIndexChanged(index);
-        },
-      ),
-    );
-  }
-}
-
 class TextWidget extends StatelessWidget {
   final int currentIndex;
 
@@ -350,7 +231,7 @@ class TextWidget extends StatelessWidget {
         children: <Widget>[
           Text('Mwangi expanse: ',
               style: TextStyle(
-                color: Colors.white,
+                //color: Colors.white,
                 fontWeight: FontWeight.bold,
               )
           ),
@@ -360,14 +241,14 @@ class TextWidget extends StatelessWidget {
           ),
           Text('Wetterbedingungen: ',
               style: TextStyle(
-                color: Colors.white,
+                //color: Colors.white,
                 fontWeight: FontWeight.bold,
               )
           ),
           Text('8th Umbral Calamity\n'),
           Text('Wind: ',
               style: TextStyle(
-                color: Colors.white,
+                //color: Colors.white,
                 fontWeight: FontWeight.bold,
               )
           ),
