@@ -1,16 +1,18 @@
-//import 'dart:async';
+import 'dart:async';
 
 //import 'package:adaptive_theme/adaptive_theme.dart';
-//import 'package:fantasy_weather_app/Widgets/themes.dart';
+import 'package:fantasy_weather_app/Widgets/themes.dart';
 import 'package:flutter/material.dart';
 
-import 'Widgets/themes.dart';
+//import 'Widgets/themes.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 //import 'package:flutter/services.dart';
 //import 'package:google_fonts/google_fonts.dart';
 //import 'package:qr_flutter/qr_flutter.dart';
 
-//import 'dart:math';
+import 'dart:math';
+
+import 'second_page.dart';
 
 
 void main() {
@@ -43,11 +45,48 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
   bool isDarkTheme = false; // Added a boolean to track the theme
   final CarouselController _carouselController = CarouselController();
   int currentIndex = 0;
+  double doubleValues = 0.0;    //used for generating a random double Value
+  String printableValues = '0.0'; //this is the temperature that gets printed in the End
+  String preSymbol = '+';      //Symbol for negative/Positive Temperatures
+
+  late Timer _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    randomizer(); // Generate the first random value when the app is started
+
+    _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
+      randomizer();
+    });
+  }
 
   void toggleTheme() {
     setState(() {
       isDarkTheme = !isDarkTheme;
     });
+  }
+
+  void randomizer() {
+    setState(() {
+      //external factory Random([int? seed]);
+      var boolValue = Random().nextBool();    //randomizes the Symbol initialized in line 31
+      if(boolValue == true){
+        preSymbol ='+';
+      }else{
+        preSymbol ='-';
+      }
+      //final doubleValues = List.generate(3, (index) => Random().nextDouble() * 36);
+      doubleValues = Random().nextDouble() * 41;     // generates a random double-Value between 0.0 and 36.0
+      printableValues = doubleValues.toStringAsFixed(1);  //fixes the length of digits after the , to 1 (e.g. 1.1 instead of 1.00000001)
+    });
+  }
+
+  @override
+  void dispose() {
+    // Cancel the timer when the widget is disposed to prevent memory leaks
+    _timer.cancel();
+    super.dispose();
   }
 
 
@@ -72,12 +111,13 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
                 setState(() {
                   currentIndex = index;
                 });
-            }),
+            }, printableValue: printableValues, preSymbol: preSymbol),
             TextWidget(currentIndex: currentIndex),
           ],
         ),
       ),
     );
+    //final doubleValues = List.generate(3, (index) => Random().nextDouble() * 36);
       /*Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -138,19 +178,6 @@ class MyStatefulWidgetWidget extends StatelessWidget {
 
   const MyStatefulWidgetWidget({super.key, required this.toggleTheme, required this.isDarkTheme});
 
-  /*void _incrementCounter() {
-    setState(() {
-      //external factory Random([int? seed]);
-      var boolValue = Random().nextBool();    //randomizes the Symbol initialized in line 31
-      if(boolValue == true){
-        _preSymbol ='+';
-      }else{
-        _preSymbol ='-';
-      }
-      _doubleValue = Random().nextDouble() * 36;     // generates a random double-Value between 0.0 and 36.0
-      _printableValue = _doubleValue.toStringAsFixed(1);  //fixes the length of digits after the , to 1 (e.g. 1.1 instead of 1.00000001)
-    });
-  }*/
 
   @override
   Widget build(BuildContext context) {
@@ -170,14 +197,13 @@ class MyStatefulWidgetWidget extends StatelessWidget {
 }
 
 class CarouselSliderWidget extends StatelessWidget {
-  const CarouselSliderWidget({super.key, required this.controller, required this.onIndexChanged});
+  const CarouselSliderWidget({super.key, required this.controller, required this.onIndexChanged, required this.printableValue, required this.preSymbol});
 
   final CarouselController controller;
   final ValueChanged<int> onIndexChanged;
 
-  //double _doubleValue = 0.0;    //used for generating a random double Value
-  //String _printableValue = '0.0'; //this is the temperature that gets printed in the End
-  //String _preSymbol = '+';      //Symbol for negative/Positive Temperatures
+  final String printableValue; //this is the temperature that gets printed in the End
+  final String preSymbol;      //Symbol for negative/Positive Temperatures
 
   @override
   Widget build(BuildContext context) {
@@ -193,9 +219,9 @@ class CarouselSliderWidget extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     child: Image.asset('assets/images/glacier.jpg'),
                 ),
-                const Center(
-                  child: Text('- 27 °C',
-                    style: TextStyle(
+                Center(
+                  child: Text('$preSymbol $printableValue °C',
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 64,
                     ),
@@ -216,9 +242,9 @@ class CarouselSliderWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(10),
               child: Image.asset('assets/images/KT3A7OD.jpeg'),
               ),
-              const Center(
-                child: Text('+ 260 °C',
-                  style: TextStyle(
+              Center(
+                child: Text('$preSymbol $printableValue °C',
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 64,
                   ),
@@ -239,9 +265,9 @@ class CarouselSliderWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                   child: Image.asset('assets/images/9502ac62b81f208465c7beb0d4338c77.jpg'),
               ),
-              const Center(
-                child: Text('+ 36 °C',
-                  style: TextStyle(
+              Center(
+                child: Text('$preSymbol $printableValue °C',
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 64,
                   ),
