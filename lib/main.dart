@@ -145,7 +145,7 @@ class MyDrawer extends StatelessWidget {
               // Handle settings or navigation
               Navigator.pop(context); // Close the drawer
               // Navigate to the second page
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const SecondPage()));
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const SecondPage(title: '',)));
             },
           ),
           ListTile(
@@ -269,98 +269,7 @@ class TextWidget extends StatelessWidget {
 void main() {
   runApp(const MyApp(title: '',));
 }
-class MyApp extends StatefulWidget {
-  const MyApp({ super.key, required this.title });
 
-  final String title;
-
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  bool isSwitched = false;    //Default Status of the Light Dark Mode Switch
-
-  int _counter = 0;
-  double _doubleValue = 0.0;    //used for generating a random double Value
-  String _printableValue = '0.0'; //this is the temperature that gets printed in the End
-  String _preSymbol = '+';      //Symbol for negative/Positive Temperatures
-
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-      //external factory Random([int? seed]);
-      var boolValue = Random().nextBool();    //randomizes the Symbol initialized in line 31
-      if(boolValue == true){
-        _preSymbol ='+';
-      }else{
-        _preSymbol ='-';
-      }
-      _doubleValue = Random().nextDouble() * 36;     // generates a random double-Value between 0.0 and 36.0
-      _printableValue = _doubleValue.toStringAsFixed(1);  //fixes the length of digits after the , to 1 (e.g. 1.1 instead of 1.00000001)
-    });
-  }
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context)  => MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: isSwitched ? ThemeClass.darkTheme : ThemeClass.lightTheme,   //initializes the Switch with lightTheme created in the themes folder
-        home:  Scaffold(
-          appBar: AppBar(title: const Text('The Ultimate Switch'), actions: [   // gives the Switch its functionality
-           Switch(
-             activeColor: Colors.greenAccent,
-             value: isSwitched,
-             onChanged: (value){
-                setState((){
-                  isSwitched = !isSwitched;
-                });
-             })
-          ],
-
-            // elevation: 0,
-            // titleSpacing: 0,
-            // leading: isLargeScreen
-            //     ? null
-            //     : IconButton(
-            //   icon: const Icon(Icons.menu),
-            //   onPressed: () => _scaffoldKey.currentState?.openDrawer(),
-            // ),
-
-          ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const Text(
-                'The Current Temperature is '
-            ),
-            Text(
-              _preSymbol + _printableValue,
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-            const Text(
-                '° C'
-            )
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    ),
-  );
-}
 
 class ResponsiveNavBarPage extends StatelessWidget {
   ResponsiveNavBarPage({Key? key}) : super(key: key);
