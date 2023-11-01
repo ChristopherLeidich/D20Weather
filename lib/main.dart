@@ -94,15 +94,15 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(child: Text('Primematerial Weather App')),
+        title: const Center(child: Text('Primematerial Weather App')), // Replace PopupMenuButton with a drawer
         actions: [
-          const MyMenuButton(),
           MyStatefulWidgetWidget(
             toggleTheme: toggleTheme,
             isDarkTheme: isDarkTheme,
           ),
         ],
       ),
+      drawer: const MyDrawer(),
       body: AspectRatio(
                 aspectRatio: 10 / 16,
             child: Column(
@@ -145,32 +145,74 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
   }
 }
 
-class MyMenuButton extends StatelessWidget {
-  const MyMenuButton({super.key});
+class MyDrawer extends StatelessWidget {
+  const MyDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return PopupMenuButton(
-      itemBuilder: (context) {
-        return [
-          const PopupMenuItem(
-            value: 1,
-            child: Text('Account'),
-            //Navigator.pushNamed(context, routeName)
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: <Widget>[
+          const UserAccountsDrawerHeader(
+            accountName: Text('John Doe'),
+            accountEmail: Text('johndoe@example.com'),
+            currentAccountPicture: CircleAvatar(
+              backgroundColor: Colors.white,
+              child: Icon(Icons.person),
+            ),
           ),
-          const PopupMenuItem(
-            value: 2,
-            child: Text('Settings'),
+          ListTile(
+            leading: const Icon(Icons.settings),
+            title: const Text('Settings'),
+            onTap: () {
+              // Handle settings or navigation
+              Navigator.pop(context); // Close the drawer
+              // Navigate to the second page
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const SecondPage()));
+            },
           ),
-          const PopupMenuItem(
-            value: 3,
-            child: Text('Logout'),
+          ListTile(
+            leading: const Icon(Icons.info),
+            title: const Text('About'),
+            onTap: () {
+              // Handle about
+            },
           ),
-        ];
-      },
+          const Divider(), // Divider between main and sub-drawer
+          const SubDrawer(),
+        ],
+      ),
     );
   }
 }
+
+class SubDrawer extends StatelessWidget {
+  const SubDrawer({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: <Widget>[
+        ListTile(
+          leading: const Icon(Icons.star),
+          title: const Text('Sub-Item 1'),
+          onTap: () {
+            // Handle sub-item 1
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.star),
+          title: const Text('Sub-Item 2'),
+          onTap: () {
+            // Handle sub-item 2
+          },
+        ),
+      ],
+    );
+  }
+}
+
 
 class MyStatefulWidgetWidget extends StatelessWidget {
   final VoidCallback toggleTheme;
@@ -298,9 +340,12 @@ class TextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.all(16.0),
-      child: Column(      //switch case später einfügen
+    return Container(
+      padding: const EdgeInsets.all(16.0),
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black), // Add a black border
+      ),
+      child: const Column(      //switch case später einfügen
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text('Mwangi expanse: ',
