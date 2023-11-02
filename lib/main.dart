@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:fantasy_weather_app/Widgets/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:fantasy_weather_app/Widgets/caruosel_slider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -8,9 +7,6 @@ import 'dart:math';
 //import 'package:flutter/services.dart';
 //import 'package:google_fonts/google_fonts.dart';
 //import 'package:qr_flutter/qr_flutter.dart';
-
-import 'second_page.dart';
-
 
 void main() {
   runApp(const MyApp());
@@ -25,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: /*isDarkTheme ? ThemeClass.darkTheme :*/ ThemeClass.lightTheme,
+      theme: Theme.of(context),
       home: const MyCustomAppBar(),
     );
   }
@@ -56,12 +52,6 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
 
     _timer = Timer.periodic(const Duration(seconds: 4, milliseconds: 42), (timer) {   //Generates a new Random Value in the void randomizer() after a set amount of seconds
       randomizer();
-    });
-  }
-
-  void toggleTheme() {
-    setState(() {
-      isDarkTheme = !isDarkTheme;
     });
   }
 
@@ -296,82 +286,4 @@ class _ProfileIcon extends StatelessWidget {
           ),
         ]);
   }
-}
-
-
-
-// class MyHomePage extends StatefulWidget {
-//   const MyHomePage({super.key, required this.title});
-//
-//   final String title;
-//
-//   @override
-//   State<MyHomePage> createState() => _MyHomePageState();
-// }
-//
-// class _MyHomePageState extends State<MyHomePage> {
-//   int _counter = 0;
-//   double _doubleValue = 0.0;
-//   String _printableValue = '0.0';
-//   String _preSymbol = '+';
-//
-//   void _incrementCounter() {
-//     setState(() {
-//       // This call to setState tells the Flutter framework that something has
-//       // changed in this State, which causes it to rerun the build method below
-//       // so that the display can reflect the updated values. If we changed
-//       // _counter without calling setState(), then the build method would not be
-//       // called again, and so nothing would appear to happen.
-//       _counter++;
-//       //external factory Random([int? seed]);
-//       var boolValue = Random().nextBool();
-//       if(boolValue == true){
-//         _preSymbol ='+';
-//       }else{
-//         _preSymbol ='-';
-//       }
-//       _doubleValue = Random().nextDouble() * 6;
-//       _printableValue = _doubleValue.toStringAsFixed(1);
-//     });
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-//         title: Text(widget.title),
-//       ),
-//       body: Center(
-//         child: Column(
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: <Widget>[
-//             const Text(
-//               'You have pushed the button this many times:',
-//             ),
-//             Text(
-//               '$_counter',
-//               style: Theme.of(context).textTheme.headlineMedium,
-//             ),
-//             const Text(
-//               'The Current Temperature is '
-//             ),
-//             Text(
-//               _preSymbol + _printableValue,
-//               style: Theme.of(context).textTheme.headlineMedium,
-//             ),
-//             const Text(
-//               '° C'
-//             )
-//           ],
-//         ),
-//       ),
-//       floatingActionButton: FloatingActionButton(
-//         onPressed: _incrementCounter,
-//         tooltip: 'Increment',
-//         child: const Icon(Icons.add),
-//       ), // This trailing comma makes auto-formatting nicer for build methods.
-//     );
-//   }
-// }
-*/
+}*/
