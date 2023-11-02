@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
 import 'package:fantasy_weather_app/Widgets/themes.dart';
+import 'package:fantasy_weather_app/Widgets/drawer_widget.dart';
 
 class SecondPage extends StatefulWidget {
   const SecondPage({ super.key, required this.title });
@@ -22,12 +22,12 @@ class _MyAppState extends State<SecondPage> {
     title: 'Flutter Demo',
     theme: isSwitched ? ThemeClass.darkTheme : ThemeClass.lightTheme,   //initializes the Switch with lightTheme created in the themes folder
     home:  Scaffold(
-      appBar: AppBar(title: const Text('Settings'), //actions: [   // gives the Switch its functionality
-      //
+      appBar: AppBar(
+        toolbarHeight: 36,
+        title: const Text('Settings'), //actions: [   // gives the Switch its functionality
       // ],
-
-
       ),
+      drawer: const MyDrawer(),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

@@ -18,13 +18,17 @@ class CarouselSliderWidget extends StatelessWidget {
       carouselController: controller,
       items: [
         Container(
-          color: Colors.transparent,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.transparent,
+          ),
           child: Stack(
             alignment: Alignment.center,
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.asset('assets/images/glacier.jpg'),
+                child: Expanded(child: Image.asset('assets/images/glacier.jpg'),
+                ),
               ),
               Center(
                 child: Text('$preSymbol $printableValue °C',
@@ -47,7 +51,8 @@ class CarouselSliderWidget extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.asset('assets/images/KT3A7OD.jpeg'),
+                child: Expanded(child: Image.asset('assets/images/KT3A7OD.jpeg'),
+                ),
               ),
               Center(
                 child: Text('$preSymbol $printableValue °C',
@@ -70,7 +75,8 @@ class CarouselSliderWidget extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.asset('assets/images/9502ac62b81f208465c7beb0d4338c77.jpg'),
+                child: Expanded(child: Image.asset('assets/images/9502ac62b81f208465c7beb0d4338c77.jpg'),
+                ),
               ),
               Center(
                 child: Text('$preSymbol $printableValue °C',
@@ -87,8 +93,11 @@ class CarouselSliderWidget extends StatelessWidget {
       options: CarouselOptions(
         autoPlay: true,
         enlargeCenterPage: true,
+        enlargeFactor: 0.3,
         aspectRatio: 2.0,
         enableInfiniteScroll: true,
+        viewportFraction: 0.8,
+        initialPage: 0,
         onPageChanged: (index, reason) {
           // Notify the parent widget when the page changes
           onIndexChanged(index);

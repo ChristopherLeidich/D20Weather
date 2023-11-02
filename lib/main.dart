@@ -1,16 +1,13 @@
 import 'dart:async';
-
-//import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:fantasy_weather_app/Widgets/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:fantasy_weather_app/Widgets/caruosel_slider.dart';
-//import 'Widgets/themes.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:fantasy_weather_app/Widgets/drawer_widget.dart';
+import 'dart:math';
 //import 'package:flutter/services.dart';
 //import 'package:google_fonts/google_fonts.dart';
 //import 'package:qr_flutter/qr_flutter.dart';
-
-import 'dart:math';
 
 import 'second_page.dart';
 
@@ -95,18 +92,11 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 36,
         title: const Center(child: Text('Primematerial Weather App')), // Replace PopupMenuButton with a drawer
-        actions: [
-          MyStatefulWidgetWidget(
-            toggleTheme: toggleTheme,
-            isDarkTheme: isDarkTheme,
-          ),
-        ],
       ),
       drawer: const MyDrawer(),
-      body: AspectRatio(
-                aspectRatio: 9 / 16,
-            child: Column(
+      body: Column(
             children: [
               CarouselSliderWidget(controller: _carouselController, onIndexChanged: (index) {// Use the CarouselSliderWidget in the body
                 setState(() {
@@ -116,103 +106,10 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
             TextWidget(currentIndex: currentIndex),
           ],
         ),
-      ),
-    );
+      );
   }
 }
 
-class MyDrawer extends StatelessWidget {
-  const MyDrawer({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          const UserAccountsDrawerHeader(
-            accountName: Text('John Doe'),
-            accountEmail: Text('johndoe@example.com'),
-            currentAccountPicture: CircleAvatar(
-              backgroundColor: Colors.white,
-              child: Icon(Icons.person),
-            ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.settings),
-            title: const Text('Settings'),
-            onTap: () {
-              // Handle settings or navigation
-              Navigator.pop(context); // Close the drawer
-              // Navigate to the second page
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const SecondPage(title: '',)));
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.info),
-            title: const Text('About'),
-            onTap: () {
-              // Handle about
-            },
-          ),
-          const Divider(), // Divider between main and sub-drawer
-          const SubDrawer(),
-        ],
-      ),
-    );
-  }
-}
-
-class SubDrawer extends StatelessWidget {
-  const SubDrawer({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        ListTile(
-          leading: const Icon(Icons.star),
-          title: const Text('Sub-Item 1'),
-          onTap: () {
-            // Handle sub-item 1
-          },
-        ),
-        ListTile(
-          leading: const Icon(Icons.star),
-          title: const Text('Sub-Item 2'),
-          onTap: () {
-            // Handle sub-item 2
-          },
-        ),
-      ],
-    );
-  }
-}
-
-
-class MyStatefulWidgetWidget extends StatelessWidget {
-  final VoidCallback toggleTheme;
-  final bool isDarkTheme;
-
-  const MyStatefulWidgetWidget({super.key, required this.toggleTheme, required this.isDarkTheme});
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        IconButton(
-          icon: isDarkTheme ? const Icon(Icons.brightness_4) : const Icon(Icons.brightness_7),
-          onPressed: toggleTheme, // Toggle theme when pressed
-        ),
-       /* Icon(
-          //isDarkTheme ? Icons.brightness_4 : Icons.brightness_7,
-          color: isDarkTheme ? ThemeClass().darkPrimaryColor : ThemeClass().lightPrimaryColor,
-        ),*/
-      ],
-    );
-  }
-}
 
 class TextWidget extends StatelessWidget {
   final int currentIndex;
