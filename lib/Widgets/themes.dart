@@ -14,6 +14,7 @@ class ThemeProvider extends ChangeNotifier{
 
 class ThemeClass{
   Color lightPrimaryColor = const Color(0xFFDF0054);
+  Color lightBackgroundColor = const Color(0xFFDED6AF);
   Color darkPrimaryColor = const Color(0xFF480032);
   Color secondaryColor = const Color(0xFFFF8B6A);
   Color accentColor = const Color(0xFFFFD2BB);
@@ -22,6 +23,7 @@ class ThemeClass{
     primaryColor: ThemeData.light().scaffoldBackgroundColor,
     floatingActionButtonTheme: const FloatingActionButtonThemeData(backgroundColor: Colors.blue),
     colorScheme: const ColorScheme.light().copyWith(
+      background: _themeClass.lightBackgroundColor,
       primary: _themeClass.lightPrimaryColor,
       secondary: _themeClass.secondaryColor
     ),

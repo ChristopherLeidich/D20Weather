@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:fantasy_weather_app/Widgets/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:fantasy_weather_app/Widgets/caruosel_slider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -21,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: Theme.of(context),
+      theme: ThemeClass.lightTheme,
       home: const MyCustomAppBar(),
     );
   }
@@ -39,6 +40,8 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
 
   final CarouselController _carouselController = CarouselController();
   int currentIndex = 0;
+
+  int wind = 0;
   double doubleValues = 0.0;    //used for generating a random double Value
   String printableValues = '0.0'; //this is the temperature that gets printed in the End
   String preSymbol = '+';      //Symbol for negative/Positive Temperatures
@@ -64,6 +67,8 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
       }else{
         preSymbol ='-';
       }
+
+      wind = Random().nextInt(180);
       //final doubleValues = List.generate(3, (index) => Random().nextDouble() * 36);
       doubleValues = Random().nextDouble() * 41;     // generates a random double-Value between 0.0 and 36.0
       printableValues = doubleValues.toStringAsFixed(1);  //fixes the length of digits after the , to 1 (e.g. 1.1 instead of 1.00000001)
@@ -93,7 +98,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
                   currentIndex = index;
                 });
             }, printableValue: printableValues, preSymbol: preSymbol),
-            TextWidget(currentIndex: currentIndex),
+            TextWidget(currentIndex: currentIndex, wind: wind),
           ],
         ),
       );
@@ -104,7 +109,9 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
 class TextWidget extends StatelessWidget {
   final int currentIndex;
 
-  const TextWidget({super.key, required this.currentIndex});
+  final int wind;
+
+  const TextWidget({super.key, required this.currentIndex, required this.wind});
 
   @override
   Widget build(BuildContext context) {
@@ -113,34 +120,34 @@ class TextWidget extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black), // Add a black border
       ),
-      child: const Column(      //switch case später einfügen
+      child: Column(      //switch case später einfügen
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text('Mwangi expanse: ',
+          const Text('Mwangi expanse: ',
               style: TextStyle(
                 //color: Colors.white,
                 fontWeight: FontWeight.bold,
               )
           ),
-          Text(
+          const Text(
             'The Mwangi Expanse (pronounced MWAN-gi),archaically also called the Forbidden Jungle,is the catch-all term given to the wild interior of central and western Garund. The Expanse also extends southwards beyond the Inner Sea region,\n\n',
             //style: Theme.of(context).textTheme.headlineMedium,
           ),
-          Text('Wetterbedingungen: ',
+          const Text('Wetterbedingungen: ',
               style: TextStyle(
                 //color: Colors.white,
                 fontWeight: FontWeight.bold,
               )
           ),
-          Text('8th Umbral Calamity\n'),
-          Text('Wind: ',
+          const Text('8th Umbral Calamity\n'),
+          const Text('Wind: ',
               style: TextStyle(
                 //color: Colors.white,
                 fontWeight: FontWeight.bold,
               )
           ),
-          Text('Windrichtung: Westen'),
-          Text('Windgeschwindigkeit: 135 km/h'),
+          const Text('Windrichtung: Westen'),
+          Text('Windgeschwindigkeit: $wind km/h'),
         ], /*TextField(
         decoration: InputDecoration(
           labelText: 'Hello There $currentIndex',
