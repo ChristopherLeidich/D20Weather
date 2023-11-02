@@ -22,16 +22,9 @@ class _MyAppState extends State<SecondPage> {
     title: 'Flutter Demo',
     theme: isSwitched ? ThemeClass.darkTheme : ThemeClass.lightTheme,   //initializes the Switch with lightTheme created in the themes folder
     home:  Scaffold(
-      appBar: AppBar(title: const Text('The Ultimate Switch'), actions: [   // gives the Switch its functionality
-        Switch(
-            activeColor: Colors.greenAccent,
-            value: isSwitched,
-            onChanged: (value){
-              setState((){
-                isSwitched = !isSwitched;
-              });
-            })
-      ],
+      appBar: AppBar(title: const Text('Settings'), //actions: [   // gives the Switch its functionality
+      //
+      // ],
 
 
       ),
@@ -39,11 +32,24 @@ class _MyAppState extends State<SecondPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            const Text(
+              'Enable Dark Mode?',
+              style: TextStyle(fontSize: 28),
+            ),
+            Switch(
+                activeColor: Colors.greenAccent,
+                value: isSwitched,
+                onChanged: (value){
+                  setState((){
+                    isSwitched = !isSwitched;
+                  });
+                }),
+            const Divider(),
             Image.asset('assets/images/glacier.jpg'), // Replace with your image path
-            const SizedBox(height: 20),
+            const SizedBox(height: 10),
             const Text(
               'It is really cold and empty in here rn...',
-              style: TextStyle(fontSize: 64),
+              style: TextStyle(fontSize: 42),
             ),
           ],
         ),

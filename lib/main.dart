@@ -50,14 +50,14 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
   String printableValues = '0.0'; //this is the temperature that gets printed in the End
   String preSymbol = '+';      //Symbol for negative/Positive Temperatures
 
-  late Timer _timer;
+  late Timer _timer;   //initializes The Timer
 
   @override
   void initState() {
     super.initState();
     randomizer(); // Generate the first random value when the app is started
 
-    _timer = Timer.periodic(const Duration(seconds: 2), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 4, milliseconds: 42), (timer) {   //Generates a new Random Value in the void randomizer() after a set amount of seconds
       randomizer();
     });
   }
@@ -105,7 +105,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
       ),
       drawer: const MyDrawer(),
       body: AspectRatio(
-                aspectRatio: 10 / 16,
+                aspectRatio: 9 / 16,
             child: Column(
             children: [
               CarouselSliderWidget(controller: _carouselController, onIndexChanged: (index) {// Use the CarouselSliderWidget in the body
