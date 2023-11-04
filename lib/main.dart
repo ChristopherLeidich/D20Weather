@@ -42,18 +42,21 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
   int currentIndex = 0;
 
   int wind = 0;
-  double doubleValues = 0.0;    //used for generating a random double Value
-  String printableValues = '0.0'; //this is the temperature that gets printed in the End
-  String preSymbol = '+';      //Symbol for negative/Positive Temperatures
+  double doubleValues = 0.0; //used for generating a random double Value
+  String printableValues =
+      '0.0'; //this is the temperature that gets printed in the End
+  String preSymbol = '+'; //Symbol for negative/Positive Temperatures
 
-  late Timer _timer;   //initializes The Timer
+  late Timer _timer; //initializes The Timer
 
   @override
   void initState() {
     super.initState();
     randomizer(); // Generate the first random value when the app is started
 
-    _timer = Timer.periodic(const Duration(seconds: 4, milliseconds: 42), (timer) {   //Generates a new Random Value in the void randomizer() after a set amount of seconds
+    _timer =
+        Timer.periodic(const Duration(seconds: 4, milliseconds: 42), (timer) {
+      //Generates a new Random Value in the void randomizer() after a set amount of seconds
       randomizer();
     });
   }
@@ -61,17 +64,20 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
   void randomizer() {
     setState(() {
       //external factory Random([int? seed]);
-      var boolValue = Random().nextBool();    //randomizes the Symbol initialized in line 31
-      if(boolValue == true){
-        preSymbol ='+';
-      }else{
-        preSymbol ='-';
+      var boolValue =
+          Random().nextBool(); //randomizes the Symbol initialized in line 31
+      if (boolValue == true) {
+        preSymbol = '+';
+      } else {
+        preSymbol = '-';
       }
 
       wind = Random().nextInt(180);
       //final doubleValues = List.generate(3, (index) => Random().nextDouble() * 36);
-      doubleValues = Random().nextDouble() * 41;     // generates a random double-Value between 0.0 and 36.0
-      printableValues = doubleValues.toStringAsFixed(1);  //fixes the length of digits after the , to 1 (e.g. 1.1 instead of 1.00000001)
+      doubleValues = Random().nextDouble() *
+          41; // generates a random double-Value between 0.0 and 36.0
+      printableValues = doubleValues.toStringAsFixed(
+          1); //fixes the length of digits after the , to 1 (e.g. 1.1 instead of 1.00000001)
     });
   }
 
@@ -82,29 +88,34 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 36,
-        title: const Center(child: Text('Primematerial Weather App')), // Replace PopupMenuButton with a drawer
+        title: const Center(
+            child: Text(
+                'Primematerial Weather App')), // Replace PopupMenuButton with a drawer
       ),
       drawer: const MyDrawer(),
       body: Column(
-            children: [
-              CarouselSliderWidget(controller: _carouselController, onIndexChanged: (index) {// Use the CarouselSliderWidget in the body
+        children: [
+          CarouselSliderWidget(
+              controller: _carouselController,
+              onIndexChanged: (index) {
+                // Use the CarouselSliderWidget in the body
                 setState(() {
                   currentIndex = index;
                 });
-            }, printableValue: printableValues, preSymbol: preSymbol),
-            TextWidget(currentIndex: currentIndex, wind: wind),
-          ],
-        ),
-      );
+              },
+              printableValue: printableValues,
+              preSymbol: preSymbol),
+          TextWidget(currentIndex: currentIndex, wind: wind),
+        ],
+      ),
+    );
   }
 }
-
 
 class TextWidget extends StatelessWidget {
   final int currentIndex;
@@ -116,19 +127,20 @@ class TextWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16.0),
+      padding: const EdgeInsets.all(32.0),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.black), // Add a black border
+        color: const Color(0xFF5797E1),
+        border: Border.all(color: Colors.green), // Add a black border
       ),
-      child: Column(      //switch case später einfügen
+      child: Column(
+        //switch case später einfügen
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           const Text('Mwangi expanse: ',
               style: TextStyle(
                 //color: Colors.white,
                 fontWeight: FontWeight.bold,
-              )
-          ),
+              )),
           const Text(
             'The Mwangi Expanse (pronounced MWAN-gi),archaically also called the Forbidden Jungle,is the catch-all term given to the wild interior of central and western Garund. The Expanse also extends southwards beyond the Inner Sea region,\n\n',
             //style: Theme.of(context).textTheme.headlineMedium,
@@ -137,15 +149,13 @@ class TextWidget extends StatelessWidget {
               style: TextStyle(
                 //color: Colors.white,
                 fontWeight: FontWeight.bold,
-              )
-          ),
+              )),
           const Text('8th Umbral Calamity\n'),
           const Text('Wind: ',
               style: TextStyle(
                 //color: Colors.white,
                 fontWeight: FontWeight.bold,
-              )
-          ),
+              )),
           const Text('Windrichtung: Westen'),
           Text('Windgeschwindigkeit: $wind km/h'),
         ], /*TextField(
