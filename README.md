@@ -23,4 +23,4 @@ If you have any questions whatsoever concerning Licences or general question ple
 
 ## Licence
 
-fantasy_weather_app © 2023 by Christopher Leidich and Francesco Quarta is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1)
+fantasy_weather_app © 2023 by Christopher Leidich and Francesco Quarta is licensed under [CC BY-NC-SA 4.0](http://creativecommons.org/licenses/by-nc-sa/4.0/)
