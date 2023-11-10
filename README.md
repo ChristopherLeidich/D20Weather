@@ -20,3 +20,7 @@ If you have any questions whatsoever concerning Licences or general question ple
 <sub>For help getting started with Flutter development, view the</sub>
 <sub>[online documentation](https://docs.flutter.dev/), which offers tutorials,</sub>
 <sub>samples, guidance on mobile development, and a full API reference.</sub>
+
+## Licence
+
+fantasy_weather_app © 2023 by Christopher Leidich and Francesco Quarta is licensed under [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/?ref=chooser-v1)
