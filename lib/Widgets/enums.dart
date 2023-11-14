@@ -5,6 +5,9 @@ enum Picture {
   picture1,
   picture2,
   picture3,
+  picture4,
+  picture5,
+  picture6,
 }
 
 extension PictureExtension on Picture {
@@ -16,14 +19,26 @@ extension PictureExtension on Picture {
         return 'assets/images/KT3A7OD.jpeg';
       case Picture.picture3:
         return 'assets/images/9502ac62b81f208465c7beb0d4338c77.jpg';
+      case Picture.picture4:
+        return 'assets/images/44.jpg';
+      case Picture.picture5:
+        return 'assets/images/1123010.jpg';
+      case Picture.picture6:
+        return 'assets/images/hcXuUBG_1.jpg';
       default:
         throw ArgumentError('Invalid picture');
     }
   }
 }
 
-Picture getRandomPicture() {
+List<Picture> getRandomPictures() {
   const values = Picture.values;
   final random = Random();
-  return values[random.nextInt(values.length)];
+  final randomPictures = <Picture>[];
+
+  for (int i = 0; i < 3; i++) {
+    randomPictures.add(values[random.nextInt(values.length)]);
+  }
+
+  return randomPictures;
 }
