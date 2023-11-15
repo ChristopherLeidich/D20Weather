@@ -47,8 +47,10 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
   double doubleValues = 0.0;    //used for generating a random double Value
   String printableValues = '0.0'; //this is the temperature that gets printed in the End
   String preSymbol = '+';      //Symbol for negative/Positive Temperatures
-  var list = ['North','North-West','West','North-East','East','South','South-West','South-East'];
+  var dirlist = ['North','North-West','West','North-East','East','South','South-West','South-East'];
   String direction ='';
+  var wblist = ['Umbral-Storm','Radiant-Storm','Thunderstorm','Phantasmal-Rain','Rain','Sun','Drought', 'Storm','Snow','Hail','Drizzle','Cloudy'];
+  String wetterBedingung ='';
 
   late Timer _timer;   //initializes The Timer
 
@@ -71,11 +73,13 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
       }else{
         preSymbol ='-';
       }
-      final random = Random();
-      direction = list[random.nextInt(list.length)];
+      final random1 = Random();
+      final random2 = Random();
+      direction = dirlist[random1.nextInt(dirlist.length)];
+      wetterBedingung = wblist[random2.nextInt(wblist.length)];
 
       wind = Random().nextInt(180);
-      //final doubleValues = List.generate(3, (index) => Random().nextDouble() * 36);
+      //final doubleValues = dirlist.generate(3, (index) => Random().nextDouble() * 36);
       doubleValues = Random().nextDouble() * 41;     // generates a random double-Value between 0.0 and 36.0
       printableValues = doubleValues.toStringAsFixed(1);  //fixes the length of digits after the , to 1 (e.g. 1.1 instead of 1.00000001)
     });
@@ -104,7 +108,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
                   currentIndex = index;
                 });
             }, printableValue: printableValues, preSymbol: preSymbol),
-            TextWidget(currentIndex: currentIndex, wind: wind, direction: direction),
+            TextWidget(currentIndex: currentIndex, wind: wind, direction: direction, wetterBedingung: wetterBedingung),
           ],
         ),
       );
@@ -117,8 +121,9 @@ class TextWidget extends StatelessWidget {
 
   final int wind;
   final String direction;
+  final String wetterBedingung;
 
-  const TextWidget({super.key, required this.currentIndex, required this.wind, required this.direction});
+  const TextWidget({super.key, required this.currentIndex, required this.wind, required this.direction, required this.wetterBedingung});
 
   @override
   Widget build(BuildContext context) {
@@ -173,10 +178,10 @@ class TextWidget extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       )),
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(5.0),
-                  child: Text('8th Umbral Calamity',
-                      style: TextStyle(
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Text(wetterBedingung,
+                      style: const TextStyle(
                         height: 2.0,
                         backgroundColor: Colors.white,
                         color: Colors.blueGrey,
@@ -286,15 +291,15 @@ class ResponsiveNavBarPage extends StatelessWidget {
   }
 
   Widget _drawer() => Drawer(
-    child: ListView(
+    child: dirlistView(
       children: _menuItems
-          .map((item) => ListTile(
+          .map((item) => dirlistTile(
         onTap: () {
           _scaffoldKey.currentState?.openEndDrawer();
         },
         title: Text(item),
       ))
-          .toList(),
+          .todirlist(),
     ),
   );
 
@@ -315,11 +320,11 @@ class ResponsiveNavBarPage extends StatelessWidget {
         ),
       ),
     )
-        .toList(),
+        .todirlist(),
   );
 }
 
-final List<String> _menuItems = <String>[
+final dirlist<String> _menuItems = <String>[
   'About',
   'Contact',
   'Settings',
