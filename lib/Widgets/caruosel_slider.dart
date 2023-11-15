@@ -14,6 +14,7 @@ class CarouselSliderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     return CarouselSlider(
       carouselController: controller,
       items: [
@@ -98,6 +99,7 @@ class CarouselSliderWidget extends StatelessWidget {
         enableInfiniteScroll: true,
         viewportFraction: 0.8,
         initialPage: 0,
+        height: height/3,
         onPageChanged: (index, reason) {
           // Notify the parent widget when the page changes
           onIndexChanged(index);

@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:fantasy_weather_app/Widgets/themes.dart';
+//import 'package:fantasy_weather_app/Widgets/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:fantasy_weather_app/Widgets/caruosel_slider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeClass.lightTheme,
+      theme: Theme.of(context),
       home: const MyCustomAppBar(),
     );
   }
@@ -115,13 +115,15 @@ class TextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SingleChildScrollView(
+      child: Container(
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         border: Border.all(color: Colors.black), // Add a black border
       ),
       child: Column(      //switch case später einfügen
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const Text('Mwangi expanse: ',
               style: TextStyle(
@@ -155,6 +157,7 @@ class TextWidget extends StatelessWidget {
         ),
       ),*/
       ),
+      )
     );
   }
 }
