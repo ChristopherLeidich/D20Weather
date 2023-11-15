@@ -98,6 +98,7 @@ class CarouselSliderWidget extends StatelessWidget {
         enableInfiniteScroll: true,
         viewportFraction: 0.8,
         initialPage: 0,
+        height: MediaQuery.of(context).size.height/3,
         onPageChanged: (index, reason) {
           // Notify the parent widget when the page changes
           onIndexChanged(index);
