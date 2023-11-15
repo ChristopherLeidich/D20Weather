@@ -5,6 +5,7 @@ import 'package:fantasy_weather_app/Widgets/caruosel_slider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fantasy_weather_app/Widgets/drawer_widget.dart';
 import 'dart:math';
+import 'package:flutter/rendering.dart';
 //import 'package:flutter/services.dart';
 //import 'package:google_fonts/google_fonts.dart';
 //import 'package:qr_flutter/qr_flutter.dart';
@@ -40,6 +41,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
 
   final CarouselController _carouselController = CarouselController();
   int currentIndex = 0;
+
 
   int wind = 0;
   double doubleValues = 0.0;    //used for generating a random double Value
@@ -115,52 +117,101 @@ class TextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Container(
-      padding: const EdgeInsets.all(16.0),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.black), // Add a black border
-      ),
-      child: Column(      //switch case später einfügen
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          const Text('Mwangi expanse: ',
-              style: TextStyle(
-                //color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )
-          ),
-          const Text(
-            'The Mwangi Expanse (pronounced MWAN-gi),archaically also called the Forbidden Jungle,is the catch-all term given to the wild interior of central and western Garund. The Expanse also extends southwards beyond the Inner Sea region,\n\n',
-            //style: Theme.of(context).textTheme.headlineMedium,
-          ),
-          const Text('Wetterbedingungen: ',
-              style: TextStyle(
-                //color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )
-          ),
-          const Text('8th Umbral Calamity\n'),
-          const Text('Wind: ',
-              style: TextStyle(
-                //color: Colors.white,
-                fontWeight: FontWeight.bold,
-              )
-          ),
-          const Text('Windrichtung: Westen'),
-          Text('Windgeschwindigkeit: $wind km/h'),
-        ], /*TextField(
-        decoration: InputDecoration(
-          labelText: 'Hello There $currentIndex',
-          border: const OutlineInputBorder(),
+    return Container(
+        padding: const EdgeInsets.all(12.0),
+        margin: const EdgeInsets.all(6.0),
+        decoration: BoxDecoration(
+            color: Colors.grey[50],
+            border: Border.all(width: 4.0, color: Colors.black54),
+            borderRadius: const BorderRadius.all(
+                Radius.circular(20)) // Add a black border
         ),
-      ),*/
-      ),
-      )
-    );
+        child: Scrollable(
+          axisDirection: AxisDirection.down,
+          viewportBuilder: (BuildContext context, ViewportOffset position) {
+            return Column(
+              //switch case später einfügen
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                const Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: Text(
+                    'Mwangi expanse: ',
+                    style: TextStyle(
+                      height: 1.6,
+                      backgroundColor: Colors.white,
+                      color: Colors.blueGrey,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(3.0),
+                  child: Text(
+                    'The Mwangi Expanse (pronounced MWAN-gi),archaically also called the Forbidden Jungle,is the catch-all term given to the wild interior of central and western Garund. The Expanse also extends southwards beyond the Inner Sea region,',
+                    style: TextStyle(
+                      height: 2.0,
+                      backgroundColor: Colors.white,
+                      color: Colors.blueGrey,
+                    ),
+                  ),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: Text('Wetterbedingungen: ',
+                      style: TextStyle(
+                        height: 2.0,
+                        backgroundColor: Colors.white,
+                        color: Colors.blueGrey,
+                        fontWeight: FontWeight.bold,
+                      )),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: Text('8th Umbral Calamity',
+                      style: TextStyle(
+                        height: 2.0,
+                        backgroundColor: Colors.white,
+                        color: Colors.blueGrey,
+                      )),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: Text('Wind: ',
+                      style: TextStyle(
+                        height: 2.0,
+                        backgroundColor: Colors.white,
+                        color: Colors.blueGrey,
+                        fontWeight: FontWeight.bold,
+                      )),
+                ),
+                const Padding(
+                  padding: EdgeInsets.all(5.0),
+                  child: Text('Windrichtung: Westen',
+                      style: TextStyle(
+                        height: 2.0,
+                        backgroundColor: Colors.white,
+                        color: Colors.blueGrey,
+                      )),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Text('Windgeschwindigkeit: $wind km/h',
+                      style: const TextStyle(
+                        height: 2.0,
+                        backgroundColor: Colors.white,
+                        color: Colors.blueGrey,
+                      )),
+                ),
+              ],
+            );
+          },
+        ));
   }
 }
+
 
 /*
 void main() {
