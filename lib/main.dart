@@ -47,6 +47,8 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
   double doubleValues = 0.0;    //used for generating a random double Value
   String printableValues = '0.0'; //this is the temperature that gets printed in the End
   String preSymbol = '+';      //Symbol for negative/Positive Temperatures
+  var list = ['North','North-West','West','North-East','East','South','South-West','South-East'];
+  String direction ='';
 
   late Timer _timer;   //initializes The Timer
 
@@ -69,6 +71,8 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
       }else{
         preSymbol ='-';
       }
+      final random = Random();
+      direction = list[random.nextInt(list.length)];
 
       wind = Random().nextInt(180);
       //final doubleValues = List.generate(3, (index) => Random().nextDouble() * 36);
@@ -100,7 +104,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
                   currentIndex = index;
                 });
             }, printableValue: printableValues, preSymbol: preSymbol),
-            TextWidget(currentIndex: currentIndex, wind: wind),
+            TextWidget(currentIndex: currentIndex, wind: wind, direction: direction),
           ],
         ),
       );
@@ -112,8 +116,9 @@ class TextWidget extends StatelessWidget {
   final int currentIndex;
 
   final int wind;
+  final String direction;
 
-  const TextWidget({super.key, required this.currentIndex, required this.wind});
+  const TextWidget({super.key, required this.currentIndex, required this.wind, required this.direction});
 
   @override
   Widget build(BuildContext context) {
@@ -187,10 +192,10 @@ class TextWidget extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       )),
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(5.0),
-                  child: Text('Windrichtung: Westen',
-                      style: TextStyle(
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child: Text('Windrichtung: $direction',
+                      style: const TextStyle(
                         height: 2.0,
                         backgroundColor: Colors.white,
                         color: Colors.blueGrey,
