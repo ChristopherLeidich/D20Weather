@@ -99,7 +99,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 36,
-        title: const Center(child: Text('Primematerial Weather App')), // Replace PopupMenuButton with a drawer
+        title: const Center(child: Text('D20Weather')), // Replace PopupMenuButton with a drawer
       ),
       drawer: const MyDrawer(),
       body: Column(
