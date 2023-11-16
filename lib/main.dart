@@ -50,7 +50,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
   String preSymbol = '+';      //Symbol for negative/Positive Temperatures
   var dirlist = ['North','North-West','West','North-East','East','South','South-West','South-East'];
   String direction ='';
-  var wblist = ['Umbral-Storm','Radiant-Storm','Thunderstorm','Phantasmal-Rain','Rain','Sun','Drought', 'Storm','Snow','Hail','Drizzle','Cloudy'];
+  var wetterbedingunsliste = ['Umbral-Storm','Radiant-Storm','Thunderstorm','Phantasmal-Rain','Rain','Sun','Drought', 'Storm','Snow','Hail','Drizzle','Cloudy'];
   String wetterBedingung ='';
 
   late Timer _timer;   //initializes The Timer
@@ -77,7 +77,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
       final random1 = Random();
       final random2 = Random();
       direction = dirlist[random1.nextInt(dirlist.length)];
-      wetterBedingung = wblist[random2.nextInt(wblist.length)];
+      wetterBedingung = wetterbedingunsliste[random2.nextInt(wetterbedingunsliste.length)];
 
       wind = Random().nextInt(180);
       //final doubleValues = dirlist.generate(3, (index) => Random().nextDouble() * 36);
