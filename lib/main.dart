@@ -1,15 +1,28 @@
 import 'dart:async';
 import 'package:fantasy_weather_app/Widgets/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:fantasy_weather_app/Widgets/carousel_slider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fantasy_weather_app/Widgets/drawer_widget.dart';
 import 'dart:math';
-import 'package:flutter/rendering.dart';
 
 //import 'package:flutter/services.dart';
 //import 'package:google_fonts/google_fonts.dart';
 //import 'package:qr_flutter/qr_flutter.dart';
+
+/*import 'package:flutter_weather_bg_null_safety/bg/weather_bg.dart';
+import 'package:flutter_weather_bg_null_safety/bg/weather_cloud_bg.dart';
+import 'package:flutter_weather_bg_null_safety/bg/weather_color_bg.dart';
+import 'package:flutter_weather_bg_null_safety/bg/weather_night_star_bg.dart';
+import 'package:flutter_weather_bg_null_safety/bg/weather_rain_snow_bg.dart';
+import 'package:flutter_weather_bg_null_safety/bg/weather_thunder_bg.dart';
+import 'package:flutter_weather_bg_null_safety/flutter_weather_bg.dart';
+import 'package:flutter_weather_bg_null_safety/utils/image_utils.dart';
+import 'package:flutter_weather_bg_null_safety/utils/print_utils.dart';
+import 'package:flutter_weather_bg_null_safety/utils/weather_type.dart';
+import 'package:parallax_rain/parallax_rain.dart';*/
+//import 'package:starsview/starsview.dart';
 
 void main() {
   runApp(const MyApp());
@@ -108,8 +121,8 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
                 setState(() {
                   currentIndex = index;
                 });
-            }, printableValue: printableValues, preSymbol: preSymbol),
-            TextWidget(currentIndex: currentIndex, wind: wind, direction: direction, wetterBedingung: wetterBedingung),
+              }, printableValue: printableValues, preSymbol: preSymbol),
+              TextWidget(currentIndex: currentIndex, wind: wind, direction: direction, wetterBedingung: wetterBedingung),
           ],
         ),
       );
@@ -214,12 +227,14 @@ class TextWidget extends StatelessWidget {
                         height: 2.0,
                         backgroundColor: Colors.white,
                         color: Colors.blueGrey,
-                      )),
+                      )
+                  ),
                 ),
               ],
             );
           },
-        ));
+        )
+    );
   }
 }
 
