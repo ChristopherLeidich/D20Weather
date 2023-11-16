@@ -1,11 +1,12 @@
 import 'dart:async';
-//import 'package:fantasy_weather_app/Widgets/themes.dart';
+import 'package:fantasy_weather_app/Widgets/themes.dart';
 import 'package:flutter/material.dart';
-import 'package:fantasy_weather_app/Widgets/caruosel_slider.dart';
+import 'package:fantasy_weather_app/Widgets/carousel_slider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fantasy_weather_app/Widgets/drawer_widget.dart';
 import 'dart:math';
 import 'package:flutter/rendering.dart';
+
 //import 'package:flutter/services.dart';
 //import 'package:google_fonts/google_fonts.dart';
 //import 'package:qr_flutter/qr_flutter.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: Theme.of(context),
+      theme: ThemeClass.lightTheme,
       home: const MyCustomAppBar(),
     );
   }
