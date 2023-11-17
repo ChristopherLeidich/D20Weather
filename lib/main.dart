@@ -62,13 +62,13 @@ class Regional {
 
 class Weather{
   final String weatherName;
-  final String weatherdescription;
+  final String weatherDescription;
   final String weatherEffectname;
   final String weatherEffectdescription;
   final String weatherEffect;
   
   Weather({ required this.weatherName,
-            required this.weatherdescription,
+            required this.weatherDescription,
             required this.weatherEffectname,
             required this.weatherEffectdescription,
             required this.weatherEffect
@@ -126,13 +126,13 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
   ];
   final List<Weather> weatherList =[
     Weather(  weatherName: 'Light Rain',
-              weatherdescription: 'weatherdescription',
+              weatherDescription: '',
               weatherEffectname: 'weatherEffectname',
               weatherEffectdescription: 'weatherEffectdescription',
               weatherEffect: 'weatherEffect'
     ),
     Weather(  weatherName: 'Sun',
-              weatherdescription: 'weatherdescription',
+              weatherDescription: '',
               weatherEffectname: 'weatherEffectname',
               weatherEffectdescription: 'weatherEffectdescription',
               weatherEffect: 'weatherEffect'
@@ -280,7 +280,9 @@ class TextWidget extends StatelessWidget {
                 const Padding(
                   padding: EdgeInsets.all(3.0),
                   child: Text(
-                    'The Mwangi Expanse (pronounced MWAN-gi),archaically also called the Forbidden Jungle,is the catch-all term given to the wild interior of central and western Garund. The Expanse also extends southwards beyond the Inner Sea region,',
+                    'The Mwangi Expanse (pronounced MWAN-gi),archaically also called the Forbidden Jungle, '
+                        'is the catch-all term given to the wild interior of central and western Garund. '
+                        'The Expanse also extends southwards beyond the Inner Sea region.',
                     style: TextStyle(
                       height: 2.0,
                       backgroundColor: Colors.white,
