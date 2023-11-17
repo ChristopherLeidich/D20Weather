@@ -41,6 +41,30 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class Regional {
+  final String regionalName;
+  final String regionalDescription;
+  final String effectRegionalName;
+  final String effectRegionaldescription;
+  final String effectRegional;
+
+  Regional({required this.regionalName, required this.regionalDescription, required this.effectRegionalName, required this.effectRegionaldescription, required this.effectRegional});
+}
+
+class Weather{
+  final String weatherName;
+  final String weatherdescription;
+  final String weatherEffectname;
+  final String weatherEffectdescription;
+  final String weatherEffect;
+  
+  Weather({ required this.weatherName,
+            required this.weatherdescription,
+            required this.weatherEffectname,
+            required this.weatherEffectdescription,
+            required this.weatherEffect});
+}
+
 class MyCustomAppBar extends StatefulWidget {
   const MyCustomAppBar({super.key});
 
@@ -59,6 +83,44 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
   double doubleValues = 0.0;    //used for generating a random double Value
   String printableValues = '0.0'; //this is the temperature that gets printed in the End
   String preSymbol = '+';      //Symbol for negative/Positive Temperatures
+
+  final List<Regional> regionList = [
+    Regional( regionalName:   'Jungle',
+        regionalDescription:  'A jungle is land covered with dense forest and tangled vegetation, usually in tropical climates. '
+                              'Application of the term has varied greatly during the past recent century.',
+              effectRegionalName:         'Insect Plague',
+              effectRegionaldescription:  'Non Undead Creatures are constantly swarmed by Tiny mosquitoes and other Insects',
+              effectRegional: 'Once every 1d6[[1d6]] Hours every Non-Undead Member of the Party has to roll a basic DC15 Fortitude-Save or'
+                              ' loose 1d2[[1d2]] HP'
+                              'On a critical Failure the Damage Dice Changes to 1d4[[1d4]]'
+                              ' and the Party-Member will be contaminated by a random Decease'
+    ),
+    Regional( regionalName: 'Glacier',
+              regionalDescription: 'Cold Snow Ice What do you want',
+              effectRegionalName: 'Death',
+              effectRegionaldescription: 'Kills you',
+              effectRegional: 'You die(no you do not have cold resistance)'
+    ),
+    Regional( regionalName: '6-th World',
+              regionalDescription: 'Description for Item 3',
+              effectRegionalName: '',
+              effectRegionaldescription: '',
+              effectRegional: ''),
+  ];
+  final List<Weather> weatherList =[
+    Weather(  weatherName: 'Light Rain',
+              weatherdescription: 'weatherdescription',
+              weatherEffectname: 'weatherEffectname',
+              weatherEffectdescription: 'weatherEffectdescription',
+              weatherEffect: 'weatherEffect'
+    ),
+    Weather(  weatherName: 'Sun',
+              weatherdescription: 'weatherdescription',
+              weatherEffectname: 'weatherEffectname',
+              weatherEffectdescription: 'weatherEffectdescription',
+              weatherEffect: 'weatherEffect'
+    )
+  ];
   var dirlist = ['North','North-West','West','North-East','East','South','South-West','South-East'];
   String direction ='';
   var wetterbedingunsliste = ['Umbral-Storm','Radiant-Storm','Thunderstorm','Phantasmal-Rain','Rain','Sun','Drought', 'Storm','Snow','Hail','Drizzle','Cloudy'];
@@ -128,7 +190,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
               WeatherBg(
                   weatherType: WeatherType.heavySnow,
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height
+                  height: MediaQuery.of(context).size.height,
               ),
               //const StarsViewBackground(),
               Column(
