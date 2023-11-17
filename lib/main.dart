@@ -47,8 +47,17 @@ class Regional {
   final String effectRegionalName;
   final String effectRegionaldescription;
   final String effectRegional;
+  final int regionalTemperatureLimit;
+  final bool negativeTemperature;
 
-  Regional({required this.regionalName, required this.regionalDescription, required this.effectRegionalName, required this.effectRegionaldescription, required this.effectRegional});
+  Regional({  required this.regionalName,
+              required this.regionalDescription,
+              required this.effectRegionalName,
+              required this.effectRegionaldescription,
+              required this.effectRegional,
+              required this.regionalTemperatureLimit,
+              required this.negativeTemperature
+  });
 }
 
 class Weather{
@@ -62,7 +71,8 @@ class Weather{
             required this.weatherdescription,
             required this.weatherEffectname,
             required this.weatherEffectdescription,
-            required this.weatherEffect});
+            required this.weatherEffect
+  });
 }
 
 class MyCustomAppBar extends StatefulWidget {
@@ -93,19 +103,26 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
               effectRegional: 'Once every 1d6[[1d6]] Hours every Non-Undead Member of the Party has to roll a basic DC15 Fortitude-Save or'
                               ' loose 1d2[[1d2]] HP'
                               'On a critical Failure the Damage Dice Changes to 1d4[[1d4]]'
-                              ' and the Party-Member will be contaminated by a random Decease'
+                              ' and the Party-Member will be contaminated by a random Decease',
+              regionalTemperatureLimit: 48,
+              negativeTemperature: false
     ),
     Regional( regionalName: 'Glacier',
               regionalDescription: 'Cold Snow Ice What do you want',
               effectRegionalName: 'Death',
               effectRegionaldescription: 'Kills you',
-              effectRegional: 'You die(no you do not have cold resistance)'
+              effectRegional: 'You die(no you do not have cold resistance)',
+              regionalTemperatureLimit: 36,
+              negativeTemperature: true,
     ),
     Regional( regionalName: '6-th World',
               regionalDescription: 'Description for Item 3',
               effectRegionalName: '',
               effectRegionaldescription: '',
-              effectRegional: ''),
+              effectRegional: '',
+              regionalTemperatureLimit: 74,
+              negativeTemperature: false
+    ),
   ];
   final List<Weather> weatherList =[
     Weather(  weatherName: 'Light Rain',
@@ -133,7 +150,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
     super.initState();
     randomizer(); // Generate the first random value when the app is started
 
-    _timer = Timer.periodic(const Duration(days:460 ,seconds: 4, milliseconds: 42), (timer) {   //Generates a new Random Value in the void randomizer() after a set amount of seconds
+    _timer = Timer.periodic(const Duration(seconds: 4, milliseconds: 42), (timer) {   //Generates a new Random Value in the void randomizer() after a set amount of seconds
       randomizer();
     });
   }
