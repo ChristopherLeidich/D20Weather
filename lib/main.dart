@@ -5,24 +5,24 @@ import 'package:flutter/rendering.dart';
 import 'package:fantasy_weather_app/Widgets/carousel_slider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fantasy_weather_app/Widgets/drawer_widget.dart';
+//import 'package:fantasy_weather_app/Widgets/starviewfield.dart';
 import 'dart:math';
 
 //import 'package:flutter/services.dart';
 //import 'package:google_fonts/google_fonts.dart';
 //import 'package:qr_flutter/qr_flutter.dart';
 
-/*import 'package:flutter_weather_bg_null_safety/bg/weather_bg.dart';
-import 'package:flutter_weather_bg_null_safety/bg/weather_cloud_bg.dart';
-import 'package:flutter_weather_bg_null_safety/bg/weather_color_bg.dart';
-import 'package:flutter_weather_bg_null_safety/bg/weather_night_star_bg.dart';
-import 'package:flutter_weather_bg_null_safety/bg/weather_rain_snow_bg.dart';
-import 'package:flutter_weather_bg_null_safety/bg/weather_thunder_bg.dart';
+// import 'package:flutter_weather_bg_null_safety/bg/weather_bg.dart';
+// import 'package:flutter_weather_bg_null_safety/bg/weather_cloud_bg.dart';
+// import 'package:flutter_weather_bg_null_safety/bg/weather_color_bg.dart';
+// import 'package:flutter_weather_bg_null_safety/bg/weather_night_star_bg.dart';
+// import 'package:flutter_weather_bg_null_safety/bg/weather_rain_snow_bg.dart';
+// import 'package:flutter_weather_bg_null_safety/bg/weather_thunder_bg.dart';
 import 'package:flutter_weather_bg_null_safety/flutter_weather_bg.dart';
-import 'package:flutter_weather_bg_null_safety/utils/image_utils.dart';
-import 'package:flutter_weather_bg_null_safety/utils/print_utils.dart';
-import 'package:flutter_weather_bg_null_safety/utils/weather_type.dart';
-import 'package:parallax_rain/parallax_rain.dart';*/
-//import 'package:starsview/starsview.dart';
+// import 'package:flutter_weather_bg_null_safety/utils/image_utils.dart';
+// import 'package:flutter_weather_bg_null_safety/utils/print_utils.dart';
+// import 'package:flutter_weather_bg_null_safety/utils/weather_type.dart';
+// import 'package:parallax_rain/parallax_rain.dart';
 
 void main() {
   runApp(const MyApp());
@@ -30,8 +30,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-
-  //get isDarkTheme => _MyCustomAppBarState;
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +90,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
       direction = dirlist[random1.nextInt(dirlist.length)];
       wetterBedingung = wetterbedingunsliste[random2.nextInt(wetterbedingunsliste.length)];
 
-      wind = Random().nextInt(180);
+      wind = Random().nextInt(64);
       //final doubleValues = dirlist.generate(3, (index) => Random().nextDouble() * 36);
       doubleValues = Random().nextDouble() * 41;     // generates a random double-Value between 0.0 and 36.0
       printableValues = doubleValues.toStringAsFixed(1);  //fixes the length of digits after the , to 1 (e.g. 1.1 instead of 1.00000001)
@@ -112,17 +110,37 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 36,
-        title: const Center(child: Text('D20Weather')), // Replace PopupMenuButton with a drawer
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Colors.blue, Colors.white], // Your gradient colors
+            ),
+          ),
+        ),
+
+        title: const Align(
+            alignment: Alignment.centerRight,
+            child: Text('D20Weather')), // Replace PopupMenuButton with a drawer
       ),
       drawer: const MyDrawer(),
-      body: Column(
+      body: Stack(
             children: [
+              WeatherBg(
+                  weatherType: WeatherType.heavySnow,
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height
+              ),
+              //const StarsViewBackground(),
+              Column(
+                children: [
               CarouselSliderWidget(controller: _carouselController, onIndexChanged: (index) {// Use the CarouselSliderWidget in the body
                 setState(() {
                   currentIndex = index;
                 });
               }, printableValue: printableValues, preSymbol: preSymbol),
               TextWidget(currentIndex: currentIndex, wind: wind, direction: direction, wetterBedingung: wetterBedingung),
+                ],
+              ),
           ],
         ),
       );
@@ -182,24 +200,28 @@ class TextWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(5.0),
-                  child: Text('Wetterbedingungen: ',
-                      style: TextStyle(
-                        height: 2.0,
-                        backgroundColor: Colors.white,
-                        color: Colors.blueGrey,
-                        fontWeight: FontWeight.bold,
-                      )),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Text(wetterBedingung,
-                      style: const TextStyle(
-                        height: 2.0,
-                        backgroundColor: Colors.white,
-                        color: Colors.blueGrey,
-                      )),
+                Row(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(5.0),
+                      child: Text('Wetterbedingungen: ',
+                          style: TextStyle(
+                            height: 2.0,
+                            backgroundColor: Colors.white,
+                            color: Colors.blueGrey,
+                            fontWeight: FontWeight.bold,
+                          )),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Text(wetterBedingung,
+                          style: const TextStyle(
+                            height: 2.0,
+                            backgroundColor: Colors.white,
+                            color: Colors.blueGrey,
+                          )),
+                    ),
+                  ],
                 ),
                 const Padding(
                   padding: EdgeInsets.all(5.0),

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1078293053360",
+    "project_id": "d20-weather",
+    "storage_bucket": "d20-weather.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1078293053360:android:357c5ff885c3c8f4d7e075",
+        "android_client_info": {
+          "package_name": "com.example.fantasy_weather_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7aoBoC1xF1CIyRPHjwf4wtWogWaNg6Vo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

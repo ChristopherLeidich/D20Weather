@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 //import 'Widgets/themes.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+
 class CarouselSliderWidget extends StatelessWidget {
   const CarouselSliderWidget({super.key, required this.controller, required this.onIndexChanged, required this.printableValue, required this.preSymbol});
 
@@ -27,7 +28,7 @@ class CarouselSliderWidget extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Expanded(child: Image.asset('assets/images/glacier.jpg'),
+                child: Expanded(child: Image.asset('assets/images/glacier.jpg',height: 450, fit: BoxFit.fill),
                 ),
               ),
               Center(
@@ -51,7 +52,7 @@ class CarouselSliderWidget extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Expanded(child: Image.asset('assets/images/KT3A7OD.jpeg'),
+                child: Expanded(child: Image.asset('assets/images/KT3A7OD.jpeg', height: 450, fit: BoxFit.fill),
                 ),
               ),
               Center(
@@ -75,7 +76,7 @@ class CarouselSliderWidget extends StatelessWidget {
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Expanded(child: Image.asset('assets/images/9502ac62b81f208465c7beb0d4338c77.jpg'),
+                child: Expanded(child: Image.asset('assets/images/9502ac62b81f208465c7beb0d4338c77.jpg', height: MediaQuery.of(context).size.height/3, width: MediaQuery.of(context).size.height/1.2, fit: BoxFit.fill),
                 ),
               ),
               Center(
