@@ -71,7 +71,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
     super.initState();
     randomizer(); // Generate the first random value when the app is started
 
-    _timer = Timer.periodic(const Duration(seconds: 4, milliseconds: 42), (timer) {   //Generates a new Random Value in the void randomizer() after a set amount of seconds
+    _timer = Timer.periodic(const Duration(days:460 ,seconds: 4, milliseconds: 42), (timer) {   //Generates a new Random Value in the void randomizer() after a set amount of seconds
       randomizer();
     });
   }
@@ -113,7 +113,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.blue, Colors.white], // Your gradient colors
+              colors: [Colors.white, Colors.lightBlue, Colors.blue], // Your gradient colors
             ),
           ),
         ),
@@ -164,10 +164,19 @@ class TextWidget extends StatelessWidget {
         margin: const EdgeInsets.all(6.0),
         decoration: BoxDecoration(
             color: Colors.grey[50],
-            border: Border.all(width: 4.0, color: Colors.black54),
+            border: Border.all(width: 0.1, color: Colors.black54),
             borderRadius: const BorderRadius.all(
-                Radius.circular(20)) // Add a black border
-        ),
+                Radius.circular(20)// Add a black border
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.blueGrey.withOpacity(0.7),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: const Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
         child: Scrollable(
           axisDirection: AxisDirection.down,
           viewportBuilder: (BuildContext context, ViewportOffset position) {
