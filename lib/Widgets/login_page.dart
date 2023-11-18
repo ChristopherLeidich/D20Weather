@@ -1,14 +1,7 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-
-import 'login_screen_model.dart';
-export 'login_screen_model.dart';
 
 class LoginScreenWidget extends StatefulWidget {
   const LoginScreenWidget({Key? key}) : super(key: key);
@@ -96,119 +89,106 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                         ),
                       ),
                       child: Align(
-                        alignment: AlignmentDirectional(0.00, 0.00),
+                        alignment: const AlignmentDirectional(0.00, 0.00),
                         child: Padding(
-                          padding:
-                              EdgeInsetsDirectional.fromSTEB(24, 24, 24, 24),
+                          padding: const EdgeInsetsDirectional.fromSTEB(
+                              24, 24, 24, 24),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text(
+                              const Text(
                                 'Welcome Back',
-                                style:
-                                    FlutterFlowTheme.of(context).displaySmall,
                               ),
-                              Padding(
+                              const Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0, 12, 0, 24),
                                 child: Text(
                                   'Let\'s get started by filling out the form below.',
-                                  style:
-                                      FlutterFlowTheme.of(context).labelMedium,
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 0, 0, 16),
                                 child: TextFormField(
                                   controller: _model.textController1,
                                   focusNode: _model.textFieldFocusNode1,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     labelText: 'Email',
-                                    hintStyle:
-                                        FlutterFlowTheme.of(context).bodyLarge,
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
+                                      borderSide: const BorderSide(
                                         width: 2,
                                       ),
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0x00000000),
                                         width: 2,
                                       ),
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                     errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0x00000000),
                                         width: 2,
                                       ),
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                     focusedErrorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0x00000000),
                                         width: 2,
                                       ),
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                     contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
+                                        const EdgeInsetsDirectional.fromSTEB(
                                             24, 24, 24, 24),
                                   ),
-                                  style: FlutterFlowTheme.of(context).bodyLarge,
                                   validator: _model.textController1Validator
                                       .asValidator(context),
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 0, 0, 16),
                                 child: TextFormField(
                                   controller: _model.textController2,
                                   focusNode: _model.textFieldFocusNode2,
                                   obscureText: !_model.passwordVisibility,
                                   decoration: InputDecoration(
                                     labelText: 'Password',
-                                    hintStyle:
-                                        FlutterFlowTheme.of(context).bodyLarge,
                                     enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
+                                      borderSide: const BorderSide(
                                         width: 2,
                                       ),
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                     focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0x00000000),
                                         width: 2,
                                       ),
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                     errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0x00000000),
                                         width: 2,
                                       ),
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                     focusedErrorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
+                                      borderSide: const BorderSide(
                                         color: Color(0x00000000),
                                         width: 2,
                                       ),
                                       borderRadius: BorderRadius.circular(12),
                                     ),
                                     contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
+                                        const EdgeInsetsDirectional.fromSTEB(
                                             24, 24, 24, 24),
                                     suffixIcon: InkWell(
                                       onTap: () => setState(
@@ -220,48 +200,41 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                                         _model.passwordVisibility
                                             ? Icons.visibility_outlined
                                             : Icons.visibility_off_outlined,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryText,
                                         size: 22,
                                       ),
                                     ),
                                   ),
-                                  style: FlutterFlowTheme.of(context).bodyLarge,
                                   validator: _model.textController2Validator
                                       .asValidator(context),
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
-                                child: FFButtonWidget(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 0, 0, 16),
+                                child: FloatingActionButton(
                                   onPressed: () {
                                     print('Button pressed ...');
                                   },
-                                  text: 'Sign In',
+                                  key: 'Sign In',
                                   options: FFButtonOptions(
                                     width: 370,
                                     height: 44,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 0),
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily: 'Readex Pro',
-                                          color: Colors.white,
-                                        ),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 0),
+                                    iconPadding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 0),
                                     elevation: 3,
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                 ),
                               ),
                               Align(
-                                alignment: AlignmentDirectional(0.00, 0.00),
+                                alignment:
+                                    const AlignmentDirectional(0.00, 0.00),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       16, 0, 16, 24),
                                   child: Text(
                                     'Or sign up with',
@@ -272,9 +245,9 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
-                                child: FFButtonWidget(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 0, 0, 16),
+                                child: FloatingActionButton(
                                   onPressed: () {
                                     print('Button pressed ...');
                                   },
@@ -286,22 +259,14 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                                   options: FFButtonOptions(
                                     width: 370,
                                     height: 44,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 0),
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Readex Pro',
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 0),
+                                    iconPadding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 0),
                                     elevation: 0,
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
+                                    borderSide: const BorderSide(
                                       width: 2,
                                     ),
                                     borderRadius: BorderRadius.circular(12),
@@ -309,9 +274,9 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                                 ),
                               ),
                               Padding(
-                                padding:
-                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 16),
-                                child: FFButtonWidget(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
+                                    0, 0, 0, 16),
+                                child: FloatingActionButton(
                                   onPressed: () {
                                     print('Button pressed ...');
                                   },
@@ -323,29 +288,21 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                                   options: FFButtonOptions(
                                     width: 370,
                                     height: 44,
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 0),
-                                    iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 0),
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Readex Pro',
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 0),
+                                    iconPadding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            0, 0, 0, 0),
                                     elevation: 0,
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
+                                    borderSide: const BorderSide(
                                       width: 2,
                                     ),
                                     borderRadius: BorderRadius.circular(12),
                                   ),
                                 ),
                               ),
-                              Row(
+                              const Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -354,8 +311,6 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                                         0, 4, 0, 4),
                                     child: Text(
                                       'Don\'t have an account? ',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium,
                                     ),
                                   ),
                                   Padding(
@@ -363,13 +318,6 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                                         4, 4, 0, 4),
                                     child: Text(
                                       'Sign Up',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Readex Pro',
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                          ),
                                     ),
                                   ),
                                 ],
