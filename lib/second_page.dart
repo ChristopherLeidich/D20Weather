@@ -29,7 +29,7 @@ class _MyAppState extends State<SecondPage> {
       ),
       drawer: const MyDrawer(),
       body: Center(
-        child: Column(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(

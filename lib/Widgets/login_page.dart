@@ -2,23 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class LoginScreenWidget extends StatefulWidget {
   const LoginScreenWidget({Key? key}) : super(key: key);
 
   @override
-  _LoginScreenWidgetState createState() => _LoginScreenWidgetState();
+  State<LoginScreenWidget> createState() => LoginScreenWidgetState();
 }
 
-class _LoginScreenWidgetState extends State<LoginScreenWidget> {
-  late LoginScreenModel _model;
+class LoginScreenWidgetState extends State<LoginScreenWidget> {
+  late final LoginScreenModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  bool get isiOS => false;
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => LoginScreenModel());
+    //_model = createModel(context, () => LoginScreenModel());
 
     _model.textController1 ??= TextEditingController();
     _model.textFieldFocusNode1 ??= FocusNode();
@@ -51,40 +54,40 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
+        backgroundColor: Colors.blueGrey[50],
         body: SafeArea(
           top: true,
           child: Align(
-            alignment: AlignmentDirectional(0.00, -1.00),
+            alignment: const AlignmentDirectional(0.00, -1.00),
             child: SingleChildScrollView(
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 32, 0, 32),
+                    padding: const EdgeInsetsDirectional.fromSTEB(0, 32, 0, 32),
                     child: Container(
                       width: double.infinity,
                       height: 70,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      alignment: AlignmentDirectional(0.00, 0.00),
-                      child: Text(
+                      alignment: const AlignmentDirectional(0.00, 0.00),
+                      child: const Text(
                         'Fantasy Weather',
-                        style: FlutterFlowTheme.of(context).displaySmall,
+                        //style: FlutterFlowTheme.of(context).displaySmall,
                       ),
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(12, 12, 12, 12),
+                    padding: const EdgeInsetsDirectional.fromSTEB(12, 12, 12, 12),
                     child: Container(
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        color: Colors.grey[100],
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: FlutterFlowTheme.of(context).primaryBackground,
+                          color: Colors.white60,
                           width: 2,
                         ),
                       ),
@@ -211,12 +214,12 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0, 0, 0, 16),
-                                child: FloatingActionButton(
+                                child: FloatingActionButton.extended(
                                   onPressed: () {
-                                    print('Button pressed ...');
+                                    //dummy Options
                                   },
-                                  key: 'Sign In',
-                                  options: FFButtonOptions(
+                                  label: const Text('Sign In'),
+                                  /*options: FFButtonOptions(
                                     width: 370,
                                     height: 44,
                                     padding:
@@ -227,36 +230,36 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                                             0, 0, 0, 0),
                                     elevation: 3,
                                     borderRadius: BorderRadius.circular(12),
-                                  ),
+                                  ),*/
                                 ),
                               ),
-                              Align(
+                              const Align(
                                 alignment:
-                                    const AlignmentDirectional(0.00, 0.00),
+                                    AlignmentDirectional(0.00, 0.00),
                                 child: Padding(
-                                  padding: const EdgeInsetsDirectional.fromSTEB(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
                                       16, 0, 16, 24),
                                   child: Text(
                                     'Or sign up with',
                                     textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
-                                        .labelMedium,
+                                    //style: FlutterFlowTheme.of(context)
+                                        //.labelMedium,
                                   ),
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0, 0, 0, 16),
-                                child: FloatingActionButton(
+                                child: FloatingActionButton.extended(
                                   onPressed: () {
-                                    print('Button pressed ...');
+                                    //dummy Function;
                                   },
-                                  text: 'Continue with Google',
-                                  icon: FaIcon(
+                                  label: const Text('Continue with Google'),
+                                  icon: const FaIcon(
                                     FontAwesomeIcons.google,
                                     size: 20,
                                   ),
-                                  options: FFButtonOptions(
+                                  /*style: (
                                     width: 370,
                                     height: 44,
                                     padding:
@@ -270,22 +273,22 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                                       width: 2,
                                     ),
                                     borderRadius: BorderRadius.circular(12),
-                                  ),
+                                  ),*/
                                 ),
                               ),
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
                                     0, 0, 0, 16),
-                                child: FloatingActionButton(
+                                child: FloatingActionButton.extended(
                                   onPressed: () {
-                                    print('Button pressed ...');
+                                    //dummy function
                                   },
-                                  text: 'Continue with Apple',
-                                  icon: FaIcon(
+                                  label: const Text('Continue with Apple'),
+                                  icon: const FaIcon(
                                     FontAwesomeIcons.apple,
                                     size: 20,
                                   ),
-                                  options: FFButtonOptions(
+                                  /*options: FFButtonOptions(
                                     width: 370,
                                     height: 44,
                                     padding:
@@ -299,7 +302,7 @@ class _LoginScreenWidgetState extends State<LoginScreenWidget> {
                                       width: 2,
                                     ),
                                     borderRadius: BorderRadius.circular(12),
-                                  ),
+                                  ),*/
                                 ),
                               ),
                               const Row(
