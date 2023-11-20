@@ -1,10 +1,213 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
+//import 'package:flutter/services.dart';
+//import 'package:google_fonts/google_fonts.dart';
+//import 'package:provider/provider.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
-class LoginScreenWidget extends StatefulWidget {
+
+class LoginPage extends StatefulWidget {
+  const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final FocusNode _usernameFocus = FocusNode();
+  final FocusNode _passwordFocus = FocusNode();
+
+  void _showDialog(String message) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Login Result'),
+          content: Column(
+              children: [
+                Text(_usernameController.text),
+                Text(_passwordController.text),
+              ]
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+  Future<AlertDialog> _loginWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleSignInAccount =
+      await GoogleSignIn().signIn();
+
+      final GoogleSignInAuthentication? googleSignInAuthentication =
+      await googleSignInAccount?.authentication;
+
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication?.accessToken,
+        idToken: googleSignInAuthentication?.idToken,
+      );
+
+      final UserCredential authResult =
+      await FirebaseAuth.instance.signInWithCredential(credential);
+
+      // Handle the user authentication result as needed
+      return AlertDialog(
+          title: const Text('Login Result'),
+          content: Column(
+              children: [
+                Text('Google Sign-In Successful: ${authResult.user?.displayName}'),
+              ]
+          ),
+      );
+      //print('Google Sign-In Successful: ${authResult.user?.displayName}');
+    } catch (error) {
+      return AlertDialog(
+        title: const Text('Login Result'),
+        content: Column(
+            children: [
+              Text('Google Sign-In Error: $error'),
+            ]
+        ),
+      );
+    }
+  }
+
+  Future<void> _loginWithApple() async {
+    try {
+      final result = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+      );
+
+      final AuthCredential credential = OAuthProvider("apple.com").credential(
+        accessToken: result.authorizationCode,
+        idToken: result.identityToken,
+      );
+
+      final UserCredential authResult =
+      await FirebaseAuth.instance.signInWithCredential(credential);
+
+      // Handle the user authentication result as needed
+      print('Apple Sign-In Successful: ${authResult.user?.displayName}');
+    } catch (error) {
+      print('Apple Sign-In Error: $error');
+    }
+  }
+
+  @override
+  void dispose() {
+    // Dispose of the controllers and focus nodes when the widget is disposed
+    _usernameController.dispose();
+    _passwordController.dispose();
+    _usernameFocus.dispose();
+    _passwordFocus.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Login Page'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            TextField(
+              controller: _usernameController,
+              focusNode: _usernameFocus,
+              decoration: const InputDecoration(labelText: 'Username'),
+              onSubmitted: (value) {
+                // When the user submits the username field, move focus to the password field
+                FocusScope.of(context).requestFocus(_passwordFocus);
+              },
+            ),
+            TextField(
+              controller: _passwordController,
+              focusNode: _passwordFocus,
+              obscureText: true,
+              decoration: const InputDecoration(labelText: 'Password'),
+              onSubmitted: (value) {
+                // When the user submits the password field, you can trigger the login logic here
+                // For simplicity, let's just show the dialog
+                _showDialog('Login Successful');
+              },
+            ),
+            const SizedBox(height: 20),
+            TextButton(
+              style: TextButton.styleFrom(
+              backgroundColor: Colors.blue,
+              foregroundColor: Colors.white,
+              ),
+              onPressed: () {
+                String username = _usernameController.text;
+                String password = _passwordController.text;
+                // You can add your authentication logic here
+                // For simplicity, let's just check if both fields are non-empty
+                if (username.isNotEmpty && password.isNotEmpty) {
+                  _showDialog('Login Successful');
+                } else {
+                  _showDialog('Username and password are required');
+                }
+              },
+              child: const Text('Login'),
+            ),
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(
+                  0, 0, 0, 16),
+              child: FloatingActionButton.extended(
+                onPressed: () {
+                  _loginWithGoogle();
+                },
+                label: const Text('Continue with Google'),
+                icon: const FaIcon(
+                  FontAwesomeIcons.google,
+                  size: 20,
+                ),
+                splashColor: const Color(0xFFFF3E30),
+                hoverColor: Colors.grey[200],
+                elevation: 0.5,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(
+                  0, 0, 0, 16),
+              child: FloatingActionButton.extended(
+                onPressed: () {
+                  _loginWithApple();
+                },
+                label: const Text('Continue with Apple'),
+                icon: const FaIcon(
+                  FontAwesomeIcons.apple,
+                  size: 20,
+                ),
+                splashColor:const Color(0xFF0066cc),
+                hoverColor: Colors.grey[200],
+                elevation: 0.5,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+/*class LoginScreenWidget extends StatefulWidget {
   const LoginScreenWidget({Key? key}) : super(key: key);
 
   @override
@@ -12,9 +215,11 @@ class LoginScreenWidget extends StatefulWidget {
 }
 
 class LoginScreenWidgetState extends State<LoginScreenWidget> {
-  late final LoginScreenModel _model;
+  final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final FocusNode _usernameFocus = FocusNode();
+  final FocusNode _passwordFocus = FocusNode();
 
-  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   bool get isiOS => false;
 
@@ -23,17 +228,19 @@ class LoginScreenWidgetState extends State<LoginScreenWidget> {
     super.initState();
     //_model = createModel(context, () => LoginScreenModel());
 
-    _model.textController1 ??= TextEditingController();
-    _model.textFieldFocusNode1 ??= FocusNode();
-
-    _model.textController2 ??= TextEditingController();
-    _model.textFieldFocusNode2 ??= FocusNode();
+    // _model.textController1 ??= TextEditingController();
+    // _model.textFieldFocusNode1 ??= FocusNode();
+    //
+    // _model.textController2 ??= TextEditingController();
+    // _model.textFieldFocusNode2 ??= FocusNode();
   }
 
   @override
   void dispose() {
-    _model.dispose();
-
+    _usernameController.dispose();
+    _passwordController.dispose();
+    _usernameFocus.dispose();
+    _passwordFocus.dispose();
     super.dispose();
   }
 
@@ -75,7 +282,6 @@ class LoginScreenWidgetState extends State<LoginScreenWidget> {
                       alignment: const AlignmentDirectional(0.00, 0.00),
                       child: const Text(
                         'Fantasy Weather',
-                        //style: FlutterFlowTheme.of(context).displaySmall,
                       ),
                     ),
                   ),
@@ -150,8 +356,7 @@ class LoginScreenWidgetState extends State<LoginScreenWidget> {
                                         const EdgeInsetsDirectional.fromSTEB(
                                             24, 24, 24, 24),
                                   ),
-                                  validator: _model.textController1Validator
-                                      .asValidator(context),
+                                  validator: _usernameController.asValidator(context),
                                 ),
                               ),
                               Padding(
@@ -219,18 +424,6 @@ class LoginScreenWidgetState extends State<LoginScreenWidget> {
                                     //dummy Options
                                   },
                                   label: const Text('Sign In'),
-                                  /*options: FFButtonOptions(
-                                    width: 370,
-                                    height: 44,
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 0, 0),
-                                    iconPadding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 0, 0),
-                                    elevation: 3,
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),*/
                                 ),
                               ),
                               const Align(
@@ -242,8 +435,6 @@ class LoginScreenWidgetState extends State<LoginScreenWidget> {
                                   child: Text(
                                     'Or sign up with',
                                     textAlign: TextAlign.center,
-                                    //style: FlutterFlowTheme.of(context)
-                                        //.labelMedium,
                                   ),
                                 ),
                               ),
@@ -259,21 +450,6 @@ class LoginScreenWidgetState extends State<LoginScreenWidget> {
                                     FontAwesomeIcons.google,
                                     size: 20,
                                   ),
-                                  /*style: (
-                                    width: 370,
-                                    height: 44,
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 0, 0),
-                                    iconPadding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 0, 0),
-                                    elevation: 0,
-                                    borderSide: const BorderSide(
-                                      width: 2,
-                                    ),
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),*/
                                 ),
                               ),
                               Padding(
@@ -288,21 +464,9 @@ class LoginScreenWidgetState extends State<LoginScreenWidget> {
                                     FontAwesomeIcons.apple,
                                     size: 20,
                                   ),
-                                  /*options: FFButtonOptions(
-                                    width: 370,
-                                    height: 44,
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 0, 0),
-                                    iconPadding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            0, 0, 0, 0),
-                                    elevation: 0,
-                                    borderSide: const BorderSide(
-                                      width: 2,
-                                    ),
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),*/
+                                  splashColor:const Color(0xFF0066cc),
+                                  hoverColor: Colors.grey,
+                                  elevation: 0.5,
                                 ),
                               ),
                               const Row(
@@ -339,4 +503,4 @@ class LoginScreenWidgetState extends State<LoginScreenWidget> {
       ),
     );
   }
-}
+}*/

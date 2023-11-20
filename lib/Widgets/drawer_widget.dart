@@ -1,3 +1,4 @@
+import 'package:fantasy_weather_app/Widgets/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fantasy_weather_app/second_page.dart';
 import 'package:fantasy_weather_app/main.dart';
@@ -11,6 +12,7 @@ class MyDrawer extends StatelessWidget {
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
+
           const UserAccountsDrawerHeader(
             accountName: Text('John Doe'),
             accountEmail: Text('johndoe@example.com'),
@@ -40,10 +42,13 @@ class MyDrawer extends StatelessWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.info),
-            title: const Text('About'),
+            leading: const Icon(Icons.login),
+            title: const Text('Login'),
             onTap: () {
               // Handle about
+              Navigator.pop(context);
+
+              Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
             },
           ),
           const Divider(), // Divider between main and sub-drawer

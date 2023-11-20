@@ -46,7 +46,11 @@ class Regional {
   final String regionalDescription;
   final String effectRegionalName;
   final String effectRegionaldescription;
-  final String effectRegional;
+  final String effectRegional1;
+  final String effectRegional2;
+  final String effectRegional3;
+  final String effectRegional4;
+  final String effectRegional5;
   final int regionalTemperatureLimit;
   final bool negativeTemperature;
 
@@ -54,7 +58,11 @@ class Regional {
               required this.regionalDescription,
               required this.effectRegionalName,
               required this.effectRegionaldescription,
-              required this.effectRegional,
+              required this.effectRegional1,
+              required this.effectRegional2,
+              required this.effectRegional3,
+              required this.effectRegional4,
+              required this.effectRegional5,
               required this.regionalTemperatureLimit,
               required this.negativeTemperature
   });
@@ -100,10 +108,11 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
                               'Application of the term has varied greatly during the past recent century.',
               effectRegionalName:         'Insect Plague',
               effectRegionaldescription:  'Non Undead Creatures are constantly swarmed by Tiny mosquitoes and other Insects',
-              effectRegional: 'Once every 1d6[[1d6]] Hours every Non-Undead Member of the Party has to roll a basic DC15 Fortitude-Save or'
-                              ' loose 1d2[[1d2]] HP'
-                              'On a critical Failure the Damage Dice Changes to 1d4[[1d4]]'
-                              ' and the Party-Member will be contaminated by a random Decease',
+              effectRegional1:  'Once every 1d6 ',
+              effectRegional2:  'Hours every Non-Undead Member of the Party has to roll a basic DC15 Fortitude-Save or',
+              effectRegional3:  ' loose 1d2 ',
+              effectRegional4:  ' HP.\nOn a critical Failure the Damage Dice Changes to 1d4 ',
+              effectRegional5:  ' and the Party-Member will be contaminated by a random Decease',
               regionalTemperatureLimit: 48,
               negativeTemperature: false
     ),
@@ -111,7 +120,11 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
               regionalDescription: 'Cold Snow Ice What do you want',
               effectRegionalName: 'Death',
               effectRegionaldescription: 'Kills you',
-              effectRegional: 'You die(no you do not have cold resistance)',
+              effectRegional1: 'You die(no you do not have cold resistance)',
+              effectRegional2: '',
+              effectRegional3: '',
+              effectRegional4: '',
+              effectRegional5: '',
               regionalTemperatureLimit: 36,
               negativeTemperature: true,
     ),
@@ -119,7 +132,11 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
               regionalDescription: 'Description for Item 3',
               effectRegionalName: '',
               effectRegionaldescription: '',
-              effectRegional: '',
+              effectRegional1: '',
+              effectRegional2: '',
+              effectRegional3: '',
+              effectRegional4: '',
+              effectRegional5: '',
               regionalTemperatureLimit: 74,
               negativeTemperature: false
     ),
