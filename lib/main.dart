@@ -102,6 +102,17 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
   String printableValues = '0.0'; //this is the temperature that gets printed in the End
   String preSymbol = '+';      //Symbol for negative/Positive Temperatures
 
+
+  //dice section
+  int d2 = 1;
+  int d4 = 1;
+  int d6 = 1;
+  int d8 = 1;
+  int d10 = 1;
+  int d12 = 1;
+  int d20 = 1;
+  int d100 = 1;
+
   final List<Regional> regionList = [
     Regional( regionalName:   'Jungle',
         regionalDescription:  'A jungle is land covered with dense forest and tangled vegetation, usually in tropical climates. '
@@ -190,6 +201,54 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
       //final doubleValues = dirlist.generate(3, (index) => Random().nextDouble() * 36);
       doubleValues = Random().nextDouble() * 41;     // generates a random double-Value between 0.0 and 36.0
       printableValues = doubleValues.toStringAsFixed(1);  //fixes the length of digits after the , to 1 (e.g. 1.1 instead of 1.00000001)
+    });
+  }
+
+  void d2_(){
+    setState(() {
+      d2 =  Random().nextInt(2) + 1;
+    });
+  }
+
+  void d4_(){
+    setState(() {
+      d4 =  Random().nextInt(4) + 1;
+    });
+  }
+
+  void d6_(){
+    setState(() {
+      d6 =  Random().nextInt(6) + 1;
+    });
+  }
+
+  void d8_(){
+    setState(() {
+      d8 =  Random().nextInt(8) + 1;
+    });
+  }
+
+  void d10_(){
+    setState(() {
+      d10 =  Random().nextInt(10) + 1;
+    });
+  }
+
+  void d12_(){
+    setState(() {
+      d12 =  Random().nextInt(12) + 1;
+    });
+  }
+
+  void d20_(){
+    setState(() {
+      d20 =  Random().nextInt(20) + 1;
+    });
+  }
+
+  void d100_(){
+    setState(() {
+      d2 =  Random().nextInt(100) + 1;
     });
   }
 
