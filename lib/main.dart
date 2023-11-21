@@ -166,6 +166,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
               weatherEffect: 'weatherEffect'
     )
   ];
+
   var dirlist = ['North','North-West','West','North-East','East','South','South-West','South-East'];
   String direction ='';
   var wetterbedingunsliste = ['Umbral-Storm','Radiant-Storm','Thunderstorm','Phantasmal-Rain','Rain','Sun','Drought', 'Storm','Snow','Hail','Drizzle','Cloudy'];

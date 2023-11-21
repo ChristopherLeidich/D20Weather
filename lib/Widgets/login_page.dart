@@ -6,6 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
+import 'package:fantasy_weather_app/Widgets/drawer_widget.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -123,6 +124,7 @@ class _LoginPageState extends State<LoginPage> {
       appBar: AppBar(
         title: const Text('Login Page'),
       ),
+      drawer: const MyDrawer(),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
