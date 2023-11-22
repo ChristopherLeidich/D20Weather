@@ -45,11 +45,14 @@ class _MyAppState extends State<SecondPage> {
                   });
                 }),
             const Divider(),
-            Image.asset('assets/images/glacier.jpg'), // Replace with your image path
-            const SizedBox(height: 10),
-            const Text(
-              'It is really cold and empty in here rn...',
-              style: TextStyle(fontSize: 42),
+            Column(
+                children: [
+                  Image.asset('assets/images/glacier.jpg'), // Replace with your image path
+                  const Text(
+                  'It is really cold and empty in here rn...',
+                  style: TextStyle(fontSize: 42),
+                  ),
+                ]
             ),
           ],
         ),

@@ -45,7 +45,6 @@ dependencies:
     sdk: flutter
   firebase_auth: ^4.14.0
   google_sign_in: ^5.2.1
-  sign_in_with_apple: ^3.0.2
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -69,10 +68,25 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
-flutter_icons:
-  android: true
+
+flutter_launcher_icons:
+  android: "launcher_icon"
   ios: true
-  image_path: assets/icons/6aaca114d9dd2e07d77cec4d3acf93e5.png
+  image_path: "assets/icons/6aaca114d9dd2e07d77cec4d3acf93e5.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: " assets/icons/6aaca114d9dd2e07d77cec4d3acf93e5.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: " assets/icons/6aaca114d9dd2e07d77cec4d3acf93e5.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: " assets/icons/6aaca114d9dd2e07d77cec4d3acf93e5.png"
+
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

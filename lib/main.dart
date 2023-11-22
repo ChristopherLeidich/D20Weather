@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'dart:async';
 import 'package:fantasy_weather_app/Widgets/themes.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +16,10 @@ import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'firebase_options.dart';
+
 
 // import 'package:flutter_weather_bg_null_safety/bg/weather_bg.dart';
 // import 'package:flutter_weather_bg_null_safety/bg/weather_cloud_bg.dart';
@@ -28,7 +33,12 @@ import 'package:flutter_weather_bg_null_safety/flutter_weather_bg.dart';
 // import 'package:flutter_weather_bg_null_safety/utils/weather_type.dart';
 // import 'package:parallax_rain/parallax_rain.dart';
 
-void main() {
+
+void main() async {
+  /*await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );*/
+
   runApp(const MyApp());
 }
 
@@ -36,6 +46,7 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   String get name => 'foo';
+
 
   Future<void> initializeDefault() async {
     FirebaseApp app = await Firebase.initializeApp(
