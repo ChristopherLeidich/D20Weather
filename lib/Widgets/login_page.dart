@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:fantasy_weather_app/Widgets/drawer_widget.dart';
 
 
@@ -84,30 +83,6 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  Future<void> _loginWithApple() async {
-    try {
-      final result = await SignInWithApple.getAppleIDCredential(
-        scopes: [
-          AppleIDAuthorizationScopes.email,
-          AppleIDAuthorizationScopes.fullName,
-        ],
-      );
-
-      final AuthCredential credential = OAuthProvider("apple.com").credential(
-        accessToken: result.authorizationCode,
-        idToken: result.identityToken,
-      );
-
-      final UserCredential authResult =
-      await FirebaseAuth.instance.signInWithCredential(credential);
-
-      // Handle the user authentication result as needed
-      print('Apple Sign-In Successful: ${authResult.user?.displayName}');
-    } catch (error) {
-      print('Apple Sign-In Error: $error');
-    }
-  }
-
   @override
   void dispose() {
     // Dispose of the controllers and focus nodes when the widget is disposed
@@ -182,23 +157,6 @@ class _LoginPageState extends State<LoginPage> {
                   size: 20,
                 ),
                 splashColor: const Color(0xFFFF3E30),
-                hoverColor: Colors.grey[200],
-                elevation: 0.5,
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsetsDirectional.fromSTEB(
-                  0, 0, 0, 16),
-              child: FloatingActionButton.extended(
-                onPressed: () {
-                  _loginWithApple();
-                },
-                label: const Text('Continue with Apple'),
-                icon: const FaIcon(
-                  FontAwesomeIcons.apple,
-                  size: 20,
-                ),
-                splashColor:const Color(0xFF0066cc),
                 hoverColor: Colors.grey[200],
                 elevation: 0.5,
               ),

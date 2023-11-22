@@ -12,6 +12,10 @@ import 'dart:math';
 //import 'package:google_fonts/google_fonts.dart';
 //import 'package:qr_flutter/qr_flutter.dart';
 
+import 'package:flutter/foundation.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
 // import 'package:flutter_weather_bg_null_safety/bg/weather_bg.dart';
 // import 'package:flutter_weather_bg_null_safety/bg/weather_cloud_bg.dart';
 // import 'package:flutter_weather_bg_null_safety/bg/weather_color_bg.dart';
@@ -30,6 +34,51 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
+  String get name => 'foo';
+
+  Future<void> initializeDefault() async {
+    FirebaseApp app = await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+    print('Initialized default app $app');
+  }
+
+  Future<void> initializeDefaultFromAndroidResource() async {
+    if (defaultTargetPlatform != TargetPlatform.android || kIsWeb) {
+      print('Not running on Android, skipping');
+      return;
+    }
+    FirebaseApp app = await Firebase.initializeApp();
+    print('Initialized default app $app from Android resource');
+  }
+
+  Future<void> initializeSecondary() async {
+    FirebaseApp app = await Firebase.initializeApp(
+      name: name,
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+
+    print('Initialized $app');
+  }
+
+  void apps() {
+    final List<FirebaseApp> apps = Firebase.apps;
+    print('Currently initialized apps: $apps');
+  }
+
+  void options() {
+    final FirebaseApp app = Firebase.app();
+    final options = app.options;
+    print('Current options for app ${app.name}: $options');
+  }
+
+  Future<void> delete() async {
+    final FirebaseApp app = Firebase.app(name);
+    await app.delete();
+    print('App $name deleted');
+  }
+
 
   @override
   Widget build(BuildContext context) {
