@@ -35,9 +35,10 @@ import 'package:flutter_weather_bg_null_safety/flutter_weather_bg.dart';
 
 
 void main() async {
-  /*await Firebase.initializeApp(
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-  );*/
+  );
 
   runApp(const MyApp());
 }
