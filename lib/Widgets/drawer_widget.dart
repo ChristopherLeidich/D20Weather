@@ -80,6 +80,15 @@ class SubDrawer extends StatelessWidget {
             // Handle sub-item 2
           },
         ),
+          const AboutListTile( // <-- SEE HERE
+            icon: Icon(Icons.info,),
+            applicationIcon: Icon( Icons.local_play,),
+                applicationName: 'D20Weather',
+                applicationVersion: '0.1.6',
+                applicationLegalese: 'D20Weather © 2023 by Christopher Leidich and Francesco Quarta is licensed under CC BY-NC-SA 4.0',
+          ///Content goes here...
+            child: Text('About app'),
+          ),
       ],
     );
   }
