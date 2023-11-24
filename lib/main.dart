@@ -1,4 +1,4 @@
-import 'dart:io';
+//import 'dart:io';
 
 import 'dart:async';
 import 'package:fantasy_weather_app/Widgets/themes.dart';
@@ -7,17 +7,17 @@ import 'package:flutter/rendering.dart';
 import 'package:fantasy_weather_app/Widgets/carousel_slider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fantasy_weather_app/Widgets/drawer_widget.dart';
-//import 'package:fantasy_weather_app/Widgets/starviewfield.dart';
+import 'package:fantasy_weather_app/Widgets/starviewfield.dart';
 import 'dart:math';
 
 //import 'package:flutter/services.dart';
 //import 'package:google_fonts/google_fonts.dart';
 //import 'package:qr_flutter/qr_flutter.dart';
 
-import 'package:flutter/foundation.dart';
+//import 'package:flutter/foundation.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:google_sign_in/google_sign_in.dart';
 import 'firebase_options.dart';
 
 
@@ -31,7 +31,7 @@ import 'package:flutter_weather_bg_null_safety/flutter_weather_bg.dart';
 // import 'package:flutter_weather_bg_null_safety/utils/image_utils.dart';
 // import 'package:flutter_weather_bg_null_safety/utils/print_utils.dart';
 // import 'package:flutter_weather_bg_null_safety/utils/weather_type.dart';
-// import 'package:parallax_rain/parallax_rain.dart';
+import 'package:parallax_rain/parallax_rain.dart';
 
 
 void main() async {
@@ -49,54 +49,11 @@ class MyApp extends StatelessWidget {
   String get name => 'foo';
 
 
-  Future<void> initializeDefault() async {
-    FirebaseApp app = await Firebase.initializeApp(
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-    print('Initialized default app $app');
-  }
-
-  Future<void> initializeDefaultFromAndroidResource() async {
-    if (defaultTargetPlatform != TargetPlatform.android || kIsWeb) {
-      print('Not running on Android, skipping');
-      return;
-    }
-    FirebaseApp app = await Firebase.initializeApp();
-    print('Initialized default app $app from Android resource');
-  }
-
-  Future<void> initializeSecondary() async {
-    FirebaseApp app = await Firebase.initializeApp(
-      name: name,
-      options: DefaultFirebaseOptions.currentPlatform,
-    );
-
-    print('Initialized $app');
-  }
-
-  void apps() {
-    final List<FirebaseApp> apps = Firebase.apps;
-    print('Currently initialized apps: $apps');
-  }
-
-  void options() {
-    final FirebaseApp app = Firebase.app();
-    final options = app.options;
-    print('Current options for app ${app.name}: $options');
-  }
-
-  Future<void> delete() async {
-    final FirebaseApp app = Firebase.app(name);
-    await app.delete();
-    print('App $name deleted');
-  }
-
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeClass.lightTheme,
+      theme: ThemeClass.darkTheme,
       home: const MyCustomAppBar(),
     );
   }
@@ -162,7 +119,6 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
   double doubleValues = 0.0;    //used for generating a random double Value
   String printableValues = '0.0'; //this is the temperature that gets printed in the End
   String preSymbol = '+';      //Symbol for negative/Positive Temperatures
-
 
   //dice section
   int d2 = 1;
@@ -342,11 +298,74 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
       drawer: const MyDrawer(),
       body: Stack(
             children: [
-              WeatherBg(
-                  weatherType: WeatherType.heavySnow,
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-              ),
+                switch (wetterBedingung) {
+                  "Umbral-Storm" => ParallaxRain(
+                    dropColors: const[
+                      Colors.deepPurpleAccent,
+                      Colors.blueGrey,
+                      Colors.blue,
+                      Colors.blueAccent,
+                      Colors.brown,
+                      Colors.blueGrey
+                    ],
+                    trail: true,
+                  ),
+                  "Radiant-Storm" => ParallaxRain(
+                    dropColors: const[
+                      Colors.yellow,
+                      Colors.yellowAccent,
+                      Colors.white70,
+                      Colors.lightBlue,
+                      Color(0xFFc9c165),
+                      Color(0xFFcc9654)
+                    ],
+                    trail: true,
+                  ),
+                  "Thunderstorm" => WeatherBg(   weatherType: WeatherType.thunder,
+                                          width: MediaQuery.of(context).size.width,
+                                          height: MediaQuery.of(context).size.height,
+                  ),
+                  "Phantasmal-Rain" => const StarsViewBackground(),
+                  "Rain" => WeatherBg(  weatherType: WeatherType.middleRainy,
+                                        width: MediaQuery.of(context).size.width,
+                                        height: MediaQuery.of(context).size.height,
+                  ),
+                  "Sun" => WeatherBg(  weatherType: WeatherType.sunny,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                  ),
+                  "Drought" => WeatherBg(  weatherType: WeatherType.hazy,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                  ),
+                  "Storm" => WeatherBg(  weatherType: WeatherType.heavyRainy,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                  ),
+                  "Snow" => WeatherBg(  weatherType: WeatherType.middleSnow,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                  ),
+                  "Hail" => WeatherBg(  weatherType: WeatherType.heavySnow,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                  ),
+                  "Drizzle" => WeatherBg(  weatherType: WeatherType.lightRainy,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                  ),
+                  "Cloudy" => WeatherBg(  weatherType: WeatherType.foggy,
+                    width: MediaQuery.of(context).size.width,
+                    height: MediaQuery.of(context).size.height,
+                  ),
+
+                  _ => WeatherBg(       weatherType: WeatherType.overcast,
+                                        width: MediaQuery.of(context).size.width,
+                                        height: MediaQuery.of(context).size.height,
+                  ),
+                },
+              //'Umbral-Storm','Radiant-Storm','Thunderstorm','Phantasmal-Rain','Rain','Sun',
+              // 'Drought', 'Storm','Snow','Hail','Drizzle','Cloudy'
               //const StarsViewBackground(),
               Column(
                 children: [
@@ -358,11 +377,13 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
               TextWidget(currentIndex: currentIndex, wind: wind, direction: direction, wetterBedingung: wetterBedingung),
                 ],
               ),
+
           ],
         ),
       );
   }
 }
+
 
 
 class TextWidget extends StatelessWidget {

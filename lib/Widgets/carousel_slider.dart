@@ -103,6 +103,13 @@ class CarouselSliderWidget extends StatelessWidget {
         onPageChanged: (index, reason) {
           // Notify the parent widget when the page changes
           onIndexChanged(index);
+          /*setState(() {
+            images.removeAt(index);
+          })
+          if (index < images.length) {
+            setState(() {
+              images.insert(index, image.index() );
+            });;*/
         },
       ),
     );
