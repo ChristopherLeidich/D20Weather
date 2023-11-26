@@ -43,8 +43,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  String get name => 'foo';
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -328,7 +326,15 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
 
         title: const Align(
             alignment: Alignment.centerRight,
-            child: Text('D20Weather')), // Replace PopupMenuButton with a drawer
+            child: Text('D20Weather')),
+        leading: Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu_book, color: Colors.black,),
+            onPressed: () => Scaffold.of(context).openDrawer(),
+          ),
+        ),
+
+    // Replace PopupMenuButton with a drawer
       ),
       drawer: const MyDrawer(),
       body: Stack(
@@ -456,7 +462,7 @@ class TextWidget extends StatelessWidget {
         padding: const EdgeInsets.all(12.0),
         margin: const EdgeInsets.all(6.0),
         decoration: BoxDecoration(
-          color: Colors.white?.withOpacity(0),
+          color: Colors.white.withOpacity(0),
           border: Border.all(width: 0.1, color: Colors.black54),
           borderRadius:
               const BorderRadius.all(Radius.circular(20) // Add a black border
