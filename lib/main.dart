@@ -311,14 +311,9 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    var scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
-      key: scaffoldKey,
       appBar: AppBar(
         toolbarHeight: 36,
-        leading: IconButton(
-            icon: const Icon(Icons.menu_book, color: Colors.lightBlue),
-            onPressed: () => scaffoldKey.currentState?.openDrawer()),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
@@ -461,16 +456,16 @@ class TextWidget extends StatelessWidget {
         padding: const EdgeInsets.all(12.0),
         margin: const EdgeInsets.all(6.0),
         decoration: BoxDecoration(
-          color: Colors.grey[50],
+          color: Colors.white?.withOpacity(0),
           border: Border.all(width: 0.1, color: Colors.black54),
           borderRadius:
               const BorderRadius.all(Radius.circular(20) // Add a black border
                   ),
           boxShadow: [
             BoxShadow(
-              color: Colors.blueGrey.withOpacity(0.7),
-              spreadRadius: 5,
-              blurRadius: 7,
+              color: Colors.blueAccent.withOpacity(0.4),
+              spreadRadius: 6,
+              blurRadius: 8,
               offset: const Offset(0, 3), // changes position of shadow
             ),
           ],
@@ -486,14 +481,16 @@ class TextWidget extends StatelessWidget {
               children: <Widget>[
                 const Padding(
                   padding: EdgeInsets.all(5.0),
-                  child: Text(
-                    'Mwangi expanse: ',
-                    style: TextStyle(
-                      height: 1.6,
-                      backgroundColor: Colors.white,
-                      color: Colors.blueGrey,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  child: TextButton(
+                    onPressed:
+                        null, // made the Region Name clickable in a TextButton
+                    child: Text('Mwangi expanse: ',
+                        style: TextStyle(
+                          height: 1.6,
+                          backgroundColor: Colors.transparent,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        )),
                   ),
                 ),
                 const Padding(
@@ -504,8 +501,8 @@ class TextWidget extends StatelessWidget {
                     'The Expanse also extends southwards beyond the Inner Sea region.',
                     style: TextStyle(
                       height: 2.0,
-                      backgroundColor: Colors.white,
-                      color: Colors.blueGrey,
+                      backgroundColor: Colors.transparent,
+                      color: Colors.white,
                     ),
                   ),
                 ),
@@ -516,8 +513,8 @@ class TextWidget extends StatelessWidget {
                       child: Text('Wetterbedingungen: ',
                           style: TextStyle(
                             height: 2.0,
-                            backgroundColor: Colors.white,
-                            color: Colors.blueGrey,
+                            backgroundColor: Colors.transparent,
+                            color: Colors.white,
                             fontWeight: FontWeight.bold,
                           )),
                     ),
@@ -526,8 +523,8 @@ class TextWidget extends StatelessWidget {
                       child: Text(wetterBedingung,
                           style: const TextStyle(
                             height: 2.0,
-                            backgroundColor: Colors.white,
-                            color: Colors.blueGrey,
+                            backgroundColor: Colors.transparent,
+                            color: Colors.white,
                           )),
                     ),
                   ],
@@ -537,8 +534,8 @@ class TextWidget extends StatelessWidget {
                   child: Text('Wind: ',
                       style: TextStyle(
                         height: 2.0,
-                        backgroundColor: Colors.white,
-                        color: Colors.blueGrey,
+                        backgroundColor: Colors.transparent,
+                        color: Colors.white,
                         fontWeight: FontWeight.bold,
                       )),
                 ),
@@ -547,8 +544,8 @@ class TextWidget extends StatelessWidget {
                   child: Text('Windrichtung: $direction',
                       style: const TextStyle(
                         height: 2.0,
-                        backgroundColor: Colors.white,
-                        color: Colors.blueGrey,
+                        backgroundColor: Colors.transparent,
+                        color: Colors.white,
                       )),
                 ),
                 Padding(
@@ -556,8 +553,8 @@ class TextWidget extends StatelessWidget {
                   child: Text('Windgeschwindigkeit: $wind km/h',
                       style: const TextStyle(
                         height: 2.0,
-                        backgroundColor: Colors.white,
-                        color: Colors.blueGrey,
+                        backgroundColor: Colors.transparent,
+                        color: Colors.white,
                       )),
                 ),
               ],
