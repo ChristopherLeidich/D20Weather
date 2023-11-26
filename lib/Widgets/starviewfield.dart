@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:starsview/starsview.dart';
 
 class StarsViewBackground extends StatelessWidget {
-  const StarsViewBackground({Key? key}) : super(key: key);
+  const StarsViewBackground({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -11,16 +11,14 @@ class StarsViewBackground extends StatelessWidget {
         Container(
             decoration: const BoxDecoration(
                 gradient: LinearGradient(
-                  begin: Alignment.topRight,
-                  end: Alignment.bottomLeft,
-                  colors: <Color>[
-                    Colors.black,
-                    Colors.indigo,
-                    Colors.deepOrangeAccent,
-                  ],
-                )
-            )
-        ),
+          begin: Alignment.topRight,
+          end: Alignment.bottomLeft,
+          colors: <Color>[
+            Colors.black,
+            Colors.indigo,
+            Colors.deepOrangeAccent,
+          ],
+        ))),
         const StarsView(
           fps: 60,
         )

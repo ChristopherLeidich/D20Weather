@@ -9,7 +9,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fantasy_weather_app/Widgets/drawer_widget.dart';
 import 'package:fantasy_weather_app/Widgets/starviewfield.dart';
 import 'dart:math';
-
 //import 'package:flutter/services.dart';
 //import 'package:google_fonts/google_fonts.dart';
 //import 'package:qr_flutter/qr_flutter.dart';
@@ -19,7 +18,6 @@ import 'package:firebase_core/firebase_core.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 //import 'package:google_sign_in/google_sign_in.dart';
 import 'firebase_options.dart';
-
 
 // import 'package:flutter_weather_bg_null_safety/bg/weather_bg.dart';
 // import 'package:flutter_weather_bg_null_safety/bg/weather_cloud_bg.dart';
@@ -32,7 +30,6 @@ import 'package:flutter_weather_bg_null_safety/flutter_weather_bg.dart';
 // import 'package:flutter_weather_bg_null_safety/utils/print_utils.dart';
 // import 'package:flutter_weather_bg_null_safety/utils/weather_type.dart';
 import 'package:parallax_rain/parallax_rain.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -47,7 +44,6 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
   String get name => 'foo';
-
 
   @override
   Widget build(BuildContext context) {
@@ -72,33 +68,33 @@ class Regional {
   final int regionalTemperatureLimit;
   final bool negativeTemperature;
 
-  Regional({  required this.regionalName,
-              required this.regionalDescription,
-              required this.effectRegionalName,
-              required this.effectRegionaldescription,
-              required this.effectRegional1,
-              required this.effectRegional2,
-              required this.effectRegional3,
-              required this.effectRegional4,
-              required this.effectRegional5,
-              required this.regionalTemperatureLimit,
-              required this.negativeTemperature
-  });
+  Regional(
+      {required this.regionalName,
+      required this.regionalDescription,
+      required this.effectRegionalName,
+      required this.effectRegionaldescription,
+      required this.effectRegional1,
+      required this.effectRegional2,
+      required this.effectRegional3,
+      required this.effectRegional4,
+      required this.effectRegional5,
+      required this.regionalTemperatureLimit,
+      required this.negativeTemperature});
 }
 
-class Weather{
+class Weather {
   final String weatherName;
   final String weatherDescription;
   final String weatherEffectname;
   final String weatherEffectdescription;
   final String weatherEffect;
-  
-  Weather({ required this.weatherName,
-            required this.weatherDescription,
-            required this.weatherEffectname,
-            required this.weatherEffectdescription,
-            required this.weatherEffect
-  });
+
+  Weather(
+      {required this.weatherName,
+      required this.weatherDescription,
+      required this.weatherEffectname,
+      required this.weatherEffectdescription,
+      required this.weatherEffect});
 }
 
 class MyCustomAppBar extends StatefulWidget {
@@ -114,11 +110,11 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
   final CarouselController _carouselController = CarouselController();
   int currentIndex = 0;
 
-
   int wind = 0;
-  double doubleValues = 0.0;    //used for generating a random double Value
-  String printableValues = '0.0'; //this is the temperature that gets printed in the End
-  String preSymbol = '+';      //Symbol for negative/Positive Temperatures
+  double doubleValues = 0.0; //used for generating a random double Value
+  String printableValues =
+      '0.0'; //this is the temperature that gets printed in the End
+  String preSymbol = '+'; //Symbol for negative/Positive Temperatures
 
   //dice section
   int d2 = 1;
@@ -131,72 +127,102 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
   int d100 = 1;
 
   final List<Regional> regionList = [
-    Regional( regionalName:   'Jungle',
-        regionalDescription:  'A jungle is land covered with dense forest and tangled vegetation, usually in tropical climates. '
-                              'Application of the term has varied greatly during the past recent century.',
-              effectRegionalName:         'Insect Plague',
-              effectRegionaldescription:  'Non Undead Creatures are constantly swarmed by Tiny mosquitoes and other Insects',
-              effectRegional1:  'Once every 1d6 ',
-              effectRegional2:  'Hours every Non-Undead Member of the Party has to roll a basic DC15 Fortitude-Save or',
-              effectRegional3:  ' loose 1d2 ',
-              effectRegional4:  ' HP.\nOn a critical Failure the Damage Dice Changes to 1d4 ',
-              effectRegional5:  ' and the Party-Member will be contaminated by a random Decease',
-              regionalTemperatureLimit: 48,
-              negativeTemperature: false
+    Regional(
+        regionalName: 'Jungle',
+        regionalDescription:
+            'A jungle is land covered with dense forest and tangled vegetation, usually in tropical climates. '
+            'Application of the term has varied greatly during the past recent century.',
+        effectRegionalName: 'Insect Plague',
+        effectRegionaldescription:
+            'Non Undead Creatures are constantly swarmed by Tiny mosquitoes and other Insects',
+        effectRegional1: 'Once every 1d6 ',
+        effectRegional2:
+            'Hours every Non-Undead Member of the Party has to roll a basic DC15 Fortitude-Save or',
+        effectRegional3: ' loose 1d2 ',
+        effectRegional4:
+            ' HP.\nOn a critical Failure the Damage Dice Changes to 1d4 ',
+        effectRegional5:
+            ' and the Party-Member will be contaminated by a random Decease',
+        regionalTemperatureLimit: 48,
+        negativeTemperature: false),
+    Regional(
+      regionalName: 'Glacier',
+      regionalDescription: 'Cold Snow Ice What do you want',
+      effectRegionalName: 'Death',
+      effectRegionaldescription: 'Kills you',
+      effectRegional1: 'You die(no you do not have cold resistance)',
+      effectRegional2: '',
+      effectRegional3: '',
+      effectRegional4: '',
+      effectRegional5: '',
+      regionalTemperatureLimit: 36,
+      negativeTemperature: true,
     ),
-    Regional( regionalName: 'Glacier',
-              regionalDescription: 'Cold Snow Ice What do you want',
-              effectRegionalName: 'Death',
-              effectRegionaldescription: 'Kills you',
-              effectRegional1: 'You die(no you do not have cold resistance)',
-              effectRegional2: '',
-              effectRegional3: '',
-              effectRegional4: '',
-              effectRegional5: '',
-              regionalTemperatureLimit: 36,
-              negativeTemperature: true,
-    ),
-    Regional( regionalName: '6-th World',
-              regionalDescription: 'Description for Item 3',
-              effectRegionalName: '',
-              effectRegionaldescription: '',
-              effectRegional1: '',
-              effectRegional2: '',
-              effectRegional3: '',
-              effectRegional4: '',
-              effectRegional5: '',
-              regionalTemperatureLimit: 74,
-              negativeTemperature: false
-    ),
+    Regional(
+        regionalName: '6-th World',
+        regionalDescription: 'Description for Item 3',
+        effectRegionalName: '',
+        effectRegionaldescription: '',
+        effectRegional1: '',
+        effectRegional2: '',
+        effectRegional3: '',
+        effectRegional4: '',
+        effectRegional5: '',
+        regionalTemperatureLimit: 74,
+        negativeTemperature: false),
   ];
-  final List<Weather> weatherList =[
-    Weather(  weatherName: 'Light Rain',
-              weatherDescription: '',
-              weatherEffectname: 'weatherEffectname',
-              weatherEffectdescription: 'weatherEffectdescription',
-              weatherEffect: 'weatherEffect'
-    ),
-    Weather(  weatherName: 'Sun',
-              weatherDescription: '',
-              weatherEffectname: 'weatherEffectname',
-              weatherEffectdescription: 'weatherEffectdescription',
-              weatherEffect: 'weatherEffect'
-    )
+  final List<Weather> weatherList = [
+    Weather(
+        weatherName: 'Light Rain',
+        weatherDescription: '',
+        weatherEffectname: 'weatherEffectname',
+        weatherEffectdescription: 'weatherEffectdescription',
+        weatherEffect: 'weatherEffect'),
+    Weather(
+        weatherName: 'Sun',
+        weatherDescription: '',
+        weatherEffectname: 'weatherEffectname',
+        weatherEffectdescription: 'weatherEffectdescription',
+        weatherEffect: 'weatherEffect')
   ];
 
-  var dirlist = ['North','North-West','West','North-East','East','South','South-West','South-East'];
-  String direction ='';
-  var wetterbedingunsliste = ['Umbral-Storm','Radiant-Storm','Thunderstorm','Phantasmal-Rain','Rain','Sun','Drought', 'Storm','Snow','Hail','Drizzle','Cloudy'];
-  String wetterBedingung ='';
+  var dirlist = [
+    'North',
+    'North-West',
+    'West',
+    'North-East',
+    'East',
+    'South',
+    'South-West',
+    'South-East'
+  ];
+  String direction = '';
+  var wetterbedingunsliste = [
+    'Umbral-Storm',
+    'Radiant-Storm',
+    'Thunderstorm',
+    'Phantasmal-Rain',
+    'Rain',
+    'Sun',
+    'Drought',
+    'Storm',
+    'Snow',
+    'Hail',
+    'Drizzle',
+    'Cloudy'
+  ];
+  String wetterBedingung = '';
 
-  late Timer _timer;   //initializes The Timer
+  late Timer _timer; //initializes The Timer
 
   @override
   void initState() {
     super.initState();
     randomizer(); // Generate the first random value when the app is started
 
-    _timer = Timer.periodic(const Duration(seconds: 4, milliseconds: 42), (timer) {   //Generates a new Random Value in the void randomizer() after a set amount of seconds
+    _timer =
+        Timer.periodic(const Duration(seconds: 4, milliseconds: 42), (timer) {
+      //Generates a new Random Value in the void randomizer() after a set amount of seconds
       randomizer();
     });
   }
@@ -204,69 +230,73 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
   void randomizer() {
     setState(() {
       //external factory Random([int? seed]);
-      var boolValue = Random().nextBool();    //randomizes the Symbol initialized in line 31
-      if(boolValue == true){
-        preSymbol ='+';
-      }else{
-        preSymbol ='-';
+      var boolValue =
+          Random().nextBool(); //randomizes the Symbol initialized in line 31
+      if (boolValue == true) {
+        preSymbol = '+';
+      } else {
+        preSymbol = '-';
       }
       final random1 = Random();
       final random2 = Random();
       direction = dirlist[random1.nextInt(dirlist.length)];
-      wetterBedingung = wetterbedingunsliste[random2.nextInt(wetterbedingunsliste.length)];
+      wetterBedingung =
+          wetterbedingunsliste[random2.nextInt(wetterbedingunsliste.length)];
 
       wind = Random().nextInt(64);
       //final doubleValues = dirlist.generate(3, (index) => Random().nextDouble() * 36);
-      doubleValues = Random().nextDouble() * 41;     // generates a random double-Value between 0.0 and 36.0
-      printableValues = doubleValues.toStringAsFixed(1);  //fixes the length of digits after the , to 1 (e.g. 1.1 instead of 1.00000001)
+      doubleValues = Random().nextDouble() *
+          41; // generates a random double-Value between 0.0 and 36.0
+      printableValues = doubleValues.toStringAsFixed(
+          1); //fixes the length of digits after the , to 1 (e.g. 1.1 instead of 1.00000001)
     });
   }
 
-  void d2_(){
+  void d2_() {
     setState(() {
-      d2 =  Random().nextInt(2) + 1;
+      d2 = Random().nextInt(2) + 1;
     });
   }
 
-  void d4_(){
+  void d4_() {
     setState(() {
-      d4 =  Random().nextInt(4) + 1;
+      d4 = Random().nextInt(4) + 1;
     });
   }
 
-  void d6_(){
+  void d6_() {
     setState(() {
-      d6 =  Random().nextInt(6) + 1;
+      d6 = Random().nextInt(6) + 1;
     });
   }
 
-  void d8_(){
+  void d8_() {
     setState(() {
-      d8 =  Random().nextInt(8) + 1;
+      d8 = Random().nextInt(8) + 1;
     });
   }
 
-  void d10_(){
+  void d10_() {
     setState(() {
-      d10 =  Random().nextInt(10) + 1;
+      d10 = Random().nextInt(10) + 1;
     });
   }
 
-  void d12_(){
+  void d12_() {
     setState(() {
-      d12 =  Random().nextInt(12) + 1;
+      d12 = Random().nextInt(12) + 1;
     });
   }
 
-  void d20_(){
+  void d20_() {
     setState(() {
-      d20 =  Random().nextInt(20) + 1;
+      d20 = Random().nextInt(20) + 1;
     });
   }
 
-  void d100_(){
+  void d100_() {
     setState(() {
-      d2 =  Random().nextInt(100) + 1;
+      d2 = Random().nextInt(100) + 1;
     });
   }
 
@@ -277,16 +307,26 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
     super.dispose();
   }
 
+  //get isDarkTheme => _MyCustomAppBarState;
 
   @override
   Widget build(BuildContext context) {
+    var scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         toolbarHeight: 36,
+        leading: IconButton(
+            icon: const Icon(Icons.menu_book, color: Colors.lightBlue),
+            onPressed: () => scaffoldKey.currentState?.openDrawer()),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
-              colors: [Colors.white, Colors.lightBlue, Colors.blue], // Your gradient colors
+              colors: [
+                Colors.white,
+                Colors.lightBlue,
+                Colors.blue
+              ], // Your gradient colors
             ),
           ),
         ),
@@ -297,94 +337,109 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
       ),
       drawer: const MyDrawer(),
       body: Stack(
-            children: [
-                switch (wetterBedingung) {
-                  "Umbral-Storm" =>       ParallaxRain(
-                                                    dropColors: const[
-                                                      Colors.deepPurpleAccent,
-                                                      Colors.blueGrey,
-                                                      Colors.blue,
-                                                      Colors.blueAccent,
-                                                      Colors.brown,
-                                                      Colors.blueGrey
-                                                    ],
-                                                    trail: true,
-                                                  ),
-                  "Radiant-Storm" =>      ParallaxRain(
-                                                    dropColors: const[
-                                                      Colors.yellow,
-                                                      Colors.yellowAccent,
-                                                      Colors.white70,
-                                                      Colors.lightBlue,
-                                                      Color(0xFFc9c165),
-                                                      Color(0xFFcc9654)
-                                                    ],
-                                                    trail: true,
-                                                  ),
-                  "Thunderstorm" => WeatherBg(    weatherType: WeatherType.thunder,
-                                                  width: MediaQuery.of(context).size.width,
-                                                  height: MediaQuery.of(context).size.height,
-                  ),
-                  "Phantasmal-Rain" =>            const StarsViewBackground(),
-                  "Rain" => WeatherBg(            weatherType: WeatherType.middleRainy,
-                                                  width: MediaQuery.of(context).size.width,
-                                                  height: MediaQuery.of(context).size.height,
-                  ),
-                  "Sun" => WeatherBg(             weatherType: WeatherType.sunny,
-                                                  width: MediaQuery.of(context).size.width,
-                                                  height: MediaQuery.of(context).size.height,
-                  ),
-                  "Drought" => WeatherBg(         weatherType: WeatherType.hazy,
-                                                  width: MediaQuery.of(context).size.width,
-                                                  height: MediaQuery.of(context).size.height,
-                  ),
-                  "Storm" => WeatherBg(           weatherType: WeatherType.heavyRainy,
-                                                  width: MediaQuery.of(context).size.width,
-                                                  height: MediaQuery.of(context).size.height,
-                  ),
-                  "Snow" => WeatherBg(            weatherType: WeatherType.middleSnow,
-                                                  width: MediaQuery.of(context).size.width,
-                                                  height: MediaQuery.of(context).size.height,
-                  ),
-                  "Hail" => WeatherBg(            weatherType: WeatherType.heavySnow,
-                                                  width: MediaQuery.of(context).size.width,
-                                                  height: MediaQuery.of(context).size.height,
-                  ),
-                  "Drizzle" => WeatherBg(         weatherType: WeatherType.lightRainy,
-                                                  width: MediaQuery.of(context).size.width,
-                                                  height: MediaQuery.of(context).size.height,
-                  ),
-                  "Cloudy" => WeatherBg(          weatherType: WeatherType.foggy,
-                                                  width: MediaQuery.of(context).size.width,
-                                                  height: MediaQuery.of(context).size.height,
-                  ),
-
-                  _ => WeatherBg(                 weatherType: WeatherType.overcast,
-                                                  width: MediaQuery.of(context).size.width,
-                                                  height: MediaQuery.of(context).size.height,
-                  ),
-                },
-              //'Umbral-Storm','Radiant-Storm','Thunderstorm','Phantasmal-Rain','Rain','Sun',
-              // 'Drought', 'Storm','Snow','Hail','Drizzle','Cloudy'
-              //const StarsViewBackground(),
-              Column(
-                children: [
-              CarouselSliderWidget(controller: _carouselController, onIndexChanged: (index) {// Use the CarouselSliderWidget in the body
-                setState(() {
-                  currentIndex = index;
-                });
-              }, printableValue: printableValues, preSymbol: preSymbol),
-              TextWidget(currentIndex: currentIndex, wind: wind, direction: direction, wetterBedingung: wetterBedingung),
+        children: [
+          switch (wetterBedingung) {
+            "Umbral-Storm" => ParallaxRain(
+                dropColors: const [
+                  Colors.deepPurpleAccent,
+                  Colors.blueGrey,
+                  Colors.blue,
+                  Colors.blueAccent,
+                  Colors.brown,
+                  Colors.blueGrey
                 ],
+                trail: true,
               ),
-
-          ],
-        ),
-      );
+            "Radiant-Storm" => ParallaxRain(
+                dropColors: const [
+                  Colors.yellow,
+                  Colors.yellowAccent,
+                  Colors.white70,
+                  Colors.lightBlue,
+                  Color(0xFFc9c165),
+                  Color(0xFFcc9654)
+                ],
+                trail: true,
+              ),
+            "Thunderstorm" => WeatherBg(
+                weatherType: WeatherType.thunder,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+              ),
+            "Phantasmal-Rain" => const StarsViewBackground(),
+            "Rain" => WeatherBg(
+                weatherType: WeatherType.middleRainy,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+              ),
+            "Sun" => WeatherBg(
+                weatherType: WeatherType.sunny,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+              ),
+            "Drought" => WeatherBg(
+                weatherType: WeatherType.hazy,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+              ),
+            "Storm" => WeatherBg(
+                weatherType: WeatherType.heavyRainy,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+              ),
+            "Snow" => WeatherBg(
+                weatherType: WeatherType.middleSnow,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+              ),
+            "Hail" => WeatherBg(
+                weatherType: WeatherType.heavySnow,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+              ),
+            "Drizzle" => WeatherBg(
+                weatherType: WeatherType.lightRainy,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+              ),
+            "Cloudy" => WeatherBg(
+                weatherType: WeatherType.foggy,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+              ),
+            _ => WeatherBg(
+                weatherType: WeatherType.overcast,
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height,
+              ),
+          },
+          //'Umbral-Storm','Radiant-Storm','Thunderstorm','Phantasmal-Rain','Rain','Sun',
+          // 'Drought', 'Storm','Snow','Hail','Drizzle','Cloudy'
+          //const StarsViewBackground(),
+          Column(
+            children: [
+              CarouselSliderWidget(
+                  controller: _carouselController,
+                  onIndexChanged: (index) {
+                    // Use the CarouselSliderWidget in the body
+                    setState(() {
+                      currentIndex = index;
+                    });
+                  },
+                  printableValue: printableValues,
+                  preSymbol: preSymbol),
+              TextWidget(
+                  currentIndex: currentIndex,
+                  wind: wind,
+                  direction: direction,
+                  wetterBedingung: wetterBedingung),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
-
-
 
 class TextWidget extends StatelessWidget {
   final int currentIndex;
@@ -393,7 +448,12 @@ class TextWidget extends StatelessWidget {
   final String direction;
   final String wetterBedingung;
 
-  const TextWidget({super.key, required this.currentIndex, required this.wind, required this.direction, required this.wetterBedingung});
+  const TextWidget(
+      {super.key,
+      required this.currentIndex,
+      required this.wind,
+      required this.direction,
+      required this.wetterBedingung});
 
   @override
   Widget build(BuildContext context) {
@@ -401,20 +461,20 @@ class TextWidget extends StatelessWidget {
         padding: const EdgeInsets.all(12.0),
         margin: const EdgeInsets.all(6.0),
         decoration: BoxDecoration(
-            color: Colors.grey[50],
-            border: Border.all(width: 0.1, color: Colors.black54),
-            borderRadius: const BorderRadius.all(
-                Radius.circular(20)// Add a black border
+          color: Colors.grey[50],
+          border: Border.all(width: 0.1, color: Colors.black54),
+          borderRadius:
+              const BorderRadius.all(Radius.circular(20) // Add a black border
+                  ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.blueGrey.withOpacity(0.7),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: const Offset(0, 3), // changes position of shadow
             ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.blueGrey.withOpacity(0.7),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: const Offset(0, 3), // changes position of shadow
-              ),
-            ],
-          ),
+          ],
+        ),
         child: Scrollable(
           axisDirection: AxisDirection.down,
           viewportBuilder: (BuildContext context, ViewportOffset position) {
@@ -440,8 +500,8 @@ class TextWidget extends StatelessWidget {
                   padding: EdgeInsets.all(3.0),
                   child: Text(
                     'The Mwangi Expanse (pronounced MWAN-gi),archaically also called the Forbidden Jungle, '
-                        'is the catch-all term given to the wild interior of central and western Garund. '
-                        'The Expanse also extends southwards beyond the Inner Sea region.',
+                    'is the catch-all term given to the wild interior of central and western Garund. '
+                    'The Expanse also extends southwards beyond the Inner Sea region.',
                     style: TextStyle(
                       height: 2.0,
                       backgroundColor: Colors.white,
@@ -498,17 +558,14 @@ class TextWidget extends StatelessWidget {
                         height: 2.0,
                         backgroundColor: Colors.white,
                         color: Colors.blueGrey,
-                      )
-                  ),
+                      )),
                 ),
               ],
             );
           },
-        )
-    );
+        ));
   }
 }
-
 
 /*
 void main() {
