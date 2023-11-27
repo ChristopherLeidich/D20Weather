@@ -161,6 +161,17 @@ class _LoginPageState extends State<LoginPage> {
                 elevation: 0.5,
               ),
             ),
+            Padding(padding: const EdgeInsetsDirectional.fromSTEB(
+                0, 0, 0, 16),
+              child: FloatingActionButton.extended(
+                onPressed: () async {
+                  await FirebaseAuth.instance.signOut();
+                },
+                label: const Text('Log Out'),
+                backgroundColor: Colors.transparent,
+                hoverColor: Colors.grey[200],
+                elevation: 0.5,
+              ),)
           ],
         ),
       ),
