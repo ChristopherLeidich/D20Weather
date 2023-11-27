@@ -24,8 +24,7 @@ class AuthServices {
       await FirebaseAuth.instance.currentUser!.updateDisplayName(name);
       await FirebaseAuth.instance.currentUser!.updateEmail(email);
       await FirebaseStorageServices.saveUser(name, email, userCredential.user!.uid);
-      ScaffoldMessenger.of(context)
-          .showSnackBar(const SnackBar(content: Text('Registration Successful')));
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Registration Successful')));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -277,15 +276,14 @@ class _LoginPageState extends State<LoginPage> {
               ),
               Padding(padding: const EdgeInsetsDirectional.fromSTEB(
                   0, 0, 0, 16),
-                child: FloatingActionButton.extended(
+                child: OutlinedButton(
                   onPressed: () async {
                     await FirebaseAuth.instance.signOut();
                   },
-                  label: const Text('Log Out',
+                  child: const Text('Log Out',
                       style: TextStyle(
                           color: Colors.white
                       )),
-                  backgroundColor: Colors.transparent,
                 ),
               )
             ],
