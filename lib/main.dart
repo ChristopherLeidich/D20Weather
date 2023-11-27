@@ -13,6 +13,8 @@ import 'dart:math';
 //import 'package:google_fonts/google_fonts.dart';
 //import 'package:qr_flutter/qr_flutter.dart';
 
+import 'package:d20/d20.dart';
+
 //import 'package:flutter/foundation.dart';
 import 'package:firebase_core/firebase_core.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
@@ -116,13 +118,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
 
   //dice section
   int d2 = 1;
-  int d4 = 1;
-  int d6 = 1;
-  int d8 = 1;
-  int d10 = 1;
-  int d12 = 1;
-  int d20 = 1;
-  int d100 = 1;
+  final roll = D20();
 
   final List<Regional> regionList = [
     Regional(
@@ -134,13 +130,10 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
         effectRegionaldescription:
             'Non Undead Creatures are constantly swarmed by Tiny mosquitoes and other Insects',
         effectRegional1: 'Once every 1d6 ',
-        effectRegional2:
-            'Hours every Non-Undead Member of the Party has to roll a basic DC15 Fortitude-Save or',
+        effectRegional2: 'Hours every Non-Undead Member of the Party has to roll a basic DC15 Fortitude-Save or',
         effectRegional3: ' loose 1d2 ',
-        effectRegional4:
-            ' HP.\nOn a critical Failure the Damage Dice Changes to 1d4 ',
-        effectRegional5:
-            ' and the Party-Member will be contaminated by a random Decease',
+        effectRegional4: ' HP.\nOn a critical Failure the Damage Dice Changes to 1d4 ',
+        effectRegional5: ' and the Party-Member will be contaminated by a random Decease',
         regionalTemperatureLimit: 48,
         negativeTemperature: false),
     Regional(
@@ -253,48 +246,6 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
   void d2_() {
     setState(() {
       d2 = Random().nextInt(2) + 1;
-    });
-  }
-
-  void d4_() {
-    setState(() {
-      d4 = Random().nextInt(4) + 1;
-    });
-  }
-
-  void d6_() {
-    setState(() {
-      d6 = Random().nextInt(6) + 1;
-    });
-  }
-
-  void d8_() {
-    setState(() {
-      d8 = Random().nextInt(8) + 1;
-    });
-  }
-
-  void d10_() {
-    setState(() {
-      d10 = Random().nextInt(10) + 1;
-    });
-  }
-
-  void d12_() {
-    setState(() {
-      d12 = Random().nextInt(12) + 1;
-    });
-  }
-
-  void d20_() {
-    setState(() {
-      d20 = Random().nextInt(20) + 1;
-    });
-  }
-
-  void d100_() {
-    setState(() {
-      d2 = Random().nextInt(100) + 1;
     });
   }
 

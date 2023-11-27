@@ -145,6 +145,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.6"
+  d20:
+    dependency: "direct main"
+    description:
+      name: d20
+      sha256: a3a495789032e95126e16d5aa9d53f928420cc9de7796b603e7fd84a270b09ba
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.1+1"
   fake_async:
     dependency: transitive
     description:
