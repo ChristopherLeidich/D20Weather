@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:fantasy_weather_app/Widgets/drawer_widget.dart';
+//import 'package:fantasy_weather_app/Widgets/drawer_widget.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
-class FirestoreServices {
+class FirebaseStorageServices {
   static saveUser(String name, email, uid) async {
     FirebaseStorage.instanceFor(bucket: "gs://d20-weather.appspot.com");
   }
@@ -23,7 +23,7 @@ class AuthServices {
 
       await FirebaseAuth.instance.currentUser!.updateDisplayName(name);
       await FirebaseAuth.instance.currentUser!.updateEmail(email);
-      await FirestoreServices.saveUser(name, email, userCredential.user!.uid);
+      await FirebaseStorageServices.saveUser(name, email, userCredential.user!.uid);
       ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text('Registration Successful')));
     } on FirebaseAuthException catch (e) {
@@ -75,10 +75,10 @@ class _LoginPageState extends State<LoginPage> {
 
   String email = '';
   String password = '';
-  String Username = '';
+  String username = '';
   bool login = false;
 
-  void _showDialog(String message) {
+ /* void _showDialog(String message) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -101,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
         );
       },
     );
-  }
+  }*/
 
   Future<AlertDialog> _loginWithGoogle() async {
     try {
@@ -171,20 +171,20 @@ class _LoginPageState extends State<LoginPage> {
               login
                   ? Container()
                   : TextFormField(
-                key: const ValueKey('Username'),
+                key: const ValueKey('username'),
                 decoration: const InputDecoration(
-                  hintText: 'Enter Username',
+                  hintText: 'Enter username',
                 ),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Please Enter a Username';
+                    return 'Please Enter a username';
                   } else {
                     return null;
                   }
                 },
                 onSaved: (value) {
                   setState(() {
-                    Username = value!;
+                    username = value!;
                   });
                 },
               ),
@@ -241,7 +241,7 @@ class _LoginPageState extends State<LoginPage> {
                         login
                             ? AuthServices.signinUser(email, password, context)
                             : AuthServices.signupUser(
-                            email, password, Username, context);
+                            email, password, username, context);
                       }
                     },
                     child: Text(login ? 'Login' : 'Signup')),
@@ -309,7 +309,7 @@ class _LoginPageState extends State<LoginPage> {
             TextField(
               controller: _usernameController,
               focusNode: _usernameFocus,
-              decoration: const InputDecoration(labelText: 'Username'),
+              decoration: const InputDecoration(labelText: 'username'),
               onSubmitted: (value) {
                 // When the user submits the username field, move focus to the password field
                 FocusScope.of(context).requestFocus(_passwordFocus);
@@ -340,7 +340,7 @@ class _LoginPageState extends State<LoginPage> {
                 if (username.isNotEmpty && password.isNotEmpty) {
                   _showDialog('Login Successful');
                 } else {
-                  _showDialog('Username and password are required');
+                  _showDialog('username and password are required');
                 }
               },
               child: const Text('Login'),
