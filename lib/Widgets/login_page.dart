@@ -10,7 +10,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 class FirebaseStorageServices {
   static saveUser(String name, email, uid) async {
-    FirebaseStorage.instanceFor(bucket: "gs://d20-weather.appspot.com");
+    FirebaseStorage.instanceFor(bucket: "gs://d20-weather.appspot.com/Userdata");
   }
 }
 
