@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter/services.dart';
 //import 'package:google_fonts/google_fonts.dart';
@@ -212,13 +213,11 @@ class _LoginPageState extends State<LoginPage> {
                   decoration: const InputDecoration(
                     hintText: 'Enter Email',
                   ),
-                  validator: (value) {
-                    if (value!.isEmpty || !value.contains('@')) {
-                      return 'Please Enter valid Email';
-                    } else {
-                      return null;
-                    }
-                  },
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  validator: (email) =>
+                    email != null && !EmailValidator.validate(email)
+                        ? 'Enter a valid email'
+                        : null,
                   onSaved: (value) {
                     setState(() {
                       email = value!;
