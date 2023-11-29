@@ -1,4 +1,5 @@
 import 'package:fantasy_weather_app/Widgets/login_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fantasy_weather_app/second_page.dart';
 import 'package:fantasy_weather_app/main.dart';
@@ -8,15 +9,16 @@ class MyDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //final user = FirebaseAuth.instance.currentUser!;
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
         children: <Widget>[
 
-          const UserAccountsDrawerHeader(
-            accountName: Text('John Doe'),
-            accountEmail: Text('johndoe@example.com'),
-            currentAccountPicture: CircleAvatar(
+          UserAccountsDrawerHeader(
+            accountName: Text('user.uid'),
+            accountEmail: Text('user.email!'),
+            currentAccountPicture: const CircleAvatar(
               backgroundColor: Colors.white,
               child: Icon(Icons.person),
             ),

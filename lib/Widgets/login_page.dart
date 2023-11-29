@@ -7,6 +7,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 //import 'package:fantasy_weather_app/Widgets/drawer_widget.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+
 
 class FirebaseStorageServices {
   static saveUser(String name, email, uid) async {
@@ -18,24 +20,31 @@ class AuthServices {
   static signupUser(
       String email, String password, String name, BuildContext context) async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
+      UserCredential userCredential =
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+      await FirebaseAnalytics.instance.setUserId(id: name);
 
       await FirebaseAuth.instance.currentUser!.updateDisplayName(name);
       await FirebaseAuth.instance.currentUser!.updateEmail(email);
       await FirebaseStorageServices.saveUser(name, email, userCredential.user!.uid);
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Registration Successful')));
+      if (context.mounted)ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Registration Successful')));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        ScaffoldMessenger.of(context).showSnackBar(
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Password Provided is too weak')));
+        }
       } else if (e.code == 'email-already-in-use') {
-        ScaffoldMessenger.of(context).showSnackBar(
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Email Provided already Exists')));
+        }
       }
     } catch (e) {
-      ScaffoldMessenger.of(context)
+      if (context.mounted) {
+        ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));
+      }
     }
   }
 
@@ -44,15 +53,21 @@ class AuthServices {
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
 
-      ScaffoldMessenger.of(context)
+      if (context.mounted) {
+        ScaffoldMessenger.of(context)
           .showSnackBar(const SnackBar(content: Text('You are Logged in')));
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        ScaffoldMessenger.of(context).showSnackBar(
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('No user Found with this Email')));
+        }
       } else if (e.code == 'wrong-password') {
-        ScaffoldMessenger.of(context)
+        if (context.mounted) {
+          ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text('Password did not match')));
+        }
       }
     }
   }
@@ -67,8 +82,10 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final FocusNode _usernameFocus = FocusNode();
+  final FocusNode _emailFocus = FocusNode();
   final FocusNode _passwordFocus = FocusNode();
   final _formKey = GlobalKey<FormState>();
 
@@ -77,7 +94,7 @@ class _LoginPageState extends State<LoginPage> {
   String username = '';
   bool login = false;
 
- /* void _showDialog(String message) {
+  void _showDialog(String message) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -85,8 +102,9 @@ class _LoginPageState extends State<LoginPage> {
           title: const Text('Login Result'),
           content: Column(
               children: [
-                Text(_usernameController.text),
-                Text(_passwordController.text),
+                Text(_usernameController.text.trim()),
+                Text(_emailController.text.trim()),
+                Text(_passwordController.text.trim()),
               ]
           ),
           actions: <Widget>[
@@ -100,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
         );
       },
     );
-  }*/
+  }
 
   Future<AlertDialog> _loginWithGoogle() async {
     try {
@@ -164,135 +182,137 @@ class _LoginPageState extends State<LoginPage> {
           padding: const EdgeInsets.all(14),
           child: SingleChildScrollView(
             child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // ======== Full Name ========
-              login
-                  ? Container()
-                  : TextFormField(
-                key: const ValueKey('username'),
-                decoration: const InputDecoration(
-                  hintText: 'Enter username',
-                ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please Enter a username';
-                  } else {
-                    return null;
-                  }
-                },
-                onSaved: (value) {
-                  setState(() {
-                    username = value!;
-                  });
-                },
-              ),
-
-              // ======== Email ========
-              TextFormField(
-                key: const ValueKey('email'),
-                decoration: const InputDecoration(
-                  hintText: 'Enter Email',
-                ),
-                validator: (value) {
-                  if (value!.isEmpty || !value.contains('@')) {
-                    return 'Please Enter valid Email';
-                  } else {
-                    return null;
-                  }
-                },
-                onSaved: (value) {
-                  setState(() {
-                    email = value!;
-                  });
-                },
-              ),
-              // ======== Password ========
-              TextFormField(
-                key: const ValueKey('password'),
-                obscureText: true,
-                decoration: const InputDecoration(
-                  hintText: 'Enter Password',
-                ),
-                validator: (value) {
-                  if (value!.length < 6) {
-                    return 'Please Enter Password of min length 6';
-                  } else {
-                    return null;
-                  }
-                },
-                onSaved: (value) {
-                  setState(() {
-                    password = value!;
-                  });
-                },
-              ),
-              const SizedBox(
-                height: 30,
-              ),
-              SizedBox(
-                height: 55,
-                width: double.infinity,
-                child: ElevatedButton(
-                    onPressed: () async {
-                      if (_formKey.currentState!.validate()) {
-                        _formKey.currentState!.save();
-                        login
-                            ? AuthServices.signinUser(email, password, context)
-                            : AuthServices.signupUser(
-                            email, password, username, context);
-                      }
-                    },
-                    child: Text(login ? 'Login' : 'Signup')),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              TextButton(
-                  onPressed: () {
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // ======== Full Name ========
+                login
+                    ? Container()
+                    : TextFormField(
+                  key: const ValueKey('username'),
+                  decoration: const InputDecoration(
+                    hintText: 'Enter username',
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'Please Enter a username';
+                    } else {
+                      return null;
+                    }
+                  },
+                  onSaved: (value) {
                     setState(() {
-                      login = !login;
+                      username = value!;
                     });
                   },
-                  child: Text(login
-                      ? "Don't have an account? Signup"
-                      : "Already have an account? Login")),
-              Padding(
-                padding: const EdgeInsetsDirectional.fromSTEB(
-                    0, 0, 0, 16),
-                child: FloatingActionButton.extended(
-                  onPressed: () {
-                    _loginWithGoogle();
-                  },
-                  label: const Text('Continue with Google'),
-                  icon: const FaIcon(
-                    FontAwesomeIcons.google,
-                    size: 20,
+                ),
+
+                // ======== Email ========
+                TextFormField(
+                  key: const ValueKey('email'),
+                  decoration: const InputDecoration(
+                    hintText: 'Enter Email',
                   ),
-                  splashColor: const Color(0xFFFF3E30),
-                  hoverColor: Colors.grey[200],
-                  elevation: 0.5,
-                ),
-              ),
-              Padding(padding: const EdgeInsetsDirectional.fromSTEB(
-                  0, 0, 0, 16),
-                child: OutlinedButton(
-                  onPressed: () async {
-                    await FirebaseAuth.instance.signOut();
+                  validator: (value) {
+                    if (value!.isEmpty || !value.contains('@')) {
+                      return 'Please Enter valid Email';
+                    } else {
+                      return null;
+                    }
                   },
-                  child: const Text('Log Out',
-                      style: TextStyle(
-                          color: Colors.white
-                      )),
+                  onSaved: (value) {
+                    setState(() {
+                      email = value!;
+                    });
+                  },
                 ),
-              )
-            ],
-           ),
+                // ======== Password ========
+                TextFormField(
+                  key: const ValueKey('password'),
+                  obscureText: true,
+                  decoration: const InputDecoration(
+                    hintText: 'Enter Password',
+                  ),
+                  validator: (value) {
+                    if (value!.length < 6) {
+                      return 'Please Enter Password of min length 6';
+                    } else {
+                      return null;
+                    }
+                  },
+                  onSaved: (value) {
+                    setState(() {
+                      password = value!;
+                    });
+                  },
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                SizedBox(
+                  height: 55,
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          _formKey.currentState!.save();
+                          login
+                              ? AuthServices.signinUser(
+                              email, password, context)
+                              : AuthServices.signupUser(
+                              email, password, username, context);
+                        }
+                      },
+                      child: Text(login ? 'Login' : 'Signup')),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                TextButton(
+                    onPressed: () {
+                      setState(() {
+                        login = !login;
+                      });
+                    },
+                    child: Text(login
+                        ? "Don't have an account? Signup"
+                        : "Already have an account? Login")),
+                Padding(
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      0, 0, 0, 16),
+                  child: FloatingActionButton.extended(
+                    onPressed: () {
+                      _loginWithGoogle();
+                    },
+                    label: const Text('Continue with Google'),
+                    icon: const FaIcon(
+                      FontAwesomeIcons.google,
+                      size: 20,
+                    ),
+                    splashColor: const Color(0xFFFF3E30),
+                    hoverColor: Colors.grey[200],
+                    elevation: 0.5,
+                  ),
+                ),
+                Padding(padding: const EdgeInsetsDirectional.fromSTEB(
+                    0, 0, 0, 16),
+                  child: OutlinedButton(
+                    onPressed: () async {
+                      await FirebaseAuth.instance.signOut();
+                    },
+                    child: const Text('Log Out',
+                        style: TextStyle(
+                            color: Colors.white
+                        )),
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
     );
   }
+}
 /*Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -675,4 +695,4 @@ class LoginScreenWidgetState extends State<LoginScreenWidget> {
     );
   }
 }*/*/
-}
+
