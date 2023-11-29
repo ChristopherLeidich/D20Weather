@@ -8,7 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 //import 'package:fantasy_weather_app/Widgets/drawer_widget.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
+//import 'package:firebase_analytics/firebase_analytics.dart';
 
 
 class FirebaseStorageServices {
@@ -23,7 +23,7 @@ class AuthServices {
     try {
       UserCredential userCredential =
       await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
-      await FirebaseAnalytics.instance.setUserId(id: name);
+      //await FirebaseAnalytics.instance.setUserId(id: name);
 
       await FirebaseAuth.instance.currentUser!.updateDisplayName(name);
       await FirebaseAuth.instance.currentUser!.updateEmail(email);
@@ -86,7 +86,6 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final FocusNode _usernameFocus = FocusNode();
-  final FocusNode _emailFocus = FocusNode();
   final FocusNode _passwordFocus = FocusNode();
   final _formKey = GlobalKey<FormState>();
 
@@ -172,125 +171,33 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser!;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         title: const Text('Login'),
       ),
-      body: Form(
-        key: _formKey,
-        child: Container(
-          padding: const EdgeInsets.all(14),
-          child: SingleChildScrollView(
-            child: Column(
+      body: StreamBuilder<User?>(
+        stream:  FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot){
+          if(snapshot.hasData){
+            _showDialog;
+            return Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                // ======== Full Name ========
-                login
-                    ? Container()
-                    : TextFormField(
-                  key: const ValueKey('username'),
-                  decoration: const InputDecoration(
-                    hintText: 'Enter username',
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please Enter a username';
-                    } else {
-                      return null;
-                    }
-                  },
-                  onSaved: (value) {
-                    setState(() {
-                      username = value!;
-                    });
-                  },
-                ),
-
-                // ======== Email ========
-                TextFormField(
-                  key: const ValueKey('email'),
-                  decoration: const InputDecoration(
-                    hintText: 'Enter Email',
-                  ),
-                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                  validator: (email) =>
-                    email != null && !EmailValidator.validate(email)
-                        ? 'Enter a valid email'
-                        : null,
-                  onSaved: (value) {
-                    setState(() {
-                      email = value!;
-                    });
-                  },
-                ),
-                // ======== Password ========
-                TextFormField(
-                  key: const ValueKey('password'),
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    hintText: 'Enter Password',
-                  ),
-                  validator: (value) {
-                    if (value!.length < 6) {
-                      return 'Please Enter Password of min length 6';
-                    } else {
-                      return null;
-                    }
-                  },
-                  onSaved: (value) {
-                    setState(() {
-                      password = value!;
-                    });
-                  },
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                SizedBox(
-                  height: 55,
-                  width: double.infinity,
-                  child: ElevatedButton(
-                      onPressed: () async {
-                        if (_formKey.currentState!.validate()) {
-                          _formKey.currentState!.save();
-                          login
-                              ? AuthServices.signinUser(
-                              email, password, context)
-                              : AuthServices.signupUser(
-                              email, password, username, context);
-                        }
-                      },
-                      child: Text(login ? 'Login' : 'Signup')),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextButton(
-                    onPressed: () {
-                      setState(() {
-                        login = !login;
-                      });
-                    },
-                    child: Text(login
-                        ? "Don't have an account? Signup"
-                        : "Already have an account? Login")),
-                Padding(
-                  padding: const EdgeInsetsDirectional.fromSTEB(
-                      0, 0, 0, 16),
-                  child: FloatingActionButton.extended(
-                    onPressed: () {
-                      _loginWithGoogle();
-                    },
-                    label: const Text('Continue with Google'),
-                    icon: const FaIcon(
-                      FontAwesomeIcons.google,
-                      size: 20,
+                const Text('Welcome to D20 Weather', style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                )),
+                Text(user.displayName!,
+                  style: const TextStyle(
+                    fontSize: 24,
+                  )
                     ),
-                    splashColor: const Color(0xFFFF3E30),
-                    hoverColor: Colors.grey[200],
-                    elevation: 0.5,
-                  ),
+                Text(user.email!,
+                    style: const TextStyle(
+                      fontSize: 24,
+                    )
                 ),
                 Padding(padding: const EdgeInsetsDirectional.fromSTEB(
                     0, 0, 0, 16),
@@ -300,15 +207,138 @@ class _LoginPageState extends State<LoginPage> {
                     },
                     child: const Text('Log Out',
                         style: TextStyle(
-                            color: Colors.white
-                        )),
+                            color: Colors.white,
+                            fontSize: 24,
+                        )
+                    ),
                   ),
                 )
-              ],
-            ),
-          ),
-        ),
-      ),
+              ]
+            );
+          }else {
+           return Form(
+              key: _formKey,
+              child: Container(
+                padding: const EdgeInsets.all(14),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      // ======== Full Name ========
+                      login
+                          ? Container()
+                          : TextFormField(
+                        key: const ValueKey('username'),
+                        decoration: const InputDecoration(
+                          hintText: 'Enter username',
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please Enter a username';
+                          } else {
+                            return null;
+                          }
+                        },
+                        onSaved: (value) {
+                          setState(() {
+                            username = value!;
+                          });
+                        },
+                      ),
+
+                      // ======== Email ========
+                      TextFormField(
+                        key: const ValueKey('email'),
+                        decoration: const InputDecoration(
+                          hintText: 'Enter Email',
+                        ),
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: (email) =>
+                        email != null && !EmailValidator.validate(email)
+                            ? 'Enter a valid email'
+                            : null,
+                        onSaved: (value) {
+                          setState(() {
+                            email = value!;
+                          });
+                        },
+                      ),
+                      // ======== Password ========
+                      TextFormField(
+                        key: const ValueKey('password'),
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                          hintText: 'Enter Password',
+                        ),
+                        validator: (value) {
+                          if (value!.length < 6) {
+                            return 'Please Enter Password of min length 6';
+                          } else {
+                            return null;
+                          }
+                        },
+                        onSaved: (value) {
+                          setState(() {
+                            password = value!;
+                          });
+                        },
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      SizedBox(
+                        height: 55,
+                        width: double.infinity,
+                        child: ElevatedButton(
+                            onPressed: () async {
+                              if (_formKey.currentState!.validate()) {
+                                _formKey.currentState!.save();
+                                login
+                                    ? AuthServices.signinUser(
+                                    email, password, context)
+                                    : AuthServices.signupUser(
+                                    email, password, username, context);
+                              }
+                            },
+                            child: Text(login ? 'Login' : 'Signup')),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            setState(() {
+                              login = !login;
+                            });
+                          },
+                          child: Text(login
+                              ? "Don't have an account? Signup"
+                              : "Already have an account? Login")),
+                      Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0, 0, 0, 16),
+                        child: FloatingActionButton.extended(
+                          onPressed: () {
+                            _loginWithGoogle();
+                          },
+                          label: const Text('Continue with Google'),
+                          icon: const FaIcon(
+                            FontAwesomeIcons.google,
+                            size: 20,
+                          ),
+                          splashColor: const Color(0xFFFF3E30),
+                          hoverColor: Colors.grey[200],
+                          elevation: 0.5,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            );
+          }
+        }
+      )
     );
   }
 }
