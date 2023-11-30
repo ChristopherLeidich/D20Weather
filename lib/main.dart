@@ -61,22 +61,31 @@ class Regional {
   final String effectRegionalName;
   final String effectRegionaldescription;
   final String effectRegional1;
+  final String roller1;
   final String effectRegional2;
+  final String roller2;
   final String effectRegional3;
+  final String roller3;
   final String effectRegional4;
+  final String roller4;
   final String effectRegional5;
   final int regionalTemperatureLimit;
   final bool negativeTemperature;
 
   Regional(
-      {required this.regionalName,
+      {
+      required this.regionalName,
       required this.regionalDescription,
       required this.effectRegionalName,
       required this.effectRegionaldescription,
       required this.effectRegional1,
+      required this.roller1,
       required this.effectRegional2,
+      required this.roller2,
       required this.effectRegional3,
+      required this.roller3,
       required this.effectRegional4,
+      required this.roller4,
       required this.effectRegional5,
       required this.regionalTemperatureLimit,
       required this.negativeTemperature});
@@ -118,7 +127,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
 
   //dice section
   int d2 = 1;
-  final roll = D20();
+  final roller = D20();
 
   final List<Regional> regionList = [
     Regional(
@@ -130,10 +139,14 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
         effectRegionaldescription:
             'Non Undead Creatures are constantly swarmed by Tiny mosquitoes and other Insects',
         effectRegional1: 'Once every 1d6 ',
-        effectRegional2: 'Hours every Non-Undead Member of the Party has to roll a basic DC15 Fortitude-Save or',
-        effectRegional3: ' loose 1d2 ',
-        effectRegional4: ' HP.\nOn a critical Failure the Damage Dice Changes to 1d4 ',
-        effectRegional5: ' and the Party-Member will be contaminated by a random Decease',
+        roller1: '1d6',
+        effectRegional2: 'Hours every Non-Undead Member of the Party has to roll a basic DC15 Fortitude-Save or loose 1d2 ',
+        roller2: '1d2',
+        effectRegional3: ' HP.\nOn a critical Failure the Damage Dice Changes to 1d4 ',
+        roller3: '1d4',
+        effectRegional4: ' and the Party-Member will be contaminated by a random Decease',
+        roller4: '',
+        effectRegional5: ' ',
         regionalTemperatureLimit: 48,
         negativeTemperature: false),
     Regional(
@@ -142,9 +155,13 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
       effectRegionalName: 'Death',
       effectRegionaldescription: 'Kills you',
       effectRegional1: 'You die(no you do not have cold resistance)',
+      roller1: '',
       effectRegional2: '',
+      roller2: '',
       effectRegional3: '',
+      roller3: '',
       effectRegional4: '',
+      roller4: '',
       effectRegional5: '',
       regionalTemperatureLimit: 36,
       negativeTemperature: true,
@@ -155,9 +172,13 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
         effectRegionalName: '',
         effectRegionaldescription: '',
         effectRegional1: '',
+        roller1: '',
         effectRegional2: '',
+        roller2: '',
         effectRegional3: '',
+        roller3: '',
         effectRegional4: '',
+        roller4: '',
         effectRegional5: '',
         regionalTemperatureLimit: 74,
         negativeTemperature: false),
@@ -187,7 +208,9 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
     'South-West',
     'South-East'
   ];
+
   String direction = '';
+
   var wetterbedingunsliste = [
     'Umbral-Storm',
     'Radiant-Storm',
@@ -203,6 +226,9 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
     'Cloudy'
   ];
   String wetterBedingung = '';
+
+  int randIndex = 0;
+
 
   late Timer _timer; //initializes The Timer
 
@@ -221,8 +247,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
   void randomizer() {
     setState(() {
       //external factory Random([int? seed]);
-      var boolValue =
-          Random().nextBool(); //randomizes the Symbol initialized in line 31
+      var boolValue = Random().nextBool(); //randomizes the Symbol initialized in line 31
       if (boolValue == true) {
         preSymbol = '+';
       } else {
@@ -231,8 +256,9 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
       final random1 = Random();
       final random2 = Random();
       direction = dirlist[random1.nextInt(dirlist.length)];
-      wetterBedingung =
-          wetterbedingunsliste[random2.nextInt(wetterbedingunsliste.length)];
+      wetterBedingung = wetterbedingunsliste[random2.nextInt(wetterbedingunsliste.length)];
+
+      randIndex = random1.nextInt(regionList.length);
 
       wind = Random().nextInt(64);
       //final doubleValues = dirlist.generate(3, (index) => Random().nextDouble() * 36);
@@ -380,32 +406,37 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
                   },
                   printableValue: printableValues,
                   preSymbol: preSymbol),
-              TextWidget(
+                  TextWidget(
+                  region: regionList[randIndex],
                   currentIndex: currentIndex,
                   wind: wind,
                   direction: direction,
-                  wetterBedingung: wetterBedingung),
+                  wetterBedingung: wetterBedingung,
+                  roller: roller,
+                  ),
+                ],
+              ),
             ],
           ),
-        ],
-      ),
-    );
+        );
   }
 }
 
 class TextWidget extends StatelessWidget {
   final int currentIndex;
-
+  final Regional region;
   final int wind;
   final String direction;
   final String wetterBedingung;
+  final D20 roller;
+  final String text = "1d6";
 
   const TextWidget(
       {super.key,
       required this.currentIndex,
       required this.wind,
       required this.direction,
-      required this.wetterBedingung});
+      required this.wetterBedingung, required this.region, required this.roller});
 
   @override
   Widget build(BuildContext context) {
@@ -436,13 +467,13 @@ class TextWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                const Padding(
-                  padding: EdgeInsets.all(5.0),
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
                   child: TextButton(
                     onPressed:
                         null, // made the Region Name clickable in a TextButton
-                    child: Text('Mwangi expanse: ',
-                        style: TextStyle(
+                    child: Text(region.regionalName,
+                        style: const TextStyle(
                           height: 1.6,
                           backgroundColor: Colors.transparent,
                           color: Colors.white,
@@ -450,18 +481,41 @@ class TextWidget extends StatelessWidget {
                         )),
                   ),
                 ),
-                const Padding(
-                  padding: EdgeInsets.all(3.0),
-                  child: Text(
-                    'The Mwangi Expanse (pronounced MWAN-gi),archaically also called the Forbidden Jungle, '
-                    'is the catch-all term given to the wild interior of central and western Garund. '
-                    'The Expanse also extends southwards beyond the Inner Sea region.',
-                    style: TextStyle(
+                Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Text( region.regionalDescription,
+                    style: const TextStyle(
                       height: 2.0,
                       backgroundColor: Colors.transparent,
                       color: Colors.white,
                     ),
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: Text( region.effectRegionalName,
+                    style: const TextStyle(
+                      height: 2.0,
+                      backgroundColor: Colors.transparent,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Row(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Text( region.effectRegional1,
+                        style: const TextStyle(
+                          height: 2.0,
+                          backgroundColor: Colors.transparent,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                    Text(roller.roll(text).toString()),
+                  ],
                 ),
                 Row(
                   children: [
