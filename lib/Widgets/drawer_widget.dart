@@ -34,7 +34,7 @@ class MyDrawer extends StatelessWidget {
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size.fromHeight(25),
-                      backgroundColor: Color(0x51DF17AA),
+                      backgroundColor: const Color(0x51DF17AA),
                     ),
                     icon: const Icon(Icons.lock_open),
                     label: const Text(
@@ -95,7 +95,7 @@ class MyDrawer extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: <Widget>[
             UserAccountsDrawerHeader(
-              accountName: Text(user!.displayName!),
+              accountName: Text(user.displayName!),
               accountEmail: Text(user.email!),
               currentAccountPicture: const CircleAvatar(
                 backgroundColor: Colors.white,
