@@ -73,6 +73,7 @@ flutter_launcher_icons:
   remove_alpha_ios: true
   background_color_ios: "#000000"
   background_color: "#000000"
+  adaptive_icon_padding: true
   web:
     generate: true
     image_path: "assets/icons/IconD20Cloud2.png"

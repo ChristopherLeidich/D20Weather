@@ -75,8 +75,8 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.login),
-              title: const Text('Login'),
+              leading: const Icon(Icons.add_box_outlined),
+              title: const Text('Custom Page Builder'),
               onTap: () {
                 // Handle about
                 Navigator.pop(context);
@@ -125,8 +125,8 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.login),
-              title: const Text('Login'),
+              leading: const Icon(Icons.add_box_outlined),
+              title: const Text('Custom Page Builder'),
               onTap: () {
                 // Handle about
                 Navigator.pop(context);
