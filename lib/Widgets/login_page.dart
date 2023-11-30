@@ -8,6 +8,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 //import 'package:fantasy_weather_app/Widgets/drawer_widget.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'forgot_password_screen.dart';
 //import 'package:firebase_analytics/firebase_analytics.dart';
 
 
@@ -171,175 +172,347 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser!;
-    return Scaffold(
-      appBar: AppBar(
-        elevation: 0,
-        title: const Text('Login'),
-      ),
-      body: StreamBuilder<User?>(
-        stream:  FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot){
-          if(snapshot.hasData){
-            _showDialog;
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text('Welcome to D20 Weather', style: TextStyle(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                )),
-                Text(user.displayName!,
-                  style: const TextStyle(
-                    fontSize: 24,
-                  )
-                    ),
-                Text(user.email!,
-                    style: const TextStyle(
-                      fontSize: 24,
-                    )
-                ),
-                Padding(padding: const EdgeInsetsDirectional.fromSTEB(
-                    0, 0, 0, 16),
-                  child: OutlinedButton(
-                    onPressed: () async {
-                      await FirebaseAuth.instance.signOut();
-                    },
-                    child: const Text('Log Out',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 24,
-                        )
-                    ),
-                  ),
-                )
-              ]
-            );
-          }else {
-           return Form(
-              key: _formKey,
-              child: Container(
-                padding: const EdgeInsets.all(14),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      // ======== Full Name ========
-                      login
-                          ? Container()
-                          : TextFormField(
-                        key: const ValueKey('username'),
-                        decoration: const InputDecoration(
-                          hintText: 'Enter username',
+    final user = FirebaseAuth.instance.currentUser;
+    if (user != null) {
+      return Scaffold(
+          appBar: AppBar(
+            elevation: 0,
+            title: const Text('Login'),
+          ),
+          body: StreamBuilder<User?>(
+              stream:  FirebaseAuth.instance.authStateChanges(),
+              builder: (context, snapshot){
+                if(snapshot.hasData){
+                  _showDialog;
+                  return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const Text('Welcome to D20 Weather',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 28,
+                              fontWeight: FontWeight.bold,
+                            )),
+                        Text(user.displayName!,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 24,
+                            )
                         ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please Enter a username';
-                          } else {
-                            return null;
-                          }
-                        },
-                        onSaved: (value) {
-                          setState(() {
-                            username = value!;
-                          });
-                        },
-                      ),
-
-                      // ======== Email ========
-                      TextFormField(
-                        key: const ValueKey('email'),
-                        decoration: const InputDecoration(
-                          hintText: 'Enter Email',
+                        Text(user.email!,
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                              fontSize: 24,
+                            )
                         ),
-                        autovalidateMode: AutovalidateMode.onUserInteraction,
-                        validator: (email) =>
-                        email != null && !EmailValidator.validate(email)
-                            ? 'Enter a valid email'
-                            : null,
-                        onSaved: (value) {
-                          setState(() {
-                            email = value!;
-                          });
-                        },
-                      ),
-                      // ======== Password ========
-                      TextFormField(
-                        key: const ValueKey('password'),
-                        obscureText: true,
-                        decoration: const InputDecoration(
-                          hintText: 'Enter Password',
-                        ),
-                        validator: (value) {
-                          if (value!.length < 6) {
-                            return 'Please Enter Password of min length 6';
-                          } else {
-                            return null;
-                          }
-                        },
-                        onSaved: (value) {
-                          setState(() {
-                            password = value!;
-                          });
-                        },
-                      ),
-                      const SizedBox(
-                        height: 30,
-                      ),
-                      SizedBox(
-                        height: 55,
-                        width: double.infinity,
-                        child: ElevatedButton(
+                        Padding(padding: const EdgeInsetsDirectional.fromSTEB(
+                            0, 0, 0, 16),
+                          child: OutlinedButton(
                             onPressed: () async {
-                              if (_formKey.currentState!.validate()) {
-                                _formKey.currentState!.save();
-                                login
-                                    ? AuthServices.signinUser(
-                                    email, password, context)
-                                    : AuthServices.signupUser(
-                                    email, password, username, context);
+                              await FirebaseAuth.instance.signOut();
+                            },
+                            child: const Text('Log Out',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 24,
+                                )
+                            ),
+                          ),
+                        )
+                      ]
+                  );
+                }else {
+                  return Form(
+                    key: _formKey,
+                    child: Container(
+                      padding: const EdgeInsets.all(14),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            // ======== Full Name ========
+                            login
+                                ? Container()
+                                : TextFormField(
+                              key: const ValueKey('username'),
+                              decoration: const InputDecoration(
+                                hintText: 'Enter username',
+                              ),
+                              validator: (value) {
+                                if (value!.isEmpty) {
+                                  return 'Please Enter a username';
+                                } else {
+                                  return null;
+                                }
+                              },
+                              onSaved: (value) {
+                                setState(() {
+                                  username = value!;
+                                });
+                              },
+                            ),
+                            // ======== Email ========
+                            TextFormField(
+                              key: const ValueKey('email'),
+                              decoration: const InputDecoration(
+                                hintText: 'Enter Email',
+                              ),
+                              autovalidateMode: AutovalidateMode.onUserInteraction,
+                              validator: (email) =>
+                              email != null && !EmailValidator.validate(email)
+                                  ? 'Enter a valid email'
+                                  : null,
+                              onSaved: (value) {
+                                setState(() {
+                                  email = value!;
+                                });
+                              },
+                            ),
+                            // ======== Password ========
+                            TextFormField(
+                              key: const ValueKey('password'),
+                              obscureText: true,
+                              decoration: const InputDecoration(
+                                hintText: 'Enter Password',
+                              ),
+                              validator: (value) {
+                                if (value!.length < 6) {
+                                  return 'Please Enter Password of min length 6';
+                                } else {
+                                  return null;
+                                }
+                              },
+                              onSaved: (value) {
+                                setState(() {
+                                  password = value!;
+                                });
+                              },
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            SizedBox(
+                              height: 55,
+                              width: double.infinity,
+                              child: ElevatedButton(
+                                  onPressed: () async {
+                                    if (_formKey.currentState!.validate()) {
+                                      _formKey.currentState!.save();
+                                      login
+                                          ? AuthServices.signinUser(
+                                          email, password, context)
+                                          : AuthServices.signupUser(
+                                          email, password, username, context);
+                                    }
+                                  },
+                                  child: Text(login ? 'Login' : 'Signup')),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            TextButton(
+                                onPressed: () {
+                                  setState(() {
+                                    login = !login;
+                                  });
+                                },
+                                child: Text(login
+                                    ? "Don't have an account? Signup"
+                                    : "Already have an account? Login")
+                            ),
+                            const SizedBox(height: 24),
+                            GestureDetector(
+                                child: const Text(
+                                  'Forgot Password?',
+                                  style: TextStyle(
+                                      decoration: TextDecoration.underline,
+                                      color: Colors.white,
+                                      fontSize: 20
+                                  ),
+                                ),
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) => const ForgotPasswordPage()));
+                                }
+                            ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0, 0, 0, 16),
+                              child: FloatingActionButton.extended(
+                                onPressed: () {
+                                  _loginWithGoogle();
+                                },
+                                label: const Text('Continue with Google'),
+                                icon: const FaIcon(
+                                  FontAwesomeIcons.google,
+                                  size: 20,
+                                ),
+                                splashColor: const Color(0xFFFF3E30),
+                                hoverColor: Colors.grey[200],
+                                elevation: 0.5,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                }
+              }
+          )
+      );
+    } else {
+      return Scaffold(
+          appBar: AppBar(
+            elevation: 0,
+            title: const Text('Login'),
+          ),
+          body: StreamBuilder<User?>(
+              stream: FirebaseAuth.instance.authStateChanges(),
+              builder: (context, snapshot) {
+                return Form(
+                  key: _formKey,
+                  child: Container(
+                    padding: const EdgeInsets.all(14),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          // ======== Full Name ========
+                          login
+                              ? Container()
+                              : TextFormField(
+                            key: const ValueKey('username'),
+                            decoration: const InputDecoration(
+                              hintText: 'Enter username',
+                            ),
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please Enter a username';
+                              } else {
+                                return null;
                               }
                             },
-                            child: Text(login ? 'Login' : 'Signup')),
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      TextButton(
-                          onPressed: () {
-                            setState(() {
-                              login = !login;
-                            });
-                          },
-                          child: Text(login
-                              ? "Don't have an account? Signup"
-                              : "Already have an account? Login")),
-                      Padding(
-                        padding: const EdgeInsetsDirectional.fromSTEB(
-                            0, 0, 0, 16),
-                        child: FloatingActionButton.extended(
-                          onPressed: () {
-                            _loginWithGoogle();
-                          },
-                          label: const Text('Continue with Google'),
-                          icon: const FaIcon(
-                            FontAwesomeIcons.google,
-                            size: 20,
+                            onSaved: (value) {
+                              setState(() {
+                                username = value!;
+                              });
+                            },
                           ),
-                          splashColor: const Color(0xFFFF3E30),
-                          hoverColor: Colors.grey[200],
-                          elevation: 0.5,
-                        ),
+                          // ======== Email ========
+                          TextFormField(
+                            key: const ValueKey('email'),
+                            decoration: const InputDecoration(
+                              hintText: 'Enter Email',
+                            ),
+                            autovalidateMode: AutovalidateMode
+                                .onUserInteraction,
+                            validator: (email) =>
+                            email != null && !EmailValidator.validate(email)
+                                ? 'Enter a valid email'
+                                : null,
+                            onSaved: (value) {
+                              setState(() {
+                                email = value!;
+                              });
+                            },
+                          ),
+                          // ======== Password ========
+                          TextFormField(
+                            key: const ValueKey('password'),
+                            obscureText: true,
+                            decoration: const InputDecoration(
+                              hintText: 'Enter Password',
+                            ),
+                            validator: (value) {
+                              if (value!.length < 6) {
+                                return 'Please Enter Password of min length 6';
+                              } else {
+                                return null;
+                              }
+                            },
+                            onSaved: (value) {
+                              setState(() {
+                                password = value!;
+                              });
+                            },
+                          ),
+                          const SizedBox(
+                            height: 30,
+                          ),
+                          SizedBox(
+                            height: 55,
+                            width: double.infinity,
+                            child: ElevatedButton(
+                                onPressed: () async {
+                                  if (_formKey.currentState!.validate()) {
+                                    _formKey.currentState!.save();
+                                    login
+                                        ? AuthServices.signinUser(
+                                        email, password, context)
+                                        : AuthServices.signupUser(
+                                        email, password, username, context);
+                                  }
+                                },
+                                child: Text(login ? 'Login' : 'Signup')),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          TextButton(
+                              onPressed: () {
+                                setState(() {
+                                  login = !login;
+                                });
+                              },
+                              child: Text(login
+                                  ? "Don't have an account? Signup"
+                                  : "Already have an account? Login")
+                          ),
+                          const SizedBox(height: 24),
+                          GestureDetector(
+                              child: const Text(
+                                'Forgot Password?',
+                                style: TextStyle(
+                                    decoration: TextDecoration.underline,
+                                    color: Colors.white,
+                                    fontSize: 20
+                                ),
+                              ),
+                              onTap: () {
+                                Navigator.pop(context);
+                                Navigator.push(context, MaterialPageRoute(
+                                    builder: (
+                                        context) => const ForgotPasswordPage()));
+                              }
+                          ),
+                          Padding(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
+                                0, 0, 0, 16),
+                            child: FloatingActionButton.extended(
+                              onPressed: () {
+                                _loginWithGoogle();
+                              },
+                              label: const Text('Continue with Google'),
+                              icon: const FaIcon(
+                                FontAwesomeIcons.google,
+                                size: 20,
+                              ),
+                              splashColor: const Color(0xFFFF3E30),
+                              hoverColor: Colors.grey[200],
+                              elevation: 0.5,
+                            ),
+                          ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-            );
-          }
-        }
-      )
-    );
+                );
+              }
+          )
+      );
+    }
   }
 }
 /*Widget build(BuildContext context) {

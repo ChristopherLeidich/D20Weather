@@ -9,55 +9,138 @@ class MyDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //final user = FirebaseAuth.instance.currentUser!;
-    return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-
-          UserAccountsDrawerHeader(
-            accountName: Text('user.uid'),
-            accountEmail: Text('user.email!'),
-            currentAccountPicture: const CircleAvatar(
-              backgroundColor: Colors.white,
-              child: Icon(Icons.person),
+    final user = FirebaseAuth.instance.currentUser;
+    if (user == null) {
+      return Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: const BoxDecoration(
+                color: Color(0xFF813181), // Set a background color for the header
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'You are currently not Logged in',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  ElevatedButton.icon(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(25),
+                      backgroundColor: Color(0x51DF17AA),
+                    ),
+                    icon: const Icon(Icons.lock_open),
+                    label: const Text(
+                      'Login',
+                      style: TextStyle(
+                          fontSize: 24,
+                        color: Colors.white,
+                      ),
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
+                    },
+                  ),
+                ],
+              ),
             ),
-          ),
-          ListTile(
-            leading: const Icon(Icons.home),
-            title: const Text('Home'),
-            onTap: () {
-                  // Handle settings or navigation
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: const Text('Home'),
+              onTap: () {
+                // Handle settings or navigation
                 Navigator.pop(context); // Close the drawer
                 // Navigate to the second page
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const MyApp()));
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.settings),
-            title: const Text('Settings'),
-            onTap: () {
-              // Handle settings or navigation
-              Navigator.pop(context); // Close the drawer
-              // Navigate to the second page
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const SecondPage(title: '',)));
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.login),
-            title: const Text('Login'),
-            onTap: () {
-              // Handle about
-              Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
+              onTap: () {
+                // Handle settings or navigation
+                Navigator.pop(context); // Close the drawer
+                // Navigate to the second page
+                Navigator.push(context, MaterialPageRoute(
+                  builder: (context) => const SecondPage(title: ''),
+                ));
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.login),
+              title: const Text('Login'),
+              onTap: () {
+                // Handle about
+                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
+              },
+            ),
+            const Divider(), // Divider between main and sub-drawer
+            const SubDrawer(),
+          ],
+        ),
+      );
 
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
-            },
-          ),
-          const Divider(), // Divider between main and sub-drawer
-          const SubDrawer(),
-        ],
-      ),
-    );
+    } else {
+      return Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            UserAccountsDrawerHeader(
+              accountName: Text(user!.displayName!),
+              accountEmail: Text(user.email!),
+              currentAccountPicture: const CircleAvatar(
+                backgroundColor: Colors.white,
+                child: Icon(Icons.person),
+              ),
+            ),
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: const Text('Home'),
+              onTap: () {
+                // Handle settings or navigation
+                Navigator.pop(context); // Close the drawer
+                // Navigate to the second page
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const MyApp()));
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
+              onTap: () {
+                // Handle settings or navigation
+                Navigator.pop(context); // Close the drawer
+                // Navigate to the second page
+                Navigator.push(context, MaterialPageRoute(
+                    builder: (context) => const SecondPage(title: '',)));
+              },
+            ),
+            ListTile(
+              leading: const Icon(Icons.login),
+              title: const Text('Login'),
+              onTap: () {
+                // Handle about
+                Navigator.pop(context);
+
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()));
+              },
+            ),
+            const Divider(), // Divider between main and sub-drawer
+            const SubDrawer(),
+          ],
+        ),
+      );
+    }
   }
 }
 
