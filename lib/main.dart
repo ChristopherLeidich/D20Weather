@@ -8,9 +8,6 @@ import 'package:fantasy_weather_app/Widgets/drawer_widget.dart';
 import 'package:fantasy_weather_app/Widgets/Models/lists.dart';
 import 'package:fantasy_weather_app/Widgets/starviewfield.dart';
 import 'dart:math';
-//import 'package:flutter/services.dart';
-//import 'package:google_fonts/google_fonts.dart';
-//import 'package:qr_flutter/qr_flutter.dart';
 
 import 'package:d20/d20.dart';
 
@@ -44,8 +41,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
 
 class MyCustomAppBar extends StatefulWidget {
   const MyCustomAppBar({super.key});
@@ -91,7 +86,8 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
         effectRegional5: '.',
         regionalTemperatureLimitPositive: 48,
         regionalTemperatureLimitNegative: 0,
-        negativeTemperature: false),
+        negativeTemperature: false
+    ),
     Regional(
       regionalName: 'Glacier',
       regionalDescription:  'A Cold barren Wasteland of Ice and Snow. '
@@ -302,15 +298,10 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
 
   void randomizer() {
     setState(() {
-      //external factory Random([int? seed]);
-      var boolValue = Random().nextBool(); //randomizes the Symbol initialized in line 31
-      if (boolValue == true) {
-        preSymbol = '+';
-      } else {
-        preSymbol = '-';
-      }
+
       final random1 = Random();
       final random2 = Random();
+      int regionalCases = Random().nextInt(2);
       direction = dirlist[random1.nextInt(dirlist.length)];
       wetterBedingung = wetterbedingunsliste[random2.nextInt(wetterbedingunsliste.length)];
 
@@ -318,8 +309,22 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
 
       wind = Random().nextInt(64);
       //final doubleValues = dirlist.generate(3, (index) => Random().nextDouble() * 36);
-      doubleValues = Random().nextDouble() *
-          41; // generates a random double-Value between 0.0 and 36.0
+      doubleValues = Random().nextDouble() * regionList[randIndex].regionalTemperatureLimitPositive;
+
+      if(regionList[randIndex].negativeTemperature == true){
+        switch (regionalCases) {
+          case 0 :
+            doubleValues = Random().nextDouble() * regionList[randIndex].regionalTemperatureLimitPositive;
+            preSymbol = '+';
+          case 1:
+            doubleValues = Random().nextDouble() * regionList[randIndex].regionalTemperatureLimitNegative;
+            preSymbol = '-';
+          default:
+            doubleValues = 1;
+            preSymbol = '+';
+        }
+
+      }// generates a random double-Value between 0.0 and 36.0
       printableValues = doubleValues.toStringAsFixed(
           1); //fixes the length of digits after the , to 1 (e.g. 1.1 instead of 1.00000001)
     });
