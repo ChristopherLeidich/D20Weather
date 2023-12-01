@@ -1,6 +1,4 @@
 //import 'dart:io';
-
-import 'dart:async';
 import 'package:fantasy_weather_app/Widgets/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:fantasy_weather_app/Widgets/text_widget.dart';
@@ -22,16 +20,7 @@ import 'package:firebase_core/firebase_core.dart';
 //import 'package:google_sign_in/google_sign_in.dart';
 import 'firebase_options.dart';
 
-// import 'package:flutter_weather_bg_null_safety/bg/weather_bg.dart';
-// import 'package:flutter_weather_bg_null_safety/bg/weather_cloud_bg.dart';
-// import 'package:flutter_weather_bg_null_safety/bg/weather_color_bg.dart';
-// import 'package:flutter_weather_bg_null_safety/bg/weather_night_star_bg.dart';
-// import 'package:flutter_weather_bg_null_safety/bg/weather_rain_snow_bg.dart';
-// import 'package:flutter_weather_bg_null_safety/bg/weather_thunder_bg.dart';
 import 'package:flutter_weather_bg_null_safety/flutter_weather_bg.dart';
-// import 'package:flutter_weather_bg_null_safety/utils/image_utils.dart';
-// import 'package:flutter_weather_bg_null_safety/utils/print_utils.dart';
-// import 'package:flutter_weather_bg_null_safety/utils/weather_type.dart';
 import 'package:parallax_rain/parallax_rain.dart';
 
 void main() async {
@@ -467,7 +456,10 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
                   },
                   printableValue: printableValues,
                   preSymbol: preSymbol,
-                  onPageChanged: () { randomizer; },),
+                  onPageChanged: () {
+                    randomizer();
+                    },
+                  ),
                   TextWidget(
                   region: regionList[randIndex],
                   currentIndex: currentIndex,
