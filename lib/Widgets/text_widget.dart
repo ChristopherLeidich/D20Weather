@@ -54,16 +54,17 @@ class TextWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Padding(
-                      padding: const EdgeInsets.all(5.0),
+                      padding: const EdgeInsets.all(3.0),
                       child: TextButton(
                         onPressed:
                         null, // made the Region Name clickable in a TextButton
                         child: Text(region.regionalName,
                             style: const TextStyle(
-                              height: 1.6,
+                              height: 2.0,
                               backgroundColor: Colors.transparent,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
+                              fontSize: 15,
                             )),
                       ),
                     ),
@@ -88,6 +89,7 @@ class TextWidget extends StatelessWidget {
                         ),
                       ),
                     ),
+
                     /*Row(
                   children: [
                     Padding(

@@ -105,7 +105,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
       effectRegional4: 'of Cold Damage.\n Party-Members with at least Cold-Resistance 5 do these Fortitude Saves instead every 1d8 [',
       roller4: '1d8',
       effectRegional5: '] Hours with the Same Effects on a Failure and Critical Failure.',
-      regionalTemperatureLimitPositive: 6,
+      regionalTemperatureLimitPositive: 3,
       regionalTemperatureLimitNegative: 48,
       negativeTemperature: true,
     ),
@@ -123,7 +123,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
         effectRegional4: ' ',
         roller4: '1d0',
         effectRegional5: ' ',
-        regionalTemperatureLimitPositive: 74,
+        regionalTemperatureLimitPositive: 44,
         regionalTemperatureLimitNegative: 4,
         negativeTemperature: true
     ),
@@ -141,7 +141,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
         effectRegional4: ' ',
         roller4: '1d0',
         effectRegional5: ' ',
-        regionalTemperatureLimitPositive: 74,
+        regionalTemperatureLimitPositive: 42,
         regionalTemperatureLimitNegative: 0,
         negativeTemperature: false
     ),
@@ -296,11 +296,16 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
     });*/
   }
 
+
+
   void randomizer() {
     setState(() {
 
       final random1 = Random();
       final random2 = Random();
+
+      int help = 0;
+
       int regionalCases = Random().nextInt(2);
       direction = dirlist[random1.nextInt(dirlist.length)];
       wetterBedingung = wetterbedingunsliste[random2.nextInt(wetterbedingunsliste.length)];
@@ -308,23 +313,26 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
       randIndex = random1.nextInt(regionList.length);
 
       wind = Random().nextInt(64);
-      //final doubleValues = dirlist.generate(3, (index) => Random().nextDouble() * 36);
-      doubleValues = Random().nextDouble() * regionList[randIndex].regionalTemperatureLimitPositive;
 
       if(regionList[randIndex].negativeTemperature == true){
         switch (regionalCases) {
           case 0 :
-            doubleValues = Random().nextDouble() * regionList[randIndex].regionalTemperatureLimitPositive;
+            help = regionList[randIndex].regionalTemperatureLimitPositive;
+            doubleValues = Random().nextDouble() * help;
             preSymbol = '+';
           case 1:
-            doubleValues = Random().nextDouble() * regionList[randIndex].regionalTemperatureLimitNegative;
+            help = regionList[randIndex].regionalTemperatureLimitPositive;
+            doubleValues = Random().nextDouble() * help;
             preSymbol = '-';
           default:
             doubleValues = 1;
             preSymbol = '+';
         }
-
-      }// generates a random double-Value between 0.0 and 36.0
+      }else {
+        help = regionList[randIndex].regionalTemperatureLimitPositive;
+        doubleValues = Random().nextDouble() * help;
+            preSymbol = '+';
+      }
       printableValues = doubleValues.toStringAsFixed(
           1); //fixes the length of digits after the , to 1 (e.g. 1.1 instead of 1.00000001)
     });
