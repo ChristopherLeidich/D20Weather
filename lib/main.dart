@@ -69,7 +69,8 @@ class Regional {
   final String effectRegional4;
   final String roller4;
   final String effectRegional5;
-  final int regionalTemperatureLimit;
+  final int regionalTemperatureLimitPositive;
+  final int regionalTemperatureLimitNegative;
   final bool negativeTemperature;
 
   Regional(
@@ -87,7 +88,8 @@ class Regional {
       required this.effectRegional4,
       required this.roller4,
       required this.effectRegional5,
-      required this.regionalTemperatureLimit,
+      required this.regionalTemperatureLimitPositive,
+      required this.regionalTemperatureLimitNegative,
       required this.negativeTemperature});
 }
 
@@ -134,68 +136,188 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
         regionalName: 'Jungle',
         regionalDescription:
             'A jungle is land covered with dense forest and tangled vegetation, usually in tropical climates. '
-            'Application of the term has varied greatly during the past recent century.',
+            'It is hard for unprepared Partys to traverse the Area without issue.',
         effectRegionalName: 'Insect Plague',
         effectRegionaldescription:
-            'Non Undead Creatures are constantly swarmed by Tiny mosquitoes and other Insects',
-        effectRegional1: 'Once every 1d6 ',
+            'Non Undead Creatures are constantly swarmed by \nTiny mosquitoes and other Insects',
+        effectRegional1: 'Once every 1d6 [',
         roller1: '1d6',
-        effectRegional2: 'Hours every Non-Undead Member of the Party has to roll a basic DC15 Fortitude-Save or loose 1d2 ',
+        effectRegional2: '] Hours every Non-Undead Member of the Party has to roll \na basic DC15 Fortitude-Save or loose 1d2 ',
         roller2: '1d2',
         effectRegional3: ' HP.\nOn a critical Failure the Damage Dice Changes to 1d4 ',
         roller3: '1d4',
         effectRegional4: ' and the Party-Member will be contaminated by a random Decease',
-        roller4: '',
-        effectRegional5: ' ',
-        regionalTemperatureLimit: 48,
+        roller4: '1d0',
+        effectRegional5: '.',
+        regionalTemperatureLimitPositive: 48,
+        regionalTemperatureLimitNegative: 0,
         negativeTemperature: false),
     Regional(
       regionalName: 'Glacier',
-      regionalDescription: 'Cold Snow Ice What do you want',
-      effectRegionalName: 'Death',
-      effectRegionaldescription: 'Kills you',
-      effectRegional1: 'You die(no you do not have cold resistance)',
-      roller1: '',
-      effectRegional2: '',
-      roller2: '',
-      effectRegional3: '',
-      roller3: '',
-      effectRegional4: '',
-      roller4: '',
-      effectRegional5: '',
-      regionalTemperatureLimit: 36,
+      regionalDescription:  'A Cold barren Wasteland of Ice and Snow. '
+                            'The Cold Temperatures do little in the way of hospitability. \n'
+                            'To an unprepared Party Traversing these Icy Planes means almost certain Death.',
+      effectRegionalName: 'Deadly Frost',
+      effectRegionaldescription:  'The Cold is Clinging onto your Body, '
+                                  'leaving you more Susceptible to harm from all Sources.',
+      effectRegional1: 'For the Duration of your Stay every Member of the Party that does not have at least Cold-Resistance 5 has to roll a basic DC 18 Fortitude Save every 1d4 [',
+      roller1: '1d4',
+      effectRegional2: '] Hours or gain one Level of Enfeeblement and Take 1d6 [',
+      roller2: '1d6',
+      effectRegional3: '] Cold damage\n This Debuff lasts until the Character takes a Long-Rest in a warm-Location or until death.\n On a critical Failure they additionally gain a Stack of the Wounded Condition and the Damage-Dice Changes to 1d8 [',
+      roller3: '1d8',
+      effectRegional4: 'of Cold Damage.\n Party-Members with at least Cold-Resistance 5 do these Fortitude Saves instead every 1d8 [',
+      roller4: '1d8',
+      effectRegional5: '] Hours with the Same Effects on a Failure and Critical Failure.',
+      regionalTemperatureLimitPositive: 6,
+      regionalTemperatureLimitNegative: 48,
       negativeTemperature: true,
     ),
     Regional(
-        regionalName: '6-th World',
+        regionalName: 'Ocean',
         regionalDescription: 'Description for Item 3',
-        effectRegionalName: '',
-        effectRegionaldescription: '',
-        effectRegional1: '',
-        roller1: '',
-        effectRegional2: '',
-        roller2: '',
-        effectRegional3: '',
-        roller3: '',
-        effectRegional4: '',
-        roller4: '',
-        effectRegional5: '',
-        regionalTemperatureLimit: 74,
-        negativeTemperature: false),
+        effectRegionalName: ' ',
+        effectRegionaldescription: ' ',
+        effectRegional1: ' ',
+        roller1: '1d0',
+        effectRegional2: ' ',
+        roller2: '1d0',
+        effectRegional3: ' ',
+        roller3: '1d0',
+        effectRegional4: ' ',
+        roller4: '1d0',
+        effectRegional5: ' ',
+        regionalTemperatureLimitPositive: 74,
+        regionalTemperatureLimitNegative: 4,
+        negativeTemperature: true
+    ),
+    Regional(
+        regionalName: 'Beach',
+        regionalDescription: 'Description for Item 3',
+        effectRegionalName: ' ',
+        effectRegionaldescription: ' ',
+        effectRegional1: ' ',
+        roller1: '1d0',
+        effectRegional2: ' ',
+        roller2: '1d0',
+        effectRegional3: ' ',
+        roller3: '1d0',
+        effectRegional4: ' ',
+        roller4: '1d0',
+        effectRegional5: ' ',
+        regionalTemperatureLimitPositive: 74,
+        regionalTemperatureLimitNegative: 0,
+        negativeTemperature: false
+    ),
+    Regional(
+        regionalName: 'Forest',
+        regionalDescription: 'Description for Item 3',
+        effectRegionalName: ' ',
+        effectRegionaldescription: ' ',
+        effectRegional1: ' ',
+        roller1: '1d0',
+        effectRegional2: ' ',
+        roller2: '1d0',
+        effectRegional3: ' ',
+        roller3: '1d0',
+        effectRegional4: ' ',
+        roller4: '1d0',
+        effectRegional5: ' ',
+        regionalTemperatureLimitPositive: 22,
+        regionalTemperatureLimitNegative: 24,
+        negativeTemperature: true
+    ),
+    Regional(
+        regionalName: 'Desert',
+        regionalDescription: 'Description for Item 3',
+        effectRegionalName: ' ',
+        effectRegionaldescription: ' ',
+        effectRegional1: ' ',
+        roller1: '1d0',
+        effectRegional2: ' ',
+        roller2: '1d0',
+        effectRegional3: ' ',
+        roller3: '1d0',
+        effectRegional4: ' ',
+        roller4: '1d0',
+        effectRegional5: ' ',
+        regionalTemperatureLimitPositive: 54,
+        regionalTemperatureLimitNegative: 10,
+        negativeTemperature: true
+    ),
   ];
+
   final List<Weather> weatherList = [
     Weather(
-        weatherName: 'Light Rain',
+        weatherName: 'Drizzle',
         weatherDescription: '',
         weatherEffectname: 'weatherEffectname',
         weatherEffectdescription: 'weatherEffectdescription',
-        weatherEffect: 'weatherEffect'),
+        weatherEffect: 'weatherEffect'
+    ),
     Weather(
-        weatherName: 'Sun',
+        weatherName: 'Drought',
         weatherDescription: '',
         weatherEffectname: 'weatherEffectname',
         weatherEffectdescription: 'weatherEffectdescription',
-        weatherEffect: 'weatherEffect')
+        weatherEffect: 'weatherEffect'
+    ),
+    Weather(
+        weatherName: 'Storm',
+        weatherDescription: '',
+        weatherEffectname: 'weatherEffectname',
+        weatherEffectdescription: 'weatherEffectdescription',
+        weatherEffect: 'weatherEffect'
+    ),
+    Weather(
+        weatherName: 'Thunderstorm',
+        weatherDescription: '',
+        weatherEffectname: 'weatherEffectname',
+        weatherEffectdescription: 'weatherEffectdescription',
+        weatherEffect: 'weatherEffect'
+    ),
+    Weather(
+        weatherName: 'Snow',
+        weatherDescription: '',
+        weatherEffectname: 'weatherEffectname',
+        weatherEffectdescription: 'weatherEffectdescription',
+        weatherEffect: 'weatherEffect'
+    ),
+    Weather(
+        weatherName: 'Hail',
+        weatherDescription: '',
+        weatherEffectname: 'weatherEffectname',
+        weatherEffectdescription: 'weatherEffectdescription',
+        weatherEffect: 'weatherEffect'
+    ),
+    Weather(
+        weatherName: 'Cloudy',
+        weatherDescription: '',
+        weatherEffectname: 'weatherEffectname',
+        weatherEffectdescription: 'weatherEffectdescription',
+        weatherEffect: 'weatherEffect'
+    ),
+    Weather(
+        weatherName: 'Radiant-Storm',
+        weatherDescription: '',
+        weatherEffectname: 'weatherEffectname',
+        weatherEffectdescription: 'weatherEffectdescription',
+        weatherEffect: 'weatherEffect'
+    ),
+    Weather(
+        weatherName: 'Umbral-Storm',
+        weatherDescription: '',
+        weatherEffectname: 'weatherEffectname',
+        weatherEffectdescription: 'weatherEffectdescription',
+        weatherEffect: 'weatherEffect'
+    ),
+    Weather(
+        weatherName: 'Phantasmal-Rain',
+        weatherDescription: '',
+        weatherEffectname: 'weatherEffectname',
+        weatherEffectdescription: 'weatherEffectdescription',
+        weatherEffect: 'weatherEffect'
+    ),
   ];
 
   var dirlist = [
@@ -266,12 +388,6 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
           41; // generates a random double-Value between 0.0 and 36.0
       printableValues = doubleValues.toStringAsFixed(
           1); //fixes the length of digits after the , to 1 (e.g. 1.1 instead of 1.00000001)
-    });
-  }
-
-  void d2_() {
-    setState(() {
-      d2 = Random().nextInt(2) + 1;
     });
   }
 
@@ -440,9 +556,12 @@ class TextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: const EdgeInsets.all(12.0),
-        margin: const EdgeInsets.all(6.0),
+    return Flexible(
+      child: SingleChildScrollView(
+      scrollDirection: Axis.vertical,
+        child: Container(
+        padding: const EdgeInsets.all(8.0),
+        margin: const EdgeInsets.all(4.0),
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(0),
           border: Border.all(width: 0.1, color: Colors.black54),
@@ -482,7 +601,7 @@ class TextWidget extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(3.0),
+                  padding: const EdgeInsets.all(5.0),
                   child: Text( region.regionalDescription,
                     style: const TextStyle(
                       height: 2.0,
@@ -492,7 +611,7 @@ class TextWidget extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(3.0),
+                  padding: const EdgeInsets.all(5.0),
                   child: Text( region.effectRegionalName,
                     style: const TextStyle(
                       height: 2.0,
@@ -502,26 +621,85 @@ class TextWidget extends StatelessWidget {
                     ),
                   ),
                 ),
-                Row(
+                /*Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(3.0),
+                      padding: const EdgeInsets.all(1.0),
                       child: Text( region.effectRegional1,
                         style: const TextStyle(
-                          height: 2.0,
+                          height: 1.15,
                           backgroundColor: Colors.transparent,
                           color: Colors.white,
                         ),
                       ),
                     ),
-                    Text(roller.roll(text).toString()),
+                    Text(roller.roll(region.roller1).toString(),
+                      style: const TextStyle(
+                      height: 1.15,
+                      backgroundColor: Colors.transparent,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      ),
+                    ),
+                    Text( region.effectRegional2,
+                      style: const TextStyle(
+                      height: 1.15,
+                      backgroundColor: Colors.transparent,
+                      color: Colors.white,
+                      ),
+                    ),
+                    Text(roller.roll(region.roller2).toString(),
+                      style: const TextStyle(
+                        height: 1.15,
+                        backgroundColor: Colors.transparent,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text( region.effectRegional3,
+                      style: const TextStyle(
+                        height: 1.15,
+                        backgroundColor: Colors.transparent,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(roller.roll(region.roller3).toString(),
+                      style: const TextStyle(
+                        height: 1.15,
+                        backgroundColor: Colors.transparent,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text( region.effectRegional4,
+                      style: const TextStyle(
+                        height: 1.15,
+                        backgroundColor: Colors.transparent,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text(roller.roll(region.roller4).toString(),
+                      style: const TextStyle(
+                        height: 1.15,
+                        backgroundColor: Colors.transparent,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                      ),
+                    ),
+                    Text( region.effectRegional5,
+                      style: const TextStyle(
+                        height: 1.15,
+                        backgroundColor: Colors.transparent,
+                        color: Colors.white,
+                      ),
+                    ),
                   ],
-                ),
+                ),*/
                 Row(
                   children: [
                     const Padding(
                       padding: EdgeInsets.all(5.0),
-                      child: Text('Wetterbedingungen: ',
+                      child: Text('Weather Condition: ',
                           style: TextStyle(
                             height: 2.0,
                             backgroundColor: Colors.transparent,
@@ -552,7 +730,7 @@ class TextWidget extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
-                  child: Text('Windrichtung: $direction',
+                  child: Text('Wind Direction: $direction',
                       style: const TextStyle(
                         height: 2.0,
                         backgroundColor: Colors.transparent,
@@ -561,7 +739,7 @@ class TextWidget extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
-                  child: Text('Windgeschwindigkeit: $wind km/h',
+                  child: Text('Wind-Speed: $wind km/h',
                       style: const TextStyle(
                         height: 2.0,
                         backgroundColor: Colors.transparent,
@@ -571,7 +749,10 @@ class TextWidget extends StatelessWidget {
               ],
             );
           },
-        ));
+        )
+        ),
+    ),
+    );
   }
 }
 
