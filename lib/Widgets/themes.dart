@@ -1,8 +1,6 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter_gradient_app_bar/flutter_gradient_app_bar.dart';
 
-class ThemeProvider extends ChangeNotifier{
+/*class ThemeProvider extends ChangeNotifier{
   ThemeMode themeMode = ThemeMode.dark;
 
   bool get isDarkMode => themeMode == ThemeMode.dark;
@@ -11,7 +9,7 @@ class ThemeProvider extends ChangeNotifier{
     themeMode = isOn ? ThemeMode.dark : ThemeMode.light;
     notifyListeners();
   }
-}
+}*/
 
 class ThemeClass{
   Color lightPrimaryColor = const Color(0xABA7A4A1);

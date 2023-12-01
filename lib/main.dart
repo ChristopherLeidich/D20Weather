@@ -3,10 +3,11 @@
 import 'dart:async';
 import 'package:fantasy_weather_app/Widgets/themes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:fantasy_weather_app/Widgets/text_widget.dart';
 import 'package:fantasy_weather_app/Widgets/carousel_slider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fantasy_weather_app/Widgets/drawer_widget.dart';
+import 'package:fantasy_weather_app/Widgets/Models/lists.dart';
 import 'package:fantasy_weather_app/Widgets/starviewfield.dart';
 import 'dart:math';
 //import 'package:flutter/services.dart';
@@ -55,58 +56,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Regional {
-  final String regionalName;
-  final String regionalDescription;
-  final String effectRegionalName;
-  final String effectRegionaldescription;
-  final String effectRegional1;
-  final String roller1;
-  final String effectRegional2;
-  final String roller2;
-  final String effectRegional3;
-  final String roller3;
-  final String effectRegional4;
-  final String roller4;
-  final String effectRegional5;
-  final int regionalTemperatureLimitPositive;
-  final int regionalTemperatureLimitNegative;
-  final bool negativeTemperature;
 
-  Regional(
-      {
-      required this.regionalName,
-      required this.regionalDescription,
-      required this.effectRegionalName,
-      required this.effectRegionaldescription,
-      required this.effectRegional1,
-      required this.roller1,
-      required this.effectRegional2,
-      required this.roller2,
-      required this.effectRegional3,
-      required this.roller3,
-      required this.effectRegional4,
-      required this.roller4,
-      required this.effectRegional5,
-      required this.regionalTemperatureLimitPositive,
-      required this.regionalTemperatureLimitNegative,
-      required this.negativeTemperature});
-}
-
-class Weather {
-  final String weatherName;
-  final String weatherDescription;
-  final String weatherEffectname;
-  final String weatherEffectdescription;
-  final String weatherEffect;
-
-  Weather(
-      {required this.weatherName,
-      required this.weatherDescription,
-      required this.weatherEffectname,
-      required this.weatherEffectdescription,
-      required this.weatherEffect});
-}
 
 class MyCustomAppBar extends StatefulWidget {
   const MyCustomAppBar({super.key});
@@ -116,19 +66,20 @@ class MyCustomAppBar extends StatefulWidget {
 }
 
 class _MyCustomAppBarState extends State<MyCustomAppBar> {
-  bool isDarkTheme = false; // Added a boolean to track the theme
 
   final CarouselController _carouselController = CarouselController();
   int currentIndex = 0;
 
   int wind = 0;
   double doubleValues = 0.0; //used for generating a random double Value
-  String printableValues =
-      '0.0'; //this is the temperature that gets printed in the End
+  String printableValues = '0.0'; //this is the temperature that gets printed in the End
   String preSymbol = '+'; //Symbol for negative/Positive Temperatures
+  String direction = '';
+  String wetterBedingung = '';
+  int randIndex = 0;
+  //late Timer _timer; //initializes The Timer
 
   //dice section
-  int d2 = 1;
   final roller = D20();
 
   final List<Regional> regionList = [
@@ -331,8 +282,6 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
     'South-East'
   ];
 
-  String direction = '';
-
   var wetterbedingunsliste = [
     'Umbral-Storm',
     'Radiant-Storm',
@@ -347,23 +296,19 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
     'Drizzle',
     'Cloudy'
   ];
-  String wetterBedingung = '';
-
-  int randIndex = 0;
-
-
-  late Timer _timer; //initializes The Timer
 
   @override
   void initState() {
     super.initState();
     randomizer(); // Generate the first random value when the app is started
 
-    _timer =
-        Timer.periodic(const Duration(seconds: 4, milliseconds: 42), (timer) {
+   /* _timer = Timer.periodic(
+        const Duration(seconds: 4, milliseconds: 42
+        ),
+        (timer) {
       //Generates a new Random Value in the void randomizer() after a set amount of seconds
       randomizer();
-    });
+    });*/
   }
 
   void randomizer() {
@@ -394,7 +339,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
   @override
   void dispose() {
     // Cancel the timer when the widget is disposed to prevent memory leaks
-    _timer.cancel();
+    //_timer.cancel();
     super.dispose();
   }
 
@@ -521,7 +466,8 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
                     });
                   },
                   printableValue: printableValues,
-                  preSymbol: preSymbol),
+                  preSymbol: preSymbol,
+                  onPageChanged: () { randomizer; },),
                   TextWidget(
                   region: regionList[randIndex],
                   currentIndex: currentIndex,
@@ -537,357 +483,3 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
         );
   }
 }
-
-class TextWidget extends StatelessWidget {
-  final int currentIndex;
-  final Regional region;
-  final int wind;
-  final String direction;
-  final String wetterBedingung;
-  final D20 roller;
-  final String text = "1d6";
-
-  const TextWidget(
-      {super.key,
-      required this.currentIndex,
-      required this.wind,
-      required this.direction,
-      required this.wetterBedingung, required this.region, required this.roller});
-
-  @override
-  Widget build(BuildContext context) {
-    return Flexible(
-      child: SingleChildScrollView(
-      scrollDirection: Axis.vertical,
-        child: Container(
-        padding: const EdgeInsets.all(8.0),
-        margin: const EdgeInsets.all(4.0),
-        decoration: BoxDecoration(
-          color: Colors.white.withOpacity(0),
-          border: Border.all(width: 0.1, color: Colors.black54),
-          borderRadius:
-              const BorderRadius.all(Radius.circular(20) // Add a black border
-                  ),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.blueAccent.withOpacity(0.4),
-              spreadRadius: 6,
-              blurRadius: 8,
-              offset: const Offset(0, 3), // changes position of shadow
-            ),
-          ],
-        ),
-        child: Scrollable(
-          axisDirection: AxisDirection.down,
-          viewportBuilder: (BuildContext context, ViewportOffset position) {
-            return Column(
-              //switch case später einfügen
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: TextButton(
-                    onPressed:
-                        null, // made the Region Name clickable in a TextButton
-                    child: Text(region.regionalName,
-                        style: const TextStyle(
-                          height: 1.6,
-                          backgroundColor: Colors.transparent,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        )),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Text( region.regionalDescription,
-                    style: const TextStyle(
-                      height: 2.0,
-                      backgroundColor: Colors.transparent,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Text( region.effectRegionalName,
-                    style: const TextStyle(
-                      height: 2.0,
-                      backgroundColor: Colors.transparent,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-                /*Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(1.0),
-                      child: Text( region.effectRegional1,
-                        style: const TextStyle(
-                          height: 1.15,
-                          backgroundColor: Colors.transparent,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                    Text(roller.roll(region.roller1).toString(),
-                      style: const TextStyle(
-                      height: 1.15,
-                      backgroundColor: Colors.transparent,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      ),
-                    ),
-                    Text( region.effectRegional2,
-                      style: const TextStyle(
-                      height: 1.15,
-                      backgroundColor: Colors.transparent,
-                      color: Colors.white,
-                      ),
-                    ),
-                    Text(roller.roll(region.roller2).toString(),
-                      style: const TextStyle(
-                        height: 1.15,
-                        backgroundColor: Colors.transparent,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text( region.effectRegional3,
-                      style: const TextStyle(
-                        height: 1.15,
-                        backgroundColor: Colors.transparent,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text(roller.roll(region.roller3).toString(),
-                      style: const TextStyle(
-                        height: 1.15,
-                        backgroundColor: Colors.transparent,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text( region.effectRegional4,
-                      style: const TextStyle(
-                        height: 1.15,
-                        backgroundColor: Colors.transparent,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text(roller.roll(region.roller4).toString(),
-                      style: const TextStyle(
-                        height: 1.15,
-                        backgroundColor: Colors.transparent,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text( region.effectRegional5,
-                      style: const TextStyle(
-                        height: 1.15,
-                        backgroundColor: Colors.transparent,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ],
-                ),*/
-                Row(
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: Text('Weather Condition: ',
-                          style: TextStyle(
-                            height: 2.0,
-                            backgroundColor: Colors.transparent,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          )),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Text(wetterBedingung,
-                          style: const TextStyle(
-                            height: 2.0,
-                            backgroundColor: Colors.transparent,
-                            color: Colors.white,
-                          )),
-                    ),
-                  ],
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(5.0),
-                  child: Text('Wind: ',
-                      style: TextStyle(
-                        height: 2.0,
-                        backgroundColor: Colors.transparent,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                      )),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Text('Wind Direction: $direction',
-                      style: const TextStyle(
-                        height: 2.0,
-                        backgroundColor: Colors.transparent,
-                        color: Colors.white,
-                      )),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: Text('Wind-Speed: $wind km/h',
-                      style: const TextStyle(
-                        height: 2.0,
-                        backgroundColor: Colors.transparent,
-                        color: Colors.white,
-                      )),
-                ),
-              ],
-            );
-          },
-        )
-        ),
-    ),
-    );
-  }
-}
-
-/*
-void main() {
-  runApp(const MyApp(title: '',));
-}
-
-
-class ResponsiveNavBarPage extends StatelessWidget {
-  ResponsiveNavBarPage({Key? key}) : super(key: key);
-
-  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final bool isLargeScreen = width > 800;
-
-    return Theme(
-      data: ThemeData(
-          brightness: Brightness.dark,
-          primaryColor: Colors.blueGrey
-      ),
-      child: MaterialApp(
-        debugShowCheckedModeBanner:false,
-        home: Scaffold(
-          key: _scaffoldKey,
-          appBar: AppBar(
-            backgroundColor: Colors.lightBlueAccent,
-            elevation: 0,
-            titleSpacing: 0,
-            leading: isLargeScreen
-                ? null
-                : IconButton(
-              icon: const Icon(Icons.menu),
-              onPressed: () => _scaffoldKey.currentState?.openDrawer(),
-            ),
-            title: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    "Logo",
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                  if (isLargeScreen) Expanded(child: _navBarItems())
-                ],
-              ),
-            ),
-            actions: const [
-              Padding(
-                padding: EdgeInsets.only(right: 16.0),
-                child: CircleAvatar(child: _ProfileIcon()),
-              )
-            ],
-          ),
-          drawer: isLargeScreen ? null : _drawer(),
-          body: const Center(
-            child: Text(
-              "Body",
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _drawer() => Drawer(
-    child: dirlistView(
-      children: _menuItems
-          .map((item) => dirlistTile(
-        onTap: () {
-          _scaffoldKey.currentState?.openEndDrawer();
-        },
-        title: Text(item),
-      ))
-          .todirlist(),
-    ),
-  );
-
-  Widget _navBarItems() => Row(
-    mainAxisAlignment: MainAxisAlignment.end,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: _menuItems
-        .map(
-          (item) => InkWell(
-        onTap: () {},
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-              vertical: 24.0, horizontal: 16),
-          child: Text(
-            item,
-            style: const TextStyle(fontSize: 18),
-          ),
-        ),
-      ),
-    )
-        .todirlist(),
-  );
-}
-
-final dirlist<String> _menuItems = <String>[
-  'About',
-  'Contact',
-  'Settings',
-  'Sign Out',
-];
-
-enum Menu { itemOne, itemTwo, itemThree }
-
-class _ProfileIcon extends StatelessWidget {
-  const _ProfileIcon({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return PopupMenuButton<Menu>(
-        icon: const Icon(Icons.person),
-        offset: const Offset(0, 40),
-        onSelected: (Menu item) {},
-        itemBuilder: (BuildContext context) => <PopupMenuEntry<Menu>>[
-          const PopupMenuItem<Menu>(
-            value: Menu.itemOne,
-            child: Text('Account'),
-          ),
-          const PopupMenuItem<Menu>(
-            value: Menu.itemTwo,
-            child: Text('Settings'),
-          ),
-          const PopupMenuItem<Menu>(
-            value: Menu.itemThree,
-            child: Text('Sign Out'),
-          ),
-        ]);
-  }
-}*/

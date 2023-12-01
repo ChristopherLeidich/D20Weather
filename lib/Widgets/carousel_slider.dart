@@ -3,25 +3,32 @@ import 'package:flutter/material.dart';
 //import 'Widgets/themes.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-class CarouselSliderWidget extends StatelessWidget {
-  const CarouselSliderWidget(
-      {super.key,
-      required this.controller,
-      required this.onIndexChanged,
-      required this.printableValue,
-      required this.preSymbol});
+class CarouselSliderWidget extends StatefulWidget {
+  const CarouselSliderWidget({
+    required this.controller,
+    required this.onIndexChanged,
+    required this.printableValue,
+    required this.preSymbol,
+    required this.onPageChanged,
+
+    super.key,
+  });
 
   final CarouselController controller;
   final ValueChanged<int> onIndexChanged;
+  final String printableValue;
+  final String preSymbol;
+  final VoidCallback onPageChanged;
 
-  final String
-      printableValue; //this is the temperature that gets printed in the End
-  final String preSymbol; //Symbol for negative/Positive Temperatures
+  @override
+  State<CarouselSliderWidget> createState() => _CarouselSliderWidgetState();
+}
 
+class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
-      carouselController: controller,
+      carouselController: widget.controller,
       items: [
         Container(
           padding: const EdgeInsets.fromLTRB(0, 20, 0, 20),
@@ -41,7 +48,7 @@ class CarouselSliderWidget extends StatelessWidget {
               ),
               Center(
                 child: Text(
-                  '$preSymbol $printableValue °C',
+                  '${widget.preSymbol} ${widget.printableValue} °C',
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 48,
@@ -69,7 +76,7 @@ class CarouselSliderWidget extends StatelessWidget {
               ),
               Center(
                 child: Text(
-                  '$preSymbol $printableValue °C',
+                  '${widget.preSymbol} ${widget.printableValue} °C',
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 48,
@@ -100,7 +107,7 @@ class CarouselSliderWidget extends StatelessWidget {
               ),
               Center(
                 child: Text(
-                  '$preSymbol $printableValue °C',
+                  '${widget.preSymbol} ${widget.printableValue} °C',
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 48,
@@ -121,9 +128,11 @@ class CarouselSliderWidget extends StatelessWidget {
         initialPage: 0,
         height: MediaQuery.of(context).size.height / 3,
         onPageChanged: (index, reason) {
+          widget.onIndexChanged(index);
+          widget.onPageChanged();
           // Notify the parent widget when the page changes
-          onIndexChanged(index);
-          /*setState(() {
+          /*widget.onIndexChanged(index);
+          setState(() {
             images.removeAt(index);
           })
           if (index < images.length) {
