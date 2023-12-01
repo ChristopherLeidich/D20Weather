@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:d20/d20.dart';
 import 'package:flutter/rendering.dart';
 
-import '../main.dart';
 import 'Models/lists.dart';
 
 class TextWidget extends StatelessWidget {
