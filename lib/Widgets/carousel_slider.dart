@@ -100,8 +100,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
                 child: Expanded(
                   child: Image.asset(
                       'assets/images/9502ac62b81f208465c7beb0d4338c77.jpg',
-                      height: MediaQuery.of(context).size.height / 3,
-                      width: MediaQuery.of(context).size.height / 1.2,
+                      height: 450,
                       fit: BoxFit.fill),
                 ),
               ),
