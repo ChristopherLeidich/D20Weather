@@ -1,4 +1,3 @@
-//import 'dart:io';
 import 'package:fantasy_weather_app/Widgets/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:fantasy_weather_app/Widgets/text_widget.dart';
@@ -8,13 +7,7 @@ import 'package:fantasy_weather_app/Widgets/drawer_widget.dart';
 import 'package:fantasy_weather_app/Widgets/Models/lists.dart';
 import 'package:fantasy_weather_app/Widgets/starviewfield.dart';
 import 'dart:math';
-
-import 'package:d20/d20.dart';
-
-//import 'package:flutter/foundation.dart';
 import 'package:firebase_core/firebase_core.dart';
-//import 'package:firebase_auth/firebase_auth.dart';
-//import 'package:google_sign_in/google_sign_in.dart';
 import 'firebase_options.dart';
 
 import 'package:flutter_weather_bg_null_safety/flutter_weather_bg.dart';
@@ -65,17 +58,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
   void initState() {
     super.initState();
     randomizer(); // Generate the first random value when the app is started
-
-   /* _timer = Timer.periodic(
-        const Duration(seconds: 4, milliseconds: 42
-        ),
-        (timer) {
-      //Generates a new Random Value in the void randomizer() after a set amount of seconds
-      randomizer();
-    });*/
   }
-
-
 
   void randomizer() {
     setState(() {
@@ -100,7 +83,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
             doubleValues = Random().nextDouble() * help;
             preSymbol = '+';
           case 1:
-            help = regionList[randIndex].regionalTemperatureLimitPositive;
+            help = regionList[randIndex].regionalTemperatureLimitNegative;
             doubleValues = Random().nextDouble() * help;
             preSymbol = '-';
           default:
@@ -110,21 +93,12 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
       }else {
         help = regionList[randIndex].regionalTemperatureLimitPositive;
         doubleValues = Random().nextDouble() * help;
-            preSymbol = '+';
+        preSymbol = '+';
       }
-      printableValues = doubleValues.toStringAsFixed(
-          1); //fixes the length of digits after the , to 1 (e.g. 1.1 instead of 1.00000001)
+      printableValues = doubleValues.toStringAsFixed(1);
+      //fixes the length of digits after the , to 1 (e.g. 1.1 instead of 1.00000001)
     });
   }
-
-  @override
-  void dispose() {
-    // Cancel the timer when the widget is disposed to prevent memory leaks
-    //_timer.cancel();
-    super.dispose();
-  }
-
-  //get isDarkTheme => _MyCustomAppBarState;
 
   @override
   Widget build(BuildContext context) {
@@ -142,7 +116,6 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
             ),
           ),
         ),
-
         title: const Align(
             alignment: Alignment.centerRight,
             child: Text('D20Weather')),
@@ -152,8 +125,6 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),
-
-    // Replace PopupMenuButton with a drawer
       ),
       drawer: const MyDrawer(),
       body: Stack(
@@ -233,9 +204,6 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
                 height: MediaQuery.of(context).size.height,
               ),
           },
-          //'Umbral-Storm','Radiant-Storm','Thunderstorm','Phantasmal-Rain','Rain','Sun',
-          // 'Drought', 'Storm','Snow','Hail','Drizzle','Cloudy'
-          //const StarsViewBackground(),
           Column(
             children: [
               CarouselSliderWidget(
