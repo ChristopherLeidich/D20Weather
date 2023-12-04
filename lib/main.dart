@@ -6,8 +6,8 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fantasy_weather_app/Widgets/drawer_widget.dart';
 import 'package:fantasy_weather_app/Widgets/Models/lists.dart';
 import 'package:fantasy_weather_app/Widgets/starviewfield.dart';
-import 'dart:math';
 import 'package:firebase_core/firebase_core.dart';
+import 'Widgets/randomizer.dart';
 import 'firebase_options.dart';
 
 import 'package:flutter_weather_bg_null_safety/flutter_weather_bg.dart';
@@ -53,51 +53,13 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
 
   int randIndex = 0;
 
+  Randomizer randomizer = Randomizer();
+
 
   @override
   void initState() {
     super.initState();
-    randomizer(); // Generate the first random value when the app is started
-  }
-
-  void randomizer() {
-    setState(() {
-
-      final random1 = Random();
-      final random2 = Random();
-
-      int help = 0;
-
-      int regionalCases = Random().nextInt(2);
-      direction = dirlist[random1.nextInt(dirlist.length)];
-      wetterBedingung = wetterbedingunsliste[random2.nextInt(wetterbedingunsliste.length)];
-
-      randIndex = random1.nextInt(regionList.length);
-
-      wind = Random().nextInt(64);
-
-      if(regionList[randIndex].negativeTemperature == true){
-        switch (regionalCases) {
-          case 0 :
-            help = regionList[randIndex].regionalTemperatureLimitPositive;
-            doubleValues = Random().nextDouble() * help;
-            preSymbol = '+';
-          case 1:
-            help = regionList[randIndex].regionalTemperatureLimitNegative;
-            doubleValues = Random().nextDouble() * help;
-            preSymbol = '-';
-          default:
-            doubleValues = 1;
-            preSymbol = '+';
-        }
-      }else {
-        help = regionList[randIndex].regionalTemperatureLimitPositive;
-        doubleValues = Random().nextDouble() * help;
-        preSymbol = '+';
-      }
-      printableValues = doubleValues.toStringAsFixed(1);
-      //fixes the length of digits after the , to 1 (e.g. 1.1 instead of 1.00000001)
-    });
+    randomizer; // Generate the first random value when the app is started
   }
 
   @override
@@ -216,7 +178,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
                   printableValue: printableValues,
                   preSymbol: preSymbol,
                   onPageChanged: () {
-                    randomizer();
+                    randomizer;
                     },
                   ),
                   TextWidget(
