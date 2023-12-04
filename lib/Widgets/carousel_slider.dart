@@ -1,7 +1,10 @@
+import 'package:fantasy_weather_app/Widgets/Models/lists.dart';
 import 'package:flutter/material.dart';
 
 //import 'Widgets/themes.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+
+import 'PresetPages/beach.dart';
 
 class CarouselSliderWidget extends StatefulWidget {
   const CarouselSliderWidget({
@@ -70,7 +73,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Expanded(
-                  child: Image.asset('assets/images/KT3A7OD.jpeg',
+                  child: Image.asset('assets/images/Beach(1080x600).png',
                       height: 450, fit: BoxFit.fill),
                 ),
               ),
@@ -104,7 +107,14 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
                       fit: BoxFit.fill),
                 ),
               ),
-              Center(
+              InkWell(
+              onTap: () {
+                Navigator.pop(context);
+
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => BeachPage(currentIndex: 4, wind: wind, direction: direction, wetterBedingung: '',region: regionList[4], roller: roller)));// Do something.
+              },
+              child: Center(
                 child: Text(
                   '${widget.preSymbol} ${widget.printableValue} °C',
                   style: const TextStyle(
@@ -112,6 +122,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
                     fontSize: 48,
                   ),
                 ),
+              ),
               ),
             ],
           ),
