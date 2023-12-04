@@ -1,10 +1,12 @@
 import 'package:fantasy_weather_app/Widgets/Models/lists.dart';
+import 'package:fantasy_weather_app/Widgets/PresetPages/forest.dart';
 import 'package:flutter/material.dart';
 
 //import 'Widgets/themes.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 import 'PresetPages/beach.dart';
+import 'PresetPages/glacier.dart';
 
 class CarouselSliderWidget extends StatefulWidget {
   const CarouselSliderWidget({
@@ -45,8 +47,16 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Expanded(
-                  child: Image.asset('assets/images/glacier.jpg',
+                  child: InkWell(
+                  onTap: () {
+                  Navigator.pop(context);
+
+                  Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => GlacierPage(currentIndex: 1, wind: wind, direction: direction, wetterBedingung: '' ,region: regionList[1], roller: roller)));// Do something.
+                  },
+                  child: Image.asset('assets/images/Glacier(1080x600).png',
                       height: 450, fit: BoxFit.fill),
+                  ),
                 ),
               ),
               Center(
@@ -73,8 +83,16 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Expanded(
-                  child: Image.asset('assets/images/Beach(1080x600).png',
+                  child: InkWell(
+                  onTap: () {
+                  Navigator.pop(context);
+
+                  Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => ForestPage(currentIndex: 4, wind: wind, direction: direction, wetterBedingung: '',region: regionList[4], roller: roller)));// Do something.
+                  },
+                  child: Image.asset('assets/images/Forest(1080x600).png',
                       height: 450, fit: BoxFit.fill),
+                  ),
                 ),
               ),
               Center(
@@ -101,27 +119,27 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
               ClipRRect(
                 borderRadius: BorderRadius.circular(10),
                 child: Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => BeachPage(currentIndex: 3, wind: wind, direction: direction, wetterBedingung: '',region: regionList[3], roller: roller)));// Do something.
+                    },
                   child: Image.asset(
-                      'assets/images/9502ac62b81f208465c7beb0d4338c77.jpg',
+                      'assets/images/Beach(1080x600).png',
                       height: 450,
                       fit: BoxFit.fill),
                 ),
               ),
-              InkWell(
-              onTap: () {
-                Navigator.pop(context);
-
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => BeachPage(currentIndex: 4, wind: wind, direction: direction, wetterBedingung: '',region: regionList[4], roller: roller)));// Do something.
-              },
-              child: Center(
+              ),
+              Center(
                 child: Text(
                   '${widget.preSymbol} ${widget.printableValue} °C',
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 48,
                   ),
-                ),
               ),
               ),
             ],

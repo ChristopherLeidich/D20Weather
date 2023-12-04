@@ -109,7 +109,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                Colors.white,
+                Color(0xff1affff),
                 Colors.lightBlue,
                 Colors.blue
               ], // Your gradient colors
@@ -121,7 +121,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
             child: Text('D20Weather')),
         leading: Builder(
           builder: (context) => IconButton(
-            icon: const Icon(Icons.menu_book, color: Colors.black,),
+            icon: const Icon(Icons.list_outlined, color: Colors.white70,shadows: <Shadow>[Shadow(color: Colors.black, blurRadius: 0.3)],),
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),
@@ -209,9 +209,8 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
               CarouselSliderWidget(
                   controller: _carouselController,
                   onIndexChanged: (index) {
-                    // Use the CarouselSliderWidget in the body
                     setState(() {
-                      currentIndex = index;
+                      randIndex = index;
                     });
                   },
                   printableValue: printableValues,
