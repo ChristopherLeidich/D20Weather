@@ -73,7 +73,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
           ),
         ),
         switch(widget.randIndex){
-        1 =>  Container(
+        0 =>  Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
@@ -89,7 +89,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
                         onTap: () {
                           Navigator.pop(context);
                           Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => ForestPage(currentIndex: 1, wind: wind, direction: direction, wetterBedingung: '',region: regionList[1], roller: roller)));// Do something.
+                          MaterialPageRoute(builder: (context) => ForestPage(currentIndex: 0, wind: wind, direction: direction, wetterBedingung: '',region: regionList[0], roller: roller)));// Do something.
                         },
                         child: Image.asset('assets/images/Jungle(1080x600).png',
                         height: 450, fit: BoxFit.fill),
@@ -108,7 +108,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
                     ],
                   ),
               ),
-        2 => Container(
+        1 => Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
@@ -124,7 +124,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
                     onTap: () {
                       Navigator.pop(context);
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => ForestPage(currentIndex: 2, wind: wind, direction: direction, wetterBedingung: '',region: regionList[2], roller: roller)));// Do something.
+                          MaterialPageRoute(builder: (context) => ForestPage(currentIndex: 1, wind: wind, direction: direction, wetterBedingung: '',region: regionList[1], roller: roller)));// Do something.
                     },
                     child: Image.asset('assets/images/Glacier(1080x600).png',
                         height: 450, fit: BoxFit.fill),

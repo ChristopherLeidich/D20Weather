@@ -50,18 +50,11 @@ class _MyCustomAppBarState extends State<MyCustomAppBar>
   late Animation<double> _buttonAnimatedIcon;
   // This is used for the child FABs
   late Animation<double> _translateButton;
-  // This variable determnies whether the child FABs are visible or not
+  // This variable determines whether the child FABs are visible or not
   bool _isExpanded = false;
 
   final CarouselController _carouselController = CarouselController();
-  int currentIndex = 0;
 
-  double doubleValues = 0.0; //used for generating a random double Value
-  String printableValues =
-      '0.0'; //this is the temperature that gets printed in the End
-  String preSymbol = '+'; //Symbol for negative/Positive Temperatures
-
-  int randIndex = 0;
 
   Randomizer randomizer = Randomizer();
 
@@ -219,19 +212,19 @@ class _MyCustomAppBarState extends State<MyCustomAppBar>
                 controller: _carouselController,
                 onIndexChanged: (index) {
                   setState(() {
-                    randIndex = index;
+                    randomizer.randIndex = index;
                   });
                 },
-                printableValue: printableValues,
-                preSymbol: preSymbol,
-                randIndex: randIndex,
+                printableValue: randomizer.printableValues,
+                preSymbol: randomizer.preSymbol,
+                randIndex: randomizer.randIndex,
                 onPageChanged: () {
                   randomizer;
                 },
               ),
               TextWidget(
-                region: regionList[randIndex],
-                currentIndex: currentIndex,
+                region: regionList[randomizer.randIndex],
+                currentIndex: randomizer.currentIndex,
                 wind: wind,
                 direction: direction,
                 wetterBedingung: wetterBedingung,

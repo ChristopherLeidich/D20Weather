@@ -7,6 +7,7 @@ class Randomizer {
   int randIndex = 0;
   String printableValues = '0.0'; //this is the temperature that gets printed in the End
   String preSymbol = '+'; //Symbol for negative/Positive Temperatures
+  int currentIndex = 0;
 
   void randomizer() {
       final random1 = Random();
