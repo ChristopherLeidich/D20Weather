@@ -42,24 +42,68 @@ class MyCustomAppBar extends StatefulWidget {
   State<MyCustomAppBar> createState() => _MyCustomAppBarState();
 }
 
-class _MyCustomAppBarState extends State<MyCustomAppBar> {
+class _MyCustomAppBarState extends State<MyCustomAppBar>
+    with SingleTickerProviderStateMixin {
+  // Animation controller
+  late AnimationController _animationController;
+  // This is used to animate the icon of the main FAB
+  late Animation<double> _buttonAnimatedIcon;
+  // This is used for the child FABs
+  late Animation<double> _translateButton;
+  // This variable determnies whether the child FABs are visible or not
+  bool _isExpanded = false;
 
   final CarouselController _carouselController = CarouselController();
   int currentIndex = 0;
 
   double doubleValues = 0.0; //used for generating a random double Value
-  String printableValues = '0.0'; //this is the temperature that gets printed in the End
+  String printableValues =
+      '0.0'; //this is the temperature that gets printed in the End
   String preSymbol = '+'; //Symbol for negative/Positive Temperatures
 
   int randIndex = 0;
 
   Randomizer randomizer = Randomizer();
 
-
   @override
   void initState() {
+    _animationController = AnimationController(
+        vsync: this, duration: const Duration(milliseconds: 600))
+      ..addListener(() {
+        setState(() {});
+      });
+
+    _buttonAnimatedIcon =
+        Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
+
+    _translateButton = Tween<double>(
+      begin: 100,
+      end: -20,
+    ).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    ));
     super.initState();
     randomizer; // Generate the first random value when the app is started
+  }
+
+  // dispose the animation controller
+  @override
+  dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  // This function is used to expand/collapse the children floating buttons
+  // It will be called when the primary FAB (with menu icon) is pressed
+  _toggle() {
+    if (_isExpanded) {
+      _animationController.reverse();
+    } else {
+      _animationController.forward();
+    }
+
+    _isExpanded = !_isExpanded;
   }
 
   @override
@@ -79,11 +123,14 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
           ),
         ),
         title: const Align(
-            alignment: Alignment.centerRight,
-            child: Text('D20Weather')),
+            alignment: Alignment.centerRight, child: Text('D20Weather')),
         leading: Builder(
           builder: (context) => IconButton(
-            icon: const Icon(Icons.list_outlined, color: Colors.white70,shadows: <Shadow>[Shadow(color: Colors.black, blurRadius: 0.3)],),
+            icon: const Icon(
+              Icons.list_outlined,
+              color: Colors.white70,
+              shadows: <Shadow>[Shadow(color: Colors.black, blurRadius: 0.3)],
+            ),
             onPressed: () => Scaffold.of(context).openDrawer(),
           ),
         ),
@@ -169,33 +216,84 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
           Column(
             children: [
               CarouselSliderWidget(
-                  controller: _carouselController,
-                  onIndexChanged: (index) {
-                    setState(() {
-                      randIndex = index;
-                    });
-                  },
-                  printableValue: printableValues,
-                  preSymbol: preSymbol,
-                  randIndex: randIndex,
-                  onPageChanged: () {
-                    randomizer;
-                    },
-                  ),
-                  TextWidget(
-                  region: regionList[randIndex],
-                  currentIndex: currentIndex,
-                  wind: wind,
-                  direction: direction,
-                  wetterBedingung: wetterBedingung,
-                  roller: roller,
-                  ),
-                ],
+                controller: _carouselController,
+                onIndexChanged: (index) {
+                  setState(() {
+                    randIndex = index;
+                  });
+                },
+                printableValue: printableValues,
+                preSymbol: preSymbol,
+                randIndex: randIndex,
+                onPageChanged: () {
+                  randomizer;
+                },
+              ),
+              TextWidget(
+                region: regionList[randIndex],
+                currentIndex: currentIndex,
+                wind: wind,
+                direction: direction,
+                wetterBedingung: wetterBedingung,
+                roller: roller,
               ),
             ],
           ),
-        );
+        ],
+      ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Transform(
+            transform: Matrix4.translationValues(
+              0.0,
+              _translateButton.value * 4,
+              0.0,
+            ),
+            child: FloatingActionButton(
+              backgroundColor: Colors.blue,
+              onPressed: () {/* Do something */},
+              child: const Icon(
+                Icons.refresh,
+              ),
+            ),
+          ),
+          Transform(
+            transform: Matrix4.translationValues(
+              0,
+              _translateButton.value * 3,
+              0,
+            ),
+            child: FloatingActionButton(
+              backgroundColor: Colors.red,
+              onPressed: () {/* Do something */},
+              child: const Icon(
+                Icons.history_edu,
+              ),
+            ),
+          ),
+          Transform(
+            transform: Matrix4.translationValues(
+              0,
+              _translateButton.value * 2,
+              0,
+            ),
+            child: FloatingActionButton(
+              backgroundColor: Colors.amber,
+              onPressed: () {/* Do something */},
+              child: const Icon(Icons.save_as),
+            ),
+          ),
+          // This is the primary FAB
+          FloatingActionButton(
+            onPressed: _toggle,
+            child: AnimatedIcon(
+              icon: AnimatedIcons.menu_close,
+              progress: _buttonAnimatedIcon,
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
-
-
