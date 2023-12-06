@@ -62,6 +62,7 @@ dependencies:
   firebase_analytics: ^10.7.2
   image_picker: ^1.0.4
   localstorage: ^4.0.1+4
+  flutter_lints: ^3.0.1
 
 flutter_launcher_icons:
   #  image_path: "assets/images/icon-128x128.png"
@@ -101,7 +102,6 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^3.0.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -119,6 +119,8 @@ flutter:
     - assets/images/Forest(1080x600).png
     - assets/images/Glacier(1080x600).png
     - assets/images/Ocean(1080x600).png
+    - assets/images/Desert(1080x600).png
+    - assets/images/Jungle(1080x600).png
     - assets/icons/6aaca114d9dd2e07d77cec4d3acf93e5.png
     - assets/icons/Solid_black.png
     - assets/icons/d20_cloud.png

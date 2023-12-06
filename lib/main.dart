@@ -177,6 +177,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar> {
                   },
                   printableValue: printableValues,
                   preSymbol: preSymbol,
+                  randIndex: randIndex,
                   onPageChanged: () {
                     randomizer;
                     },

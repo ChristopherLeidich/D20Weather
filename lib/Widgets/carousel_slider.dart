@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 //import 'Widgets/themes.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+import '../main.dart';
 import 'PresetPages/beach.dart';
 import 'PresetPages/glacier.dart';
 
@@ -15,10 +16,10 @@ class CarouselSliderWidget extends StatefulWidget {
     required this.printableValue,
     required this.preSymbol,
     required this.onPageChanged,
-
-    super.key,
+    super.key, required this.randIndex,
   });
 
+  final int randIndex;
   final CarouselController controller;
   final ValueChanged<int> onIndexChanged;
   final String printableValue;
@@ -71,7 +72,43 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
             ],
           ),
         ),
-        Container(
+        switch(widget.randIndex){
+        1 =>  Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.transparent,
+                ),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    ClipRRect(
+                    borderRadius: BorderRadius.circular(10),
+                    child: Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                          Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => ForestPage(currentIndex: 1, wind: wind, direction: direction, wetterBedingung: '',region: regionList[1], roller: roller)));// Do something.
+                        },
+                        child: Image.asset('assets/images/Jungle(1080x600).png',
+                        height: 450, fit: BoxFit.fill),
+                       ),
+                      ),
+                    ),
+                      Center(
+                        child: Text(
+                          '${widget.preSymbol} ${widget.printableValue} °C',
+                          style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 48,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+              ),
+        2 => Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10),
@@ -84,14 +121,13 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
                 borderRadius: BorderRadius.circular(10),
                 child: Expanded(
                   child: InkWell(
-                  onTap: () {
-                  Navigator.pop(context);
-
-                  Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => ForestPage(currentIndex: 4, wind: wind, direction: direction, wetterBedingung: '',region: regionList[4], roller: roller)));// Do something.
-                  },
-                  child: Image.asset('assets/images/Forest(1080x600).png',
-                      height: 450, fit: BoxFit.fill),
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => ForestPage(currentIndex: 2, wind: wind, direction: direction, wetterBedingung: '',region: regionList[2], roller: roller)));// Do something.
+                    },
+                    child: Image.asset('assets/images/Glacier(1080x600).png',
+                        height: 450, fit: BoxFit.fill),
                   ),
                 ),
               ),
@@ -107,6 +143,46 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
             ],
           ),
         ),
+        _ => Container(
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.transparent,
+          ),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: Expanded(
+                  child: InkWell(
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => const MyApp()));
+                      if (context.mounted) {
+                        ScaffoldMessenger.of(context)
+                            .showSnackBar(const SnackBar(content: Text('Something went Wrong and no Number could be Generated\n Error-Code: CE0001RNG')));
+                      }// Do something.
+                    },
+                    child: Image.asset('44.jpg',
+                        height: 450, fit: BoxFit.fill),
+                  ),
+                ),
+              ),
+              Center(
+                child: Text(
+                  '${widget.preSymbol} ${widget.printableValue} °C',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 48,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        },
         Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
