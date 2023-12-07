@@ -15,8 +15,6 @@ class CarouselSliderWidget extends StatefulWidget {
   const CarouselSliderWidget({
     required this.controller,
     required this.onIndexChanged,
-    required this.printableValue,
-    required this.preSymbol,
     required this.onPageChanged,
     super.key, required this.randIndex,
   });
@@ -24,8 +22,6 @@ class CarouselSliderWidget extends StatefulWidget {
   final int randIndex;
   final CarouselController controller;
   final ValueChanged<int> onIndexChanged;
-  final String printableValue;
-  final String preSymbol;
   final VoidCallback onPageChanged;
 
   @override

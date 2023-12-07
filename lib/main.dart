@@ -77,7 +77,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar>
       curve: Curves.easeInOut,
     ));
     super.initState();
-    Randomizer();
+    randomizer.randomizer();
   }
 
   // dispose the animation controller
@@ -215,11 +215,9 @@ class _MyCustomAppBarState extends State<MyCustomAppBar>
                     randomizer.randIndex = index;
                   });
                 },
-                printableValue: randomizer.printableValues,
-                preSymbol: randomizer.preSymbol,
                 randIndex: randomizer.randIndex,
                 onPageChanged: () {
-                  randomizer;
+                  randomizer.randomizer();
                 },
               ),
               TextWidget(
