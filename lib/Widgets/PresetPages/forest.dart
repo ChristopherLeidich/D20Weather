@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../Models/lists.dart';
 import '../drawer_widget.dart';
+import '../randomizer.dart';
 import '../text_widget.dart';
 
 class ForestPage extends StatefulWidget {
@@ -21,6 +22,7 @@ class ForestPage extends StatefulWidget {
 
 class _ForestState extends State<ForestPage> {
 
+  Randomizer randomizer = Randomizer();
 
   @override
   Widget build(BuildContext context) {
@@ -58,9 +60,9 @@ class _ForestState extends State<ForestPage> {
           TextWidget(
             region: regionList[4],
             currentIndex: 4,
-            wind: wind,
-            direction: direction,
-            wetterBedingung: wetterBedingung,
+            wind: randomizer.wind,
+            direction: randomizer.direction,
+            wetterBedingung: randomizer.wetterBedingung,
             roller: roller,
           ),
         ],

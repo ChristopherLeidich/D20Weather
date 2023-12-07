@@ -1,5 +1,6 @@
 import 'package:fantasy_weather_app/Widgets/Models/lists.dart';
 import 'package:fantasy_weather_app/Widgets/PresetPages/forest.dart';
+import 'package:fantasy_weather_app/Widgets/randomizer.dart';
 import 'package:flutter/material.dart';
 
 //import 'Widgets/themes.dart';
@@ -8,6 +9,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import '../main.dart';
 import 'PresetPages/beach.dart';
 import 'PresetPages/glacier.dart';
+import 'PresetPages/jungle.dart';
 
 class CarouselSliderWidget extends StatefulWidget {
   const CarouselSliderWidget({
@@ -28,9 +30,12 @@ class CarouselSliderWidget extends StatefulWidget {
 
   @override
   State<CarouselSliderWidget> createState() => _CarouselSliderWidgetState();
+
 }
 
 class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
+  Randomizer randomizer = Randomizer();
+
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
@@ -53,7 +58,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
                   Navigator.pop(context);
 
                   Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => GlacierPage(currentIndex: 1, wind: wind, direction: direction, wetterBedingung: '' ,region: regionList[1], roller: roller)));// Do something.
+                  MaterialPageRoute(builder: (context) => GlacierPage(currentIndex: 0, wind: randomizer.wind, direction: randomizer.direction, wetterBedingung: '' ,region: regionList[0], roller: roller)));// Do something.
                   },
                   child: Image.asset('assets/images/Glacier(1080x600).png',
                       height: 450, fit: BoxFit.fill),
@@ -62,7 +67,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
               ),
               Center(
                 child: Text(
-                  '${widget.preSymbol} ${widget.printableValue} °C',
+                  '${randomizer.preSymbol} ${randomizer.printableValues} °C',
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 48,
@@ -72,7 +77,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
             ],
           ),
         ),
-        switch(widget.randIndex){
+        switch(randomizer.randIndex){
         0 =>  Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
@@ -89,7 +94,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
                         onTap: () {
                           Navigator.pop(context);
                           Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => ForestPage(currentIndex: 0, wind: wind, direction: direction, wetterBedingung: '',region: regionList[0], roller: roller)));// Do something.
+                          MaterialPageRoute(builder: (context) => JunglePage(currentIndex: 0, wind: randomizer.wind, direction: randomizer.direction, wetterBedingung: '',region: regionList[0], roller: roller)));// Do something.
                         },
                         child: Image.asset('assets/images/Jungle(1080x600).png',
                         height: 450, fit: BoxFit.fill),
@@ -98,7 +103,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
                     ),
                       Center(
                         child: Text(
-                          '${widget.preSymbol} ${widget.printableValue} °C',
+                          '${randomizer.preSymbol} ${randomizer.printableValues} °C',
                           style: const TextStyle(
                           color: Colors.white,
                           fontSize: 48,
@@ -124,7 +129,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
                     onTap: () {
                       Navigator.pop(context);
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => ForestPage(currentIndex: 1, wind: wind, direction: direction, wetterBedingung: '',region: regionList[1], roller: roller)));// Do something.
+                          MaterialPageRoute(builder: (context) => GlacierPage(currentIndex: 1, wind: randomizer.wind, direction: randomizer.direction, wetterBedingung: '',region: regionList[1], roller: roller)));// Do something.
                     },
                     child: Image.asset('assets/images/Glacier(1080x600).png',
                         height: 450, fit: BoxFit.fill),
@@ -133,7 +138,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
               ),
               Center(
                 child: Text(
-                  '${widget.preSymbol} ${widget.printableValue} °C',
+                  '${randomizer.preSymbol} ${randomizer.printableValues} °C',
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 48,
@@ -143,6 +148,76 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
             ],
           ),
         ),
+          2 => Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.transparent,
+            ),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => GlacierPage(currentIndex: 2, wind: randomizer.wind, direction: randomizer.direction, wetterBedingung: '',region: regionList[2], roller: roller)));// Do something.
+                      },
+                      child: Image.asset('assets/images/Ocean(1080x600).png',
+                          height: 450, fit: BoxFit.fill),
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Text(
+                    '${randomizer.preSymbol} ${randomizer.printableValues} °C',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 48,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          3 => Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              color: Colors.transparent,
+            ),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => BeachPage(currentIndex: 3, wind: randomizer.wind, direction: randomizer.direction, wetterBedingung: '',region: regionList[3], roller: roller)));// Do something.
+                      },
+                      child: Image.asset('assets/images/Beach(1080x600).png',
+                          height: 450, fit: BoxFit.fill),
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Text(
+                    '${randomizer.preSymbol} ${randomizer.printableValues} °C',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 48,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
         _ => Container(
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
@@ -172,7 +247,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
               ),
               Center(
                 child: Text(
-                  '${widget.preSymbol} ${widget.printableValue} °C',
+                  '${randomizer.randIndex} ${randomizer.printableValues} °C',
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 48,
@@ -200,7 +275,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
                       Navigator.pop(context);
 
                       Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => BeachPage(currentIndex: 3, wind: wind, direction: direction, wetterBedingung: '',region: regionList[3], roller: roller)));// Do something.
+                          MaterialPageRoute(builder: (context) => BeachPage(currentIndex: 3, wind: randomizer.wind, direction: randomizer.direction, wetterBedingung: '',region: regionList[3], roller: roller)));// Do something.
                     },
                   child: Image.asset(
                       'assets/images/Beach(1080x600).png',
@@ -211,7 +286,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
               ),
               Center(
                 child: Text(
-                  '${widget.preSymbol} ${widget.printableValue} °C',
+                  '${randomizer.preSymbol} ${randomizer.printableValues} °C',
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 48,
@@ -234,6 +309,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
         onPageChanged: (index, reason) {
           widget.onIndexChanged(index);
           widget.onPageChanged();
+          Randomizer();
           // Notify the parent widget when the page changes
           /*widget.onIndexChanged(index);
           setState(() {

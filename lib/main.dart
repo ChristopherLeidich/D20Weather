@@ -77,7 +77,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar>
       curve: Curves.easeInOut,
     ));
     super.initState();
-    randomizer; // Generate the first random value when the app is started
+    Randomizer();
   }
 
   // dispose the animation controller
@@ -131,7 +131,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar>
       drawer: const MyDrawer(),
       body: Stack(
         children: [
-          switch (wetterBedingung) {
+          switch (randomizer.wetterBedingung) {
             "Umbral-Storm" => ParallaxRain(
                 dropColors: const [
                   Colors.deepPurpleAccent,
@@ -225,9 +225,9 @@ class _MyCustomAppBarState extends State<MyCustomAppBar>
               TextWidget(
                 region: regionList[randomizer.randIndex],
                 currentIndex: randomizer.currentIndex,
-                wind: wind,
-                direction: direction,
-                wetterBedingung: wetterBedingung,
+                wind: randomizer.wind,
+                direction: randomizer.direction,
+                wetterBedingung: randomizer.wetterBedingung,
                 roller: roller,
               ),
             ],

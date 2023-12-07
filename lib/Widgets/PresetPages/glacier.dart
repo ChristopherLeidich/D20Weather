@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../Models/lists.dart';
 import '../drawer_widget.dart';
+import '../randomizer.dart';
 import '../text_widget.dart';
 
 class GlacierPage extends StatefulWidget {
@@ -21,6 +22,7 @@ class GlacierPage extends StatefulWidget {
 
 class _GlacierState extends State<GlacierPage> {
 
+  Randomizer randomizer = Randomizer();
 
   @override
   Widget build(BuildContext context) {
@@ -59,9 +61,9 @@ class _GlacierState extends State<GlacierPage> {
           child: TextWidget(
             region: regionList[1],
             currentIndex: 1,
-            wind: wind,
-            direction: direction,
-            wetterBedingung: wetterBedingung,
+            wind: randomizer.wind,
+            direction: randomizer.direction,
+            wetterBedingung: randomizer.wetterBedingung,
             roller: roller,
           ),
           ),

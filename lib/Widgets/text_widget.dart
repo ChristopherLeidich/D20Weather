@@ -89,70 +89,82 @@ class TextWidget extends StatelessWidget {
                       ),
                     ),
 
-                    /*Row(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(1.0),
-                      child: Text( region.effectRegional1,
-                        style: const TextStyle(
-                          height: 1.15,
-                          backgroundColor: Colors.transparent,
-                          color: Colors.white,
+                    Column(
+                    children: [
+                      Column(
+                          children: [
+                            Row(
+                              children: [
+                                Padding(
+                                    padding: const EdgeInsets.all(1.0),
+                                    child: Text( region.effectRegional1,
+                                      style: const TextStyle(
+                                        height: 1.15,
+                                        backgroundColor: Colors.transparent,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                  Text('[${roller.roll(region.roller1).toString()}]',
+                                    style: const TextStyle(
+                                    height: 1.15,
+                                    backgroundColor: Colors.transparent,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    ),
+                                  ),
+                               ]
+                            ),
+                            Text( region.effectRegional2,
+                              style: const TextStyle(
+                              height: 1.15,
+                              backgroundColor: Colors.transparent,
+                              color: Colors.white,
+                              ),
+                            ),
+                            Text(roller.roll(region.roller2).toString(),
+                              style: const TextStyle(
+                                height: 1.15,
+                                backgroundColor: Colors.transparent,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          Text( region.effectRegional3,
+                            style: const TextStyle(
+                              height: 1.15,
+                              backgroundColor: Colors.transparent,
+                              color: Colors.white,
+                              ),
+                            ),
+                            Text(roller.roll(region.roller3).toString(),
+                              style: const TextStyle(
+                                height: 1.15,
+                                backgroundColor: Colors.transparent,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ]
+                      ),
+                    Row(
+                      children: [
+                        Text( region.effectRegional4,
+                          style: const TextStyle(
+                            height: 1.15,
+                            backgroundColor: Colors.transparent,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
-                    ),
-                    Text(roller.roll(region.roller1).toString(),
-                      style: const TextStyle(
-                      height: 1.15,
-                      backgroundColor: Colors.transparent,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      ),
-                    ),
-                    Text( region.effectRegional2,
-                      style: const TextStyle(
-                      height: 1.15,
-                      backgroundColor: Colors.transparent,
-                      color: Colors.white,
-                      ),
-                    ),
-                    Text(roller.roll(region.roller2).toString(),
-                      style: const TextStyle(
-                        height: 1.15,
-                        backgroundColor: Colors.transparent,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text( region.effectRegional3,
-                      style: const TextStyle(
-                        height: 1.15,
-                        backgroundColor: Colors.transparent,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text(roller.roll(region.roller3).toString(),
-                      style: const TextStyle(
-                        height: 1.15,
-                        backgroundColor: Colors.transparent,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text( region.effectRegional4,
-                      style: const TextStyle(
-                        height: 1.15,
-                        backgroundColor: Colors.transparent,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Text(roller.roll(region.roller4).toString(),
-                      style: const TextStyle(
-                        height: 1.15,
-                        backgroundColor: Colors.transparent,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
+                        Text(roller.roll(region.roller4).toString(),
+                          style: const TextStyle(
+                            height: 1.15,
+                            backgroundColor: Colors.transparent,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ]
                     ),
                     Text( region.effectRegional5,
                       style: const TextStyle(
@@ -162,7 +174,7 @@ class TextWidget extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),*/
+                ),
                     Row(
                       children: [
                         const Padding(
