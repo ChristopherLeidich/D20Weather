@@ -22,8 +22,6 @@ class GlacierPage extends StatefulWidget {
 
 class _GlacierState extends State<GlacierPage> {
 
-  Randomizer randomizer = Randomizer();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,9 +59,9 @@ class _GlacierState extends State<GlacierPage> {
           child: TextWidget(
             region: regionList[1],
             currentIndex: 1,
-            wind: randomizer.wind,
-            direction: randomizer.direction,
-            wetterBedingung: randomizer.wetterBedingung,
+            wind: wind,
+            direction: direction,
+            wetterBedingung: wetterBedingung,
             roller: roller,
           ),
           ),

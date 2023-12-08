@@ -23,7 +23,6 @@ class JunglePage extends StatefulWidget {
 
 class _JungleState extends State<JunglePage> {
 
-  Randomizer randomizer = Randomizer();
 
   @override
   Widget build(BuildContext context) {
@@ -68,9 +67,9 @@ class _JungleState extends State<JunglePage> {
             return TextWidget(
                 region: regionList[0],
                 currentIndex: 0,
-                wind: randomizer.wind,
-                direction: randomizer.direction,
-                wetterBedingung: randomizer.wetterBedingung,
+                wind: wind,
+                direction: direction,
+                wetterBedingung: wetterBedingung,
                 roller: roller,
                 );
               }

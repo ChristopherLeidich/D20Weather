@@ -21,8 +21,7 @@ class ForestPage extends StatefulWidget {
 
 
 class _ForestState extends State<ForestPage> {
-
-  Randomizer randomizer = Randomizer();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +59,9 @@ class _ForestState extends State<ForestPage> {
           TextWidget(
             region: regionList[4],
             currentIndex: 4,
-            wind: randomizer.wind,
-            direction: randomizer.direction,
-            wetterBedingung: randomizer.wetterBedingung,
+            wind: wind,
+            direction: direction,
+            wetterBedingung: wetterBedingung,
             roller: roller,
           ),
         ],

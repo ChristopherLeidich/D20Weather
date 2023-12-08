@@ -54,9 +54,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar>
   bool _isExpanded = false;
 
   final CarouselController _carouselController = CarouselController();
-
-
-  Randomizer randomizer = Randomizer();
+  
 
   @override
   void initState() {
@@ -77,7 +75,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar>
       curve: Curves.easeInOut,
     ));
     super.initState();
-    randomizer.randomizer();
+    randomizer();
   }
 
   // dispose the animation controller
@@ -131,7 +129,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar>
       drawer: const MyDrawer(),
       body: Stack(
         children: [
-          switch (randomizer.wetterBedingung) {
+          switch (wetterBedingung) {
             "Umbral-Storm" => ParallaxRain(
                 dropColors: const [
                   Colors.deepPurpleAccent,
@@ -212,20 +210,20 @@ class _MyCustomAppBarState extends State<MyCustomAppBar>
                 controller: _carouselController,
                 onIndexChanged: (index) {
                   setState(() {
-                    randomizer.randIndex = index;
+                    randIndex = index;
                   });
                 },
-                randIndex: randomizer.randIndex,
+                randIndex: randIndex,
                 onPageChanged: () {
-                  randomizer.randomizer();
+                  randomizer();
                 },
               ),
               TextWidget(
-                region: regionList[randomizer.randIndex],
-                currentIndex: randomizer.currentIndex,
-                wind: randomizer.wind,
-                direction: randomizer.direction,
-                wetterBedingung: randomizer.wetterBedingung,
+                region: regionList[randIndex],
+                currentIndex: currentIndex,
+                wind: wind,
+                direction: direction,
+                wetterBedingung: wetterBedingung,
                 roller: roller,
               ),
             ],
@@ -243,7 +241,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar>
             ),
             child: FloatingActionButton(
               backgroundColor: Colors.blue,
-              onPressed: () {/* Do something */},
+              onPressed: () {/*aktuallisiert die randomizer.dart manuell*/},
               child: const Icon(
                 Icons.refresh,
               ),
@@ -257,7 +255,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar>
             ),
             child: FloatingActionButton(
               backgroundColor: Colors.red,
-              onPressed: () {/* Do something */},
+              onPressed: () {/* Go to specified Page. Öffne Entry Field. Nutzer gibt Nummer ein. Seite xy wird geöffnet*/},
               child: const Icon(
                 Icons.history_edu,
               ),
@@ -271,7 +269,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar>
             ),
             child: FloatingActionButton(
               backgroundColor: Colors.amber,
-              onPressed: () {/* Do something */},
+              onPressed: () {/* Save Current Snapshot Widget State in Temp either Locally or on the Server */},
               child: const Icon(Icons.save_as),
             ),
           ),

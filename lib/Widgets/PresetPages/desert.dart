@@ -22,7 +22,6 @@ class DesertPage extends StatefulWidget {
 
 class _DesertState extends State<DesertPage> {
 
-  Randomizer randomizer = Randomizer();
 
   @override
   Widget build(BuildContext context) {
@@ -60,9 +59,9 @@ class _DesertState extends State<DesertPage> {
           TextWidget(
             region: regionList[5],
             currentIndex: 5,
-            wind: randomizer.wind,
-            direction: randomizer.direction,
-            wetterBedingung: randomizer.wetterBedingung,
+            wind: wind,
+            direction: direction,
+            wetterBedingung: wetterBedingung,
             roller: roller,
           ),
         ],

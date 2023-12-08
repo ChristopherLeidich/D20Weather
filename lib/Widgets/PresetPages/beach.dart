@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../Models/lists.dart';
 import '../drawer_widget.dart';
+
 import '../randomizer.dart';
 import '../text_widget.dart';
 
@@ -21,9 +22,7 @@ class BeachPage extends StatefulWidget {
 
 
 class _BeachState extends State<BeachPage> {
-
-  Randomizer randomizer = Randomizer();
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,9 +59,9 @@ class _BeachState extends State<BeachPage> {
           TextWidget(
             region: regionList[3],
             currentIndex: 3,
-            wind: randomizer.wind,
-            direction: randomizer.direction,
-            wetterBedingung: randomizer.wetterBedingung,
+            wind: wind,
+            direction: direction,
+            wetterBedingung: wetterBedingung,
             roller: roller,
           ),
         ],
