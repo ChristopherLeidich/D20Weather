@@ -54,7 +54,6 @@ class _MyCustomAppBarState extends State<MyCustomAppBar>
   bool _isExpanded = false;
 
   final CarouselController _carouselController = CarouselController();
-  
 
   @override
   void initState() {
@@ -233,20 +232,22 @@ class _MyCustomAppBarState extends State<MyCustomAppBar>
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Transform(
+          /*Transform(
             transform: Matrix4.translationValues(
-              0.0,
+              0,
               _translateButton.value * 4,
-              0.0,
+              0,
             ),
             child: FloatingActionButton(
-              backgroundColor: Colors.blue,
-              onPressed: () {/*aktuallisiert die randomizer.dart manuell*/},
+              backgroundColor: Colors.red,
+              onPressed: () {
+                /* Go to specified Page. Öffne Entry Field. Nutzer gibt Nummer ein. Seite xy wird geöffnet*/
+              },
               child: const Icon(
-                Icons.refresh,
+                Icons.history_edu,
               ),
             ),
-          ),
+          ),*/
           Transform(
             transform: Matrix4.translationValues(
               0,
@@ -254,25 +255,32 @@ class _MyCustomAppBarState extends State<MyCustomAppBar>
               0,
             ),
             child: FloatingActionButton(
-              backgroundColor: Colors.red,
-              onPressed: () {/* Go to specified Page. Öffne Entry Field. Nutzer gibt Nummer ein. Seite xy wird geöffnet*/},
-              child: const Icon(
-                Icons.history_edu,
-              ),
+              backgroundColor: Colors.amber,
+              onPressed: () {
+                /* Save Current Snapshot Widget State in Temp either Locally or on the Server */
+              },
+              child: const Icon(Icons.bookmark_add),
             ),
           ),
           Transform(
             transform: Matrix4.translationValues(
-              0,
+              0.0,
               _translateButton.value * 2,
-              0,
+              0.0,
             ),
             child: FloatingActionButton(
-              backgroundColor: Colors.amber,
-              onPressed: () {/* Save Current Snapshot Widget State in Temp either Locally or on the Server */},
-              child: const Icon(Icons.save_as),
+              backgroundColor: Colors.blue,
+              onPressed: () {
+                _carouselController.nextPage(
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.linear);
+              },
+              child: const Icon(
+                Icons.refresh,
+              ),
             ),
           ),
+
           // This is the primary FAB
           FloatingActionButton(
             onPressed: _toggle,
