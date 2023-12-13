@@ -65,6 +65,7 @@ dependencies:
   flutter_lints: ^3.0.1
   flutter_feather_icons: ^2.0.0+1
   cloud_firestore: ^4.13.5
+  palette_generator: ^0.3.3+3
 
 flutter_launcher_icons:
   #  image_path: "assets/images/icon-128x128.png"
