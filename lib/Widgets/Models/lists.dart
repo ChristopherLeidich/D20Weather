@@ -1,5 +1,6 @@
 import 'package:d20/d20.dart';
 
+
 class Regional {
   final String regionalName;
   final String regionalDescription;
@@ -75,8 +76,8 @@ final List<Regional> regionList = [
       effectRegional3: ' HP.\nOn a critical Failure the Damage Dice Changes to 1d4 ',
       roller3: '1d4',
       effectRegional4: ' and the Party-Member will be contaminated \nby a random Decease',
-      roller4: '1d2',
-      effectRegional5: ' ',
+      roller4: '1d42',
+      effectRegional5: 'On the Diseases Table at: https://www.d20pfsrd.com/gamemastering/afflictions/diseases/diseases-paizo-inc/',
       regionalTemperatureLimitPositive: 48,
       regionalTemperatureLimitNegative: 0,
       negativeTemperature: false
@@ -122,6 +123,7 @@ final List<Regional> regionList = [
       regionalTemperatureLimitNegative: 4,
       negativeTemperature: true
   ),
+
   Regional(
       regionalName: 'Beach',
       regionalDescription: 'Description for Item 3',
@@ -177,6 +179,50 @@ final List<Regional> regionList = [
       negativeTemperature: true
   ),
 ];
+
+/*final List<Affliction> AfflictionList = [
+  Affliction(Athrakitis)
+  Affliction(Basidirond Spores)
+      Affliction(Blightburn Sickness)
+      Affliction(Blinding Sickness)
+      Affliction(Blister Phage)
+      Affliction(Bluespit)
+      Affliction(Bog Rot)
+      Affliction(Bonecrusher (Dengue) Fever)
+  Affliction(Boot Soup)
+      Affliction(Brainworms)
+      Affliction(Bubonic Plague)
+      Affliction(Cackle Fever)
+  Affliction(Cholera)
+  Affliction(Coward's Mark)
+  Affliction(Demon Fever)
+  Affliction(Devil Chills)
+  Affliction(Dysentery)
+      Affliction(Enteric Fever)
+      Affliction(Filth Fever)
+      Affliction(Final Rest)
+  Affliction(Firegut)
+  Affliction(Green Haze)
+  Affliction(Greenscale)
+      Affliction(Leprosy)
+  Affliction(Malaria (Jungle Fever))
+  Affliction(Mindfire)
+      Affliction(Pulsing Puffs)
+      Affliction(Rabies)
+      Affliction(Rapture Pox)
+      Affliction(Red Ache=
+      Affliction(Red Drip=
+      Affliction(Scarlet Leprosy)
+      Affliction(Seasickness)
+      Affliction(Shakes)
+      Affliction(Shattermind)
+      Affliction(Sleeping Sickness)
+      Affliction(Slimy Doom)
+      Affliction(Tetanus)
+      Affliction(Tuberculosis)
+      Affliction(Typhoid Fever)
+      Affliction(Zombie Rot)
+]*/
 
 final List<Weather> weatherList = [
   Weather(
