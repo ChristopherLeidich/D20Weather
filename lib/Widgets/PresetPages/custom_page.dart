@@ -1,30 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:palette_generator/palette_generator.dart';
 
 import '../Models/lists.dart';
 import '../drawer_widget.dart';
 import '../randomizer.dart';
 import '../text_widget.dart';
 
-class ItemDetails extends StatelessWidget {
+class ItemDetails extends StatefulWidget{
+
+
   ItemDetails(this.itemId, {super.key}) {
-    _reference =
-        FirebaseFirestore.instance.collection('custom_page_data').doc(itemId);
-    _futureData = _reference.get();
+    final reference =
+    FirebaseFirestore.instance.collection('custom_page_data').doc(itemId);
+    _futureData = reference.get();
+
+  }
+  late final Future<DocumentSnapshot> _futureData;
+  final String itemId;
+
+  @override
+  State<ItemDetails> createState() => _ItemdetailState();
+}
+
+class _ItemdetailState extends State<ItemDetails> {
+
+
+  late final String itemId;
+  late final DocumentReference reference;
+
+  late final Map data;
+
+  late List<PaletteColor> colors;
+
+  @override
+  void initState(){
+    super.initState();
+    colors = [];
+    _updatePalettes();
   }
 
-  String itemId;
-  late DocumentReference _reference;
+  _updatePalettes() async{
+      final PaletteGenerator generator =
+      await PaletteGenerator.fromImageProvider(
+          NetworkImage(data['ImageURL']),
+          size: const Size(200, 100)
+      );
+      colors.add(generator.lightMutedColor != null
+          ? generator.lightMutedColor!
+          : PaletteColor(Colors.blue, 2));
 
-  //_reference.get()  --> returns Future<DocumentSnapshot>
-  //_reference.snapshots() --> Stream<DocumentSnapshot>
-  late Future<DocumentSnapshot> _futureData;
-  late Map data;
+      setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<DocumentSnapshot>(
-      future: _futureData,
+      future: widget._futureData,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasError) {
           return Center(child: Text('An error occurred ${snapshot.error}'));
@@ -66,8 +98,13 @@ class ItemDetails extends StatelessWidget {
             drawer: const MyDrawer(),
             body: Column(
               children: [
-                Text('${data['name']}'),
-                Text('${data['quantity']}'),
+                Image.asset('${data['Region Images']}',
+                    height: MediaQuery.of(context).size.height / 4,
+                    width: MediaQuery.of(context).size.width,
+                    fit: BoxFit.fill),
+                Text('${data['region_name']}'),
+                Text('${data['region_description']}'),
+                Text('${data['region_effekt']}'),
               ],
             ),
           );

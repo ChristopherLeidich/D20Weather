@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:palette_generator/palette_generator.dart';
+
 
 
 class CreateCustomPage extends StatefulWidget {
@@ -23,10 +23,26 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
   final TextEditingController _regioncontroller = TextEditingController();
   final TextEditingController _regioneffectcontroller = TextEditingController();
   final TextEditingController _regiondescriptioncontroller = TextEditingController();
+  final TextEditingController _positiveTemperatureLimit = TextEditingController();
+  final TextEditingController _negativeTemperatureLimit = TextEditingController();
 
   GlobalKey<FormState> key=GlobalKey();
 
   final CollectionReference _reference = FirebaseFirestore.instance.collection('custom_page_data');
+
+  bool cold = false;
+  String imageUrl = '';
+
+  final MaterialStateProperty<Icon?> thumbIcon =
+  MaterialStateProperty.resolveWith<Icon?>(
+        (Set<MaterialState> states) {
+      if (states.contains(MaterialState.selected)) {
+        return const Icon(Icons.check);
+      }
+      return const Icon(Icons.close);
+    },
+  );
+
 
   @override
   Widget build(BuildContext context) {
@@ -55,43 +71,17 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
 
                         Reference referenceImageToUpload = referenceDirImage.child(uniqueFileNameGenerator);
 
-                        /*Future<void> saveDominantColorsToStorage(List<Color> dominantColors) async {
-                          final Reference storageRef = FirebaseStorage.instance.ref('dominant_colors');
+                        try {
+                          await referenceImageToUpload.putFile(File(file!.path));
 
-                          // Convert Color objects to hex strings
-                          List<String> colorHexValues =
-                          dominantColors.map((color) => color.toString()).toList();
+                          imageUrl = await referenceImageToUpload.getDownloadURL();
 
-                          // Upload each hex value to Firebase Storage
-                          for (int i = 0; i < colorHexValues.length; i++) {
-                            await storageRef.child('color_$i').putString(colorHexValues[i]);
-                          }
+                        }catch(error){
+                          //
                         }
 
-                        Future<List<Color>> loadDominantColorsFromStorage() async {
-                          final Reference storageRef = FirebaseStorage.instance.ref('dominant_colors');
-
-                          List<Color> dominantColors = [];
-
-                          // Download each hex value from Firebase Storage
-                          for (int i = 0; i < 3; i++) {
-                            final colorHexValue = await storageRef.child('color_$i').putString();
-
-                            // Convert hex value back to Color object
-                            dominantColors.add(Color(int.parse(colorHexValue as String, radix: 16)));
-                          }
-
-                          return dominantColors;
-                        }
-
-                        ImageProvider imageProvider = NetworkImage(file!.path);
-                        List<Color> dominantColors = await getAndSaveDominantColors(imageProvider); // Save dominant colors to Firebase Storage
-                        await saveDominantColorsToStorage(dominantColors); // Later, retrieve dominant colors from Firebase Storage
-                        List<Color> retrievedColors = await loadDominantColorsFromStorage();
-*/
-                        referenceImageToUpload.putFile(file?.path as File);
                         },
-                      child: const Text('Treasury department'),
+                      child: const Text('Gallery'),
                     ),
                     SimpleDialogOption(
                       onPressed: () async {
@@ -103,9 +93,16 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
 
                         Reference referenceImageToUpload = referenceDirImage.child(uniqueFileNameGenerator);
 
-                        referenceImageToUpload.putFile(file?.path as File);
+                        try {
+                          await referenceImageToUpload.putFile(File(file!.path));
+
+                          imageUrl = await referenceImageToUpload.getDownloadURL();
+
+                        }catch(error){
+                          //
+                        }
                       },
-                      child: const Text('State department'),
+                      child: const Text('Camera'),
                     ),
                   ],
                 );
@@ -146,13 +143,8 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
               },
             ),
             TextFormField(
-              controller: _regioneffectcontroller,
-              decoration: const InputDecoration(
-                  labelText: 'Region Effect',
-                  hintText: 'Enter a Region Effect'
-              ),
-            ),
-            TextFormField(
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
               controller: _regiondescriptioncontroller,
               decoration: const InputDecoration(
                   labelText: 'Description',
@@ -169,7 +161,16 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
               },
             ),
             TextFormField(
-              controller: _regiondescriptioncontroller,
+              keyboardType: TextInputType.multiline,
+              maxLines: 10,
+              controller: _regioneffectcontroller,
+              decoration: const InputDecoration(
+                  labelText: 'Region Effect',
+                  hintText: 'Enter a Region Effect'
+              ),
+            ),
+            TextFormField(
+              controller: _positiveTemperatureLimit,
               decoration: const InputDecoration(
                   labelText: 'Positive Temperature Limit',
                   hintText: 'Enter a Positive Temperature Limit in Celsius'
@@ -178,11 +179,60 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
 
                 if(value==null || value.isEmpty)
                 {
-                  return 'Please enter some Text before submitting';
+                  return 'A Number above 0';
+                }
+
+                if(value == '0')
+                {
+                  return 'Value must be above 0';
+                }
+
+                if(value != num as String)
+                {
+                  return 'Must be a Number';
                 }
 
                 return null;
               },
+            ),
+            Switch(
+              thumbIcon: thumbIcon,
+              value: cold,
+              onChanged: (bool value) {
+                setState(() {
+                  cold = value;
+                });
+              },
+            ),
+            Visibility(
+                visible: cold,
+                child: TextFormField(
+                  controller: _negativeTemperatureLimit,
+                  decoration: const InputDecoration(
+                      labelText: 'Positive Temperature Limit',
+                      hintText: 'Enter a Positive Temperature Limit in Celsius'
+                  ),
+                  validator: (String? value){
+
+                    if(value==null || value.isEmpty)
+                    {
+                      return 'A Number above 0';
+                    }
+
+                    if(value == '0')
+                    {
+                      return 'Value must be above 0';
+                    }
+
+                    if(value != num as String)
+                    {
+                      return 'Must be a Number';
+                    }
+
+                    return null;
+                  },
+                ),
+
             ),
             ElevatedButton(
 
@@ -194,6 +244,10 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
                     String regionName = _regioncontroller.text;
                     String regionEffect = _regioneffectcontroller.text;
                     String regionDescription=_regiondescriptioncontroller.text;
+                    String positiveTemperatureLimit =_positiveTemperatureLimit.text;
+                    String negativeTemperatureLimit =_negativeTemperatureLimit.text;
+                    bool iscold = cold;
+                    String image = imageUrl;
 
                     //Create a Map of data
                     Map<String,String> dataToSend={
@@ -201,6 +255,10 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
                       'region_name': regionName,
                       'region_effekt':regionEffect,
                       'region_description':regionDescription,
+                      'positive_temperature_limit': positiveTemperatureLimit,
+                      'negative_temperature': iscold.toString(),
+                      'negative_temperature_limit': negativeTemperatureLimit,
+                      'ImageURL': image,
                     };
 
                     //Add a new item
