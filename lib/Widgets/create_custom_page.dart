@@ -171,6 +171,7 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
             ),
             TextFormField(
               controller: _positiveTemperatureLimit,
+              keyboardType: TextInputType.number,
               decoration: const InputDecoration(
                   labelText: 'Positive Temperature Limit',
                   hintText: 'Enter a Positive Temperature Limit in Celsius'
@@ -208,6 +209,7 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
                 visible: cold,
                 child: TextFormField(
                   controller: _negativeTemperatureLimit,
+                  keyboardType: TextInputType.number,
                   decoration: const InputDecoration(
                       labelText: 'Positive Temperature Limit',
                       hintText: 'Enter a Positive Temperature Limit in Celsius'
