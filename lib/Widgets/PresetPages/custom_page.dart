@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:palette_generator/palette_generator.dart';
 
-import '../Models/lists.dart';
 import '../drawer_widget.dart';
-import '../randomizer.dart';
-import '../text_widget.dart';
 
 class ItemDetails extends StatefulWidget{
 
@@ -31,7 +28,19 @@ class _ItemdetailState extends State<ItemDetails> {
 
   late final Map data;
 
-  late List<PaletteColor> colors;
+  late final List<PaletteColor> colors;
+  final List<Color> invertedColors = [];
+
+  Color getInvertedColor(Color color) {
+    return Color.fromARGB(
+      color.alpha,
+      255 - color.red,
+      255 - color.green,
+      255 - color.blue,
+    );
+  }
+
+
 
   @override
   void initState(){
@@ -46,12 +55,39 @@ class _ItemdetailState extends State<ItemDetails> {
           NetworkImage(data['ImageURL']),
           size: const Size(200, 100)
       );
-      colors.add(generator.lightMutedColor != null
+      colors.add(generator.lightMutedColor != null    //0
           ? generator.lightMutedColor!
           : PaletteColor(Colors.blue, 2));
 
+      colors.add(generator.darkMutedColor != null     //1
+          ? generator.darkMutedColor!
+          : PaletteColor(Colors.blue, 2));
+
+      colors.add(generator.darkVibrantColor != null   //2
+          ? generator.darkVibrantColor!
+          : PaletteColor(Colors.blue, 2));
+
+      colors.add(generator.lightVibrantColor != null   //3
+          ? generator.lightVibrantColor!
+          : PaletteColor(Colors.blue, 2));
+
+      colors.add(generator.dominantColor != null      //4
+          ? generator.dominantColor!
+          : PaletteColor(Colors.blue, 2));
+
+      colors.add(generator.vibrantColor != null       //5
+          ? generator.vibrantColor!
+          : PaletteColor(Colors.blue, 2));
+
+      for (PaletteColor paletteColor in colors) {
+        Color invertedColor = getInvertedColor(paletteColor.color);
+        invertedColors.add(invertedColor);
+      }
+
       setState(() {});
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -72,19 +108,23 @@ class _ItemdetailState extends State<ItemDetails> {
             appBar: AppBar(
               toolbarHeight: 36,
               flexibleSpace: Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
+                decoration:  BoxDecoration(
+                  gradient:  LinearGradient(
                     colors: [
-                      Colors.green,
-                      Colors.lightBlue,
-                      Colors.yellow
+                      colors[4].color,
+                      colors[5].color,
+                      colors[0].color
                     ], // Your gradient colors
                   ),
                 ),
               ),
               title: Align(
                 alignment: Alignment.centerRight,
-                child: Text('${data['title']}'),
+                child: Text('${data['title']}',
+                  style: TextStyle(
+                    color: invertedColors[3]
+                  ),
+                ),
               ),
               leading: Builder(
                 builder: (context) =>
