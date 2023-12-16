@@ -1,6 +1,5 @@
 import 'package:d20/d20.dart';
 
-
 class Regional {
   final String regionalName;
   final String regionalDescription;
@@ -20,23 +19,22 @@ class Regional {
   final bool negativeTemperature;
 
   Regional(
-      {
-        required this.regionalName,
-        required this.regionalDescription,
-        required this.effectRegionalName,
-        required this.effectRegionaldescription,
-        required this.effectRegional1,
-        required this.roller1,
-        required this.effectRegional2,
-        required this.roller2,
-        required this.effectRegional3,
-        required this.roller3,
-        required this.effectRegional4,
-        required this.roller4,
-        required this.effectRegional5,
-        required this.regionalTemperatureLimitPositive,
-        required this.regionalTemperatureLimitNegative,
-        required this.negativeTemperature});
+      {required this.regionalName,
+      required this.regionalDescription,
+      required this.effectRegionalName,
+      required this.effectRegionaldescription,
+      required this.effectRegional1,
+      required this.roller1,
+      required this.effectRegional2,
+      required this.roller2,
+      required this.effectRegional3,
+      required this.roller3,
+      required this.effectRegional4,
+      required this.roller4,
+      required this.effectRegional5,
+      required this.regionalTemperatureLimitPositive,
+      required this.regionalTemperatureLimitNegative,
+      required this.negativeTemperature});
 }
 
 class Weather {
@@ -48,59 +46,63 @@ class Weather {
 
   Weather(
       {required this.weatherName,
-        required this.weatherDescription,
-        required this.weatherEffectname,
-        required this.weatherEffectdescription,
-        required this.weatherEffect});
+      required this.weatherDescription,
+      required this.weatherEffectname,
+      required this.weatherEffectdescription,
+      required this.weatherEffect});
 }
 
 final List<Regional> regionList = [
   Regional(
       regionalName: 'Jungle',
       regionalDescription:
-          'A jungle is land covered with dense\n'
-          ' forest and tangled vegetation,\n '
+          'A jungle is land covered with dense forest and tangled vegetation, '
           'usually in tropical climates. '
-          'It is hard for unprepared Partys to \n'
-          'traverse the Area without issue.',
+          'It is hard for unprepared parties to '
+          'traverse the area without issues.',
       effectRegionalName: 'Insect Plague',
-      effectRegionaldescription:
-                  'Non Undead Creatures are constantly swarmed by \n'
-                  'Tiny mosquitoes and other Insects',
+      effectRegionaldescription: 'Living creatures are constantly swarmed by \n'
+          'tiny mosquitoes and other insects',
       effectRegional1: 'Once every 1d6 ',
       roller1: '1d6',
-      effectRegional2:' Hours every Non-Undead '
-                      'Member of the Party has\nto roll '
-                      'a basic DC15 Fortitude-Save \nor loose 1d2 ',
+      effectRegional2: 'hour(s) every living '
+          'member of the party has to roll '
+          'a basic DC15 Fortitude-Save or take 1d2 ',
       roller2: '1d2',
-      effectRegional3: ' HP.\nOn a critical Failure the Damage Dice Changes to 1d4 ',
+      effectRegional3:
+          'damage. On a critical failure the damage dice changes to 1d4 ',
       roller3: '1d4',
-      effectRegional4: ' and the Party-Member will be contaminated \nby a random Decease',
+      effectRegional4:
+          'and the party-member will get infected by a random disease based on the following 1d42',
       roller4: '1d42',
-      effectRegional5: 'On the Diseases Table at: https://www.d20pfsrd.com/gamemastering/afflictions/diseases/diseases-paizo-inc/',
+      effectRegional5:
+          'more information on in-game diseases at: https://www.d20pfsrd.com/gamemastering/afflictions/diseases/diseases-paizo-inc/',
       regionalTemperatureLimitPositive: 48,
       regionalTemperatureLimitNegative: 0,
-      negativeTemperature: false
-  ),
+      negativeTemperature: false),
   Regional(
     regionalName: 'Glacier',
-    regionalDescription:  'A Cold barren Wasteland of Ice and Snow. '
-        'The Cold Temperatures do little in the way of hospitality. \n'
-        'To an unprepared Party Traversing these Icy Planes means almost certain Death.',
+    regionalDescription: 'A cold barren wasteland of Ice and Snow. '
+        'The cold temperatures do little in the way of hospitality. '
+        'To an unprepared party traversing these icy planes means almost certain Death.',
     effectRegionalName: 'Deadly Frost',
-    effectRegionaldescription:  'The Cold is Clinging onto your Body, '
-        'leaving you more Susceptible to harm from all Sources.',
-    effectRegional1: 'For the Duration of your Stay every \nMember of the Party'
-                    'that does not have at least \nCold-Resistance 5 \n'
-                    'has to roll a basic DC 18 Fortitude Save every 1d4 ',
+    effectRegionaldescription: 'The cold is clinging onto your body, '
+        'leaving you more susceptible to harm from all sources.',
+    effectRegional1:
+        'For the duration of your stay every \nmember of the party '
+        'who does not have at least [5] Cold-Resistance '
+        'has to roll a basic DC [18] Fortitude Save every 1d4 ',
     roller1: '1d4',
-    effectRegional2: '\nHours or gain one Level of Enfeeblement and Take 1d6',
+    effectRegional2: 'hour(s) or gain one level of enfeeblement and take 1d6 ',
     roller2: '1d6',
-    effectRegional3: 'Cold damage\n This Debuff lasts until the Character takes a Long-Rest in a warm-Location or until death.\n On a critical Failure they additionally gain a Stack of the Wounded Condition and the Damage-Dice Changes to 1d8',
+    effectRegional3:
+        'cold damage.\nThis debuff lasts until the character takes a Long-Rest in a warm location or until death.\nOn a critical failure they additionally gain a stack of the wounded condition and the damage dice changes to 1d8',
     roller3: '1d8',
-    effectRegional4: 'of Cold Damage.\n Party-Members with at least Cold-Resistance 5 \ndo these Fortitude Saves instead every 1d8 ',
+    effectRegional4:
+        'cold damage.\nparty members with at least cold resistance [5] have to role for the following fortitude save instead after every 1d8 ',
     roller4: '1d8',
-    effectRegional5: 'Hours with the Same Effects on a Failure and Critical Failure.',
+    effectRegional5:
+        'hour(s) with the same effect on failure or critical failure.',
     regionalTemperatureLimitPositive: 3,
     regionalTemperatureLimitNegative: 48,
     negativeTemperature: true,
@@ -121,9 +123,7 @@ final List<Regional> regionList = [
       effectRegional5: ' ',
       regionalTemperatureLimitPositive: 44,
       regionalTemperatureLimitNegative: 4,
-      negativeTemperature: true
-  ),
-
+      negativeTemperature: true),
   Regional(
       regionalName: 'Beach',
       regionalDescription: 'Description for Item 3',
@@ -140,8 +140,7 @@ final List<Regional> regionList = [
       effectRegional5: ' ',
       regionalTemperatureLimitPositive: 42,
       regionalTemperatureLimitNegative: 0,
-      negativeTemperature: false
-  ),
+      negativeTemperature: false),
   Regional(
       regionalName: 'Forest',
       regionalDescription: 'Description for Item 3',
@@ -158,26 +157,24 @@ final List<Regional> regionList = [
       effectRegional5: ' ',
       regionalTemperatureLimitPositive: 22,
       regionalTemperatureLimitNegative: 24,
-      negativeTemperature: true
-  ),
+      negativeTemperature: true),
   Regional(
       regionalName: 'Desert',
       regionalDescription: 'Description for Item 3',
       effectRegionalName: ' ',
       effectRegionaldescription: ' ',
       effectRegional1: ' ',
-      roller1: '1d0',
+      roller1: '1d2',
       effectRegional2: ' ',
-      roller2: '1d0',
+      roller2: '1d2',
       effectRegional3: ' ',
-      roller3: '1d0',
+      roller3: '1d2',
       effectRegional4: ' ',
-      roller4: '1d0',
+      roller4: '1d2',
       effectRegional5: ' ',
       regionalTemperatureLimitPositive: 54,
       regionalTemperatureLimitNegative: 10,
-      negativeTemperature: true
-  ),
+      negativeTemperature: true),
 ];
 
 /*final List<Affliction> AfflictionList = [
@@ -230,71 +227,61 @@ final List<Weather> weatherList = [
       weatherDescription: '',
       weatherEffectname: 'weatherEffectname',
       weatherEffectdescription: 'weatherEffectdescription',
-      weatherEffect: 'weatherEffect'
-  ),
+      weatherEffect: 'weatherEffect'),
   Weather(
       weatherName: 'Drought',
       weatherDescription: '',
       weatherEffectname: 'weatherEffectname',
       weatherEffectdescription: 'weatherEffectdescription',
-      weatherEffect: 'weatherEffect'
-  ),
+      weatherEffect: 'weatherEffect'),
   Weather(
       weatherName: 'Storm',
       weatherDescription: '',
       weatherEffectname: 'weatherEffectname',
       weatherEffectdescription: 'weatherEffectdescription',
-      weatherEffect: 'weatherEffect'
-  ),
+      weatherEffect: 'weatherEffect'),
   Weather(
       weatherName: 'Thunderstorm',
       weatherDescription: '',
       weatherEffectname: 'weatherEffectname',
       weatherEffectdescription: 'weatherEffectdescription',
-      weatherEffect: 'weatherEffect'
-  ),
+      weatherEffect: 'weatherEffect'),
   Weather(
       weatherName: 'Snow',
       weatherDescription: '',
       weatherEffectname: 'weatherEffectname',
       weatherEffectdescription: 'weatherEffectdescription',
-      weatherEffect: 'weatherEffect'
-  ),
+      weatherEffect: 'weatherEffect'),
   Weather(
       weatherName: 'Hail',
       weatherDescription: '',
       weatherEffectname: 'weatherEffectname',
       weatherEffectdescription: 'weatherEffectdescription',
-      weatherEffect: 'weatherEffect'
-  ),
+      weatherEffect: 'weatherEffect'),
   Weather(
       weatherName: 'Cloudy',
       weatherDescription: '',
       weatherEffectname: 'weatherEffectname',
       weatherEffectdescription: 'weatherEffectdescription',
-      weatherEffect: 'weatherEffect'
-  ),
+      weatherEffect: 'weatherEffect'),
   Weather(
       weatherName: 'Radiant-Storm',
       weatherDescription: '',
       weatherEffectname: 'weatherEffectname',
       weatherEffectdescription: 'weatherEffectdescription',
-      weatherEffect: 'weatherEffect'
-  ),
+      weatherEffect: 'weatherEffect'),
   Weather(
       weatherName: 'Umbral-Storm',
       weatherDescription: '',
       weatherEffectname: 'weatherEffectname',
       weatherEffectdescription: 'weatherEffectdescription',
-      weatherEffect: 'weatherEffect'
-  ),
+      weatherEffect: 'weatherEffect'),
   Weather(
       weatherName: 'Phantasmal-Rain',
       weatherDescription: '',
       weatherEffectname: 'weatherEffectname',
       weatherEffectdescription: 'weatherEffectdescription',
-      weatherEffect: 'weatherEffect'
-  ),
+      weatherEffect: 'weatherEffect'),
 ];
 
 var dirlist = [
@@ -322,6 +309,5 @@ var wetterbedingunsliste = [
   'Drizzle',
   'Cloudy'
 ];
-
 
 final roller = D20();

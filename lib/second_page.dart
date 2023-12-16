@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fantasy_weather_app/Widgets/themes.dart';
 import 'package:fantasy_weather_app/Widgets/drawer_widget.dart';
-import 'package:animated_button_bar/animated_button_bar.dart';
 
 class SecondPage extends StatefulWidget {
   const SecondPage({super.key, required this.title});
@@ -48,40 +47,6 @@ class _MyAppState extends State<SecondPage> {
                         isSwitched = !isSwitched;
                       });
                     }),
-              ],
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                //inverted selection button bar
-                AnimatedButtonBar(
-                  radius: 8.0,
-                  padding: const EdgeInsets.all(16.0),
-                  invertedSelection: true,
-                  children: [
-                    ButtonBarEntry(onTap: () => (), child: const Text('Day')),
-                    ButtonBarEntry(onTap: () => (), child: const Text('Week')),
-                    ButtonBarEntry(onTap: () => (), child: const Text('Month')),
-                    ButtonBarEntry(onTap: () => (), child: const Text('Year'))
-                  ],
-                ),
-                //You can populate it with different types of widgets like Icon
-                AnimatedButtonBar(
-                  radius: 32.0,
-                  padding: const EdgeInsets.all(16.0),
-                  backgroundColor: Colors.blueGrey[800],
-                  foregroundColor: Colors.blueGrey[300],
-                  elevation: 24,
-                  borderColor: Colors.white,
-                  borderWidth: 2,
-                  innerVerticalPadding: 16,
-                  children: [
-                    ButtonBarEntry(
-                        onTap: () => (), child: const Icon(Icons.person)),
-                    ButtonBarEntry(
-                        onTap: () => (), child: const Icon(Icons.people)),
-                  ],
-                ),
               ],
             ),
           ]),
