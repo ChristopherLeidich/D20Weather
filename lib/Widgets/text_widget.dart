@@ -343,6 +343,7 @@ class TextWidget extends StatelessWidget {
                         maxLines: 1,
                         linkColor: Colors.black,
                         animation: true,
+                        expanded: true,
                       ),
                     ),
                     Padding(
@@ -375,6 +376,7 @@ class TextWidget extends StatelessWidget {
                               maxLines: 1,
                               linkColor: Colors.black,
                               animation: true,
+                              expanded: true,
                             ),
                           ),
                           Padding(
@@ -404,6 +406,7 @@ class TextWidget extends StatelessWidget {
                               maxLines: 1,
                               linkColor: Colors.black,
                               animation: true,
+                              expanded: true,
                             ),
                           ),
                           Padding(
@@ -433,6 +436,7 @@ class TextWidget extends StatelessWidget {
                               maxLines: 1,
                               linkColor: Colors.black,
                               animation: true,
+                              expanded: true,
                             ),
                           ),
                           Padding(
@@ -463,6 +467,7 @@ class TextWidget extends StatelessWidget {
                             maxLines: 1,
                             linkColor: Colors.black,
                             animation: true,
+                            expanded: true,
                           ),
                         ),
                         Padding(
