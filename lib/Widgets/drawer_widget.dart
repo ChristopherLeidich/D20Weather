@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:fantasy_weather_app/second_page.dart';
 import 'package:fantasy_weather_app/main.dart';
 
+import 'create_custom_page.dart';
+
 class MyDrawer extends StatelessWidget {
   const MyDrawer({super.key});
 
@@ -80,7 +82,7 @@ class MyDrawer extends StatelessWidget {
               onTap: () {
                 // Handle about
                 Navigator.pop(context);
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
+                Navigator.push(context, MaterialPageRoute(builder: (context) => const CreateCustomPage(title: '', description: '', pageName: '',)));
               },
             ),
             const Divider(), // Divider between main and sub-drawer
@@ -132,7 +134,7 @@ class MyDrawer extends StatelessWidget {
                 Navigator.pop(context);
 
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const LoginPage()));
+                    MaterialPageRoute(builder: (context) => const CreateCustomPage(title: '', description: '', pageName: '',)));
               },
             ),
             const Divider(), // Divider between main and sub-drawer

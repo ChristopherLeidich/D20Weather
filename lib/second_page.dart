@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:fantasy_weather_app/Widgets/themes.dart';
+import 'package:fantasy_weather_app/Widgets/Models/themes.dart';
 import 'package:fantasy_weather_app/Widgets/drawer_widget.dart';
 
 class SecondPage extends StatefulWidget {

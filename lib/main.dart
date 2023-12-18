@@ -1,4 +1,4 @@
-import 'package:fantasy_weather_app/Widgets/themes.dart';
+import 'package:fantasy_weather_app/Widgets/Models/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:fantasy_weather_app/Widgets/text_widget.dart';
 import 'package:fantasy_weather_app/Widgets/carousel_slider.dart';
@@ -55,6 +55,8 @@ class _MyCustomAppBarState extends State<MyCustomAppBar>
 
   final CarouselController _carouselController = CarouselController();
 
+  bool _hasRandomized = false;
+
   @override
   void initState() {
     _animationController = AnimationController(
@@ -74,7 +76,10 @@ class _MyCustomAppBarState extends State<MyCustomAppBar>
       curve: Curves.easeInOut,
     ));
     super.initState();
-    randomizer();
+    if (!_hasRandomized) {
+      randomizer();
+      _hasRandomized = true;
+    }
   }
 
   // dispose the animation controller
