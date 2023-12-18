@@ -52,225 +52,227 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            IconButton(
-              onPressed:  () async {
-                ImagePicker imagePicker = ImagePicker();
-                SimpleDialog(
-                  title: const Text('Select Where to get Picture from'),
-                  children: <Widget>[
-                    SimpleDialogOption(
-                      onPressed: () async {
-                        XFile? file = await imagePicker.pickImage(source: ImageSource.gallery);
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              IconButton(
+                onPressed:  () async {
+                  ImagePicker imagePicker = ImagePicker();
+                  SimpleDialog(
+                    title: const Text('Select Where to get Picture from'),
+                    children: <Widget>[
+                      SimpleDialogOption(
+                        onPressed: () async {
+                          XFile? file = await imagePicker.pickImage(source: ImageSource.gallery);
 
-                        String uniqueFileNameGenerator = DateTime.now().microsecondsSinceEpoch.toString();
+                          String uniqueFileNameGenerator = DateTime.now().microsecondsSinceEpoch.toString();
 
-                        Reference referenceRoot = FirebaseStorage.instance.ref();
-                        Reference referenceDirImage = referenceRoot.child('Region Images');
+                          Reference referenceRoot = FirebaseStorage.instance.ref();
+                          Reference referenceDirImage = referenceRoot.child('Region Images');
 
-                        Reference referenceImageToUpload = referenceDirImage.child(uniqueFileNameGenerator);
+                          Reference referenceImageToUpload = referenceDirImage.child(uniqueFileNameGenerator);
 
-                        try {
-                          await referenceImageToUpload.putFile(File(file!.path));
+                          try {
+                            await referenceImageToUpload.putFile(File(file!.path));
 
-                          imageUrl = await referenceImageToUpload.getDownloadURL();
+                            imageUrl = await referenceImageToUpload.getDownloadURL();
 
-                        }catch(error){
-                          //
-                        }
+                          }catch(error){
+                            //
+                          }
 
+                          },
+                        child: const Text('Gallery'),
+                      ),
+                      SimpleDialogOption(
+                        onPressed: () async {
+                          XFile? file = await imagePicker.pickImage(source: ImageSource.camera);
+                          String uniqueFileNameGenerator = DateTime.now().microsecondsSinceEpoch.toString();
+
+                          Reference referenceRoot = FirebaseStorage.instance.ref();
+                          Reference referenceDirImage = referenceRoot.child('Region Images');
+
+                          Reference referenceImageToUpload = referenceDirImage.child(uniqueFileNameGenerator);
+
+                          try {
+                            await referenceImageToUpload.putFile(File(file!.path));
+
+                            imageUrl = await referenceImageToUpload.getDownloadURL();
+
+                          }catch(error){
+                            //
+                          }
                         },
-                      child: const Text('Gallery'),
-                    ),
-                    SimpleDialogOption(
-                      onPressed: () async {
-                        XFile? file = await imagePicker.pickImage(source: ImageSource.camera);
-                        String uniqueFileNameGenerator = DateTime.now().microsecondsSinceEpoch.toString();
-
-                        Reference referenceRoot = FirebaseStorage.instance.ref();
-                        Reference referenceDirImage = referenceRoot.child('Region Images');
-
-                        Reference referenceImageToUpload = referenceDirImage.child(uniqueFileNameGenerator);
-
-                        try {
-                          await referenceImageToUpload.putFile(File(file!.path));
-
-                          imageUrl = await referenceImageToUpload.getDownloadURL();
-
-                        }catch(error){
-                          //
-                        }
-                      },
-                      child: const Text('Camera'),
-                    ),
-                  ],
-                );
-            },
-            icon: const Icon(Icons.camera_alt)
-            ),
-            TextFormField(
-              controller: _titlecontroller,
-              decoration: const InputDecoration(
-                  labelText: 'Title',
-                  hintText: 'Enter a Title'
-              ),
-              validator: (String? value){
-
-                if(value==null || value.isEmpty)
-                {
-                  return 'Please enter the item name';
-                }
-
-                return null;
+                        child: const Text('Camera'),
+                      ),
+                    ],
+                  );
               },
-
-            ),
-            TextFormField(
-              controller: _regioncontroller,
-              decoration: const InputDecoration(
-                  labelText: 'Region',
-                  hintText: 'Enter a Region Name'
+              icon: const Icon(Icons.camera_alt)
               ),
-              validator: (String? value){
-
-                if(value==null || value.isEmpty)
-                {
-                  return 'Please enter some Text before submitting';
-                }
-
-                return null;
-              },
-            ),
-            TextFormField(
-              keyboardType: TextInputType.multiline,
-              maxLines: null,
-              controller: _regiondescriptioncontroller,
-              decoration: const InputDecoration(
-                  labelText: 'Description',
-                  hintText: 'Enter a Description for your Region'
-              ),
-              validator: (String? value){
-
-                if(value==null || value.isEmpty)
-                {
-                  return 'Please enter some Text before submitting';
-                }
-
-                return null;
-              },
-            ),
-            TextFormField(
-              keyboardType: TextInputType.multiline,
-              maxLines: 10,
-              controller: _regioneffectcontroller,
-              decoration: const InputDecoration(
-                  labelText: 'Region Effect',
-                  hintText: 'Enter a Region Effect'
-              ),
-            ),
-            TextFormField(
-              controller: _positiveTemperatureLimit,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                  labelText: 'Positive Temperature Limit',
-                  hintText: 'Enter a Positive Temperature Limit in Celsius'
-              ),
-              validator: (String? value){
-
-                if(value==null || value.isEmpty)
-                {
-                  return 'A Number above 0';
-                }
-
-                if(value == '0')
-                {
-                  return 'Value must be above 0';
-                }
-
-                if(value != num as String)
-                {
-                  return 'Must be a Number';
-                }
-
-                return null;
-              },
-            ),
-            Switch(
-              thumbIcon: thumbIcon,
-              value: cold,
-              onChanged: (bool value) {
-                setState(() {
-                  cold = value;
-                });
-              },
-            ),
-            Visibility(
-                visible: cold,
-                child: TextFormField(
-                  controller: _negativeTemperatureLimit,
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                      labelText: 'Positive Temperature Limit',
-                      hintText: 'Enter a Positive Temperature Limit in Celsius'
-                  ),
-                  validator: (String? value){
-
-                    if(value==null || value.isEmpty)
-                    {
-                      return 'A Number above 0';
-                    }
-
-                    if(value == '0')
-                    {
-                      return 'Value must be above 0';
-                    }
-
-                    if(value != num as String)
-                    {
-                      return 'Must be a Number';
-                    }
-
-                    return null;
-                  },
+              TextFormField(
+                controller: _titlecontroller,
+                decoration: const InputDecoration(
+                    labelText: 'Title',
+                    hintText: 'Enter a Title'
                 ),
+                validator: (String? value){
 
-            ),
-            ElevatedButton(
-
-                onPressed: () async{
-
-                  if(key.currentState!.validate())
+                  if(value==null || value.isEmpty)
                   {
-                    String itemName=_titlecontroller.text;
-                    String regionName = _regioncontroller.text;
-                    String regionEffect = _regioneffectcontroller.text;
-                    String regionDescription=_regiondescriptioncontroller.text;
-                    String positiveTemperatureLimit =_positiveTemperatureLimit.text;
-                    String negativeTemperatureLimit =_negativeTemperatureLimit.text;
-                    bool iscold = cold;
-                    String image = imageUrl;
+                    return 'Please enter the item name';
+                  }
 
-                    //Create a Map of data
-                    Map<String,String> dataToSend={
-                      'title':itemName,
-                      'region_name': regionName,
-                      'region_effekt':regionEffect,
-                      'region_description':regionDescription,
-                      'positive_temperature_limit': positiveTemperatureLimit,
-                      'negative_temperature': iscold.toString(),
-                      'negative_temperature_limit': negativeTemperatureLimit,
-                      'ImageURL': image,
-                    };
+                  return null;
+                },
 
-                    //Add a new item
-                    _reference.add(dataToSend);
-                }
-            }, child: const Text('Create Page'))
+              ),
+              TextFormField(
+                controller: _regioncontroller,
+                decoration: const InputDecoration(
+                    labelText: 'Region',
+                    hintText: 'Enter a Region Name'
+                ),
+                validator: (String? value){
+
+                  if(value==null || value.isEmpty)
+                  {
+                    return 'Please enter some Text before submitting';
+                  }
+
+                  return null;
+                },
+              ),
+              TextFormField(
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                controller: _regiondescriptioncontroller,
+                decoration: const InputDecoration(
+                    labelText: 'Description',
+                    hintText: 'Enter a Description for your Region'
+                ),
+                validator: (String? value){
+
+                  if(value==null || value.isEmpty)
+                  {
+                    return 'Please enter some Text before submitting';
+                  }
+
+                  return null;
+                },
+              ),
+              TextFormField(
+                keyboardType: TextInputType.multiline,
+                maxLines: 10,
+                controller: _regioneffectcontroller,
+                decoration: const InputDecoration(
+                    labelText: 'Region Effect',
+                    hintText: 'Enter a Region Effect'
+                ),
+              ),
+              TextFormField(
+                controller: _positiveTemperatureLimit,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(
+                    labelText: 'Positive Temperature Limit',
+                    hintText: 'Enter a Positive Temperature Limit in Celsius'
+                ),
+                validator: (String? value){
+
+                  if(value==null || value.isEmpty)
+                  {
+                    return 'A Number above 0';
+                  }
+
+                  if(value == '0')
+                  {
+                    return 'Value must be above 0';
+                  }
+
+                  if(value != num as String)
+                  {
+                    return 'Must be a Number';
+                  }
+
+                  return null;
+                },
+              ),
+              Switch(
+                thumbIcon: thumbIcon,
+                value: cold,
+                onChanged: (bool value) {
+                  setState(() {
+                    cold = value;
+                  });
+                },
+              ),
+              Visibility(
+                  visible: cold,
+                  child: TextFormField(
+                    controller: _negativeTemperatureLimit,
+                    keyboardType: TextInputType.number,
+                    decoration: const InputDecoration(
+                        labelText: 'Positive Temperature Limit',
+                        hintText: 'Enter a Positive Temperature Limit in Celsius'
+                    ),
+                    validator: (String? value){
+
+                      if(value==null || value.isEmpty)
+                      {
+                        return 'A Number above 0';
+                      }
+
+                      if(value == '0')
+                      {
+                        return 'Value must be above 0';
+                      }
+
+                      if(value != num as String)
+                      {
+                        return 'Must be a Number';
+                      }
+
+                      return null;
+                    },
+                  ),
+
+              ),
+              ElevatedButton(
+
+                  onPressed: () async{
+
+                    if(key.currentState!.validate())
+                    {
+                      String itemName=_titlecontroller.text;
+                      String regionName = _regioncontroller.text;
+                      String regionEffect = _regioneffectcontroller.text;
+                      String regionDescription=_regiondescriptioncontroller.text;
+                      String positiveTemperatureLimit =_positiveTemperatureLimit.text;
+                      String negativeTemperatureLimit =_negativeTemperatureLimit.text;
+                      bool iscold = cold;
+                      String image = imageUrl;
+
+                      //Create a Map of data
+                      Map<String,String> dataToSend={
+                        'title':itemName,
+                        'region_name': regionName,
+                        'region_effekt':regionEffect,
+                        'region_description':regionDescription,
+                        'positive_temperature_limit': positiveTemperatureLimit,
+                        'negative_temperature': iscold.toString(),
+                        'negative_temperature_limit': negativeTemperatureLimit,
+                        'ImageURL': image,
+                      };
+
+                      //Add a new item
+                      _reference.add(dataToSend);
+                  }
+              }, child: const Text('Create Page'))
 
 
-            // Your form widgets go here
-          ],
+              // Your form widgets go here
+            ],
+          ),
         ),
       ),
     );

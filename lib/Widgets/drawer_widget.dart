@@ -82,6 +82,10 @@ class MyDrawer extends StatelessWidget {
               onTap: () {
                 // Handle about
                 Navigator.pop(context);
+                if (context.mounted) {
+                  ScaffoldMessenger.of(context)
+                      .showSnackBar(const SnackBar(content: Text('Could not open Page. \n You need to be logged in to open this Page. \n Redirecting to Login Screen')));
+                }
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const CreateCustomPage(title: '', description: '', pageName: '',)));
               },
             ),
