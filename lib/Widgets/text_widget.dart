@@ -361,141 +361,35 @@ class TextWidget extends StatelessWidget {
                     ),
                     Column(
                       children: [
-                        Column(children: [
+                        Column(
+                          children: [
                           Padding(
                             padding: const EdgeInsets.all(5.0),
-                            child: ExpandableText(
-                              region.effectRegional1,
-                              style: const TextStyle(
-                                height: 2.0,
-                                backgroundColor: Colors.transparent,
-                                color: Colors.white,
-                              ),
-                              expandText: 'show more',
-                              collapseText: 'show less',
-                              maxLines: 1,
-                              linkColor: Colors.black,
-                              animation: true,
-                              expanded: true,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Text(
-                              '[${roller.roll(region.roller1).toString()}]',
-                              style: const TextStyle(
-                                height: 2,
-                                backgroundColor: Colors.transparent,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                fontSize: 16,
+                              child: ExpandableText(
+                                '${region.effectRegional1} '
+                                '[${roller.roll(region.roller1).toString()}] '
+                                '${region.effectRegional2} '
+                                '[${roller.roll(region.roller2).toString()}] '
+                                '${region.effectRegional3} '
+                                '[${roller.roll(region.roller3).toString()}] '
+                                '${region.effectRegional4} '
+                                '[${roller.roll(region.roller4).toString()}] '
+                                '${region.effectRegional5}',
+                                style: const TextStyle(
+                                  height: 2.0,
+                                  backgroundColor: Colors.transparent,
+                                  color: Colors.white,
+                                ),
+                                expandText: 'show more',
+                                collapseText: 'show less',
+                                maxLines: 1,
+                                linkColor: Colors.black,
+                                animation: true,
+                                expanded: true,
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: ExpandableText(
-                              region.effectRegional2,
-                              style: const TextStyle(
-                                height: 2.0,
-                                backgroundColor: Colors.transparent,
-                                color: Colors.white,
-                              ),
-                              expandText: 'show more',
-                              collapseText: 'show less',
-                              maxLines: 1,
-                              linkColor: Colors.black,
-                              animation: true,
-                              expanded: true,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Text(
-                              '[${roller.roll(region.roller2).toString()}]',
-                              style: const TextStyle(
-                                height: 2,
-                                backgroundColor: Colors.transparent,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: ExpandableText(
-                              region.effectRegional3,
-                              style: const TextStyle(
-                                height: 2.0,
-                                backgroundColor: Colors.transparent,
-                                color: Colors.white,
-                              ),
-                              expandText: 'show more',
-                              collapseText: 'show less',
-                              maxLines: 1,
-                              linkColor: Colors.black,
-                              animation: true,
-                              expanded: true,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Text(
-                              '[${roller.roll(region.roller3).toString()}]',
-                              style: const TextStyle(
-                                height: 2,
-                                backgroundColor: Colors.transparent,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                                fontSize: 16,
-                              ),
-                            ),
-                          ),
-                        ]),
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: ExpandableText(
-                            region.effectRegional4,
-                            style: const TextStyle(
-                              height: 2.0,
-                              backgroundColor: Colors.transparent,
-                              color: Colors.white,
-                            ),
-                            expandText: 'show more',
-                            collapseText: 'show less',
-                            maxLines: 1,
-                            linkColor: Colors.black,
-                            animation: true,
-                            expanded: true,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Text(
-                            '[${roller.roll(region.roller4).toString()}]',
-                            style: const TextStyle(
-                              height: 2,
-                              backgroundColor: Colors.transparent,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Text(
-                            region.effectRegional5,
-                            style: const TextStyle(
-                              height: 2,
-                              backgroundColor: Colors.transparent,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                          ],
+                      ),
                     Row(
                       children: [
                         const Padding(
@@ -545,12 +439,16 @@ class TextWidget extends StatelessWidget {
                             height: 2.0,
                             backgroundColor: Colors.transparent,
                             color: Colors.white,
-                          )),
-                    ),
-                  ],
+                          )
+                        ),
+                      ),
+                    ],
+                  ),
+                ]
                 );
               },
-            )),
+            )
+        ),
       ),
     );
   }

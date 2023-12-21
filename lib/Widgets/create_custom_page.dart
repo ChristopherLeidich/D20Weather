@@ -58,11 +58,7 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
               IconButton(
                 onPressed:  () async {
                   ImagePicker imagePicker = ImagePicker();
-                  SimpleDialog(
-                    title: const Text('Select Where to get Picture from'),
-                    children: <Widget>[
-                      SimpleDialogOption(
-                        onPressed: () async {
+
                           XFile? file = await imagePicker.pickImage(source: ImageSource.gallery);
 
                           String uniqueFileNameGenerator = DateTime.now().microsecondsSinceEpoch.toString();
@@ -80,35 +76,8 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
                           }catch(error){
                             //
                           }
-
-                          },
-                        child: const Text('Gallery'),
-                      ),
-                      SimpleDialogOption(
-                        onPressed: () async {
-                          XFile? file = await imagePicker.pickImage(source: ImageSource.camera);
-                          String uniqueFileNameGenerator = DateTime.now().microsecondsSinceEpoch.toString();
-
-                          Reference referenceRoot = FirebaseStorage.instance.ref();
-                          Reference referenceDirImage = referenceRoot.child('Region Images');
-
-                          Reference referenceImageToUpload = referenceDirImage.child(uniqueFileNameGenerator);
-
-                          try {
-                            await referenceImageToUpload.putFile(File(file!.path));
-
-                            imageUrl = await referenceImageToUpload.getDownloadURL();
-
-                          }catch(error){
-                            //
-                          }
-                        },
-                        child: const Text('Camera'),
-                      ),
-                    ],
-                  );
-              },
-              icon: const Icon(Icons.camera_alt)
+                      },
+                icon: const Icon(Icons.camera_alt)
               ),
               TextFormField(
                 controller: _titlecontroller,
