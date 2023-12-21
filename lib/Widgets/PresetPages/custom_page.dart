@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_weather_bg_null_safety/bg/weather_bg.dart';
+import 'package:flutter_weather_bg_null_safety/utils/weather_type.dart';
 import 'package:palette_generator/palette_generator.dart';
+import 'package:parallax_rain/parallax_rain.dart';
 
 import '../drawer_widget.dart';
+import '../randomizer.dart';
+import '../starviewfield.dart';
 
 class ItemDetails extends StatefulWidget{
 
@@ -136,7 +141,84 @@ class _ItemdetailState extends State<ItemDetails> {
               ),
             ),
             drawer: const MyDrawer(),
-            body: Column(
+            body: Stack(
+                children: [
+                switch (wetterBedingung) {
+          "Umbral-Storm" => ParallaxRain(
+          dropColors: const [
+          Colors.deepPurpleAccent,
+          Colors.blueGrey,
+          Colors.blue,
+          Colors.blueAccent,
+          Colors.brown,
+          Colors.blueGrey
+          ],
+          trail: true,
+          ),
+          "Radiant-Storm" => ParallaxRain(
+          dropColors: const [
+          Colors.yellow,
+          Colors.yellowAccent,
+          Colors.white70,
+          Colors.lightBlue,
+          Color(0xFFc9c165),
+          Color(0xFFcc9654)
+          ],
+          trail: true,
+          ),
+          "Thunderstorm" => WeatherBg(
+          weatherType: WeatherType.thunder,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          ),
+          "Phantasmal-Rain" => const StarsViewBackground(),
+          "Rain" => WeatherBg(
+          weatherType: WeatherType.middleRainy,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          ),
+          "Sun" => WeatherBg(
+          weatherType: WeatherType.sunny,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          ),
+          "Drought" => WeatherBg(
+          weatherType: WeatherType.hazy,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          ),
+          "Storm" => WeatherBg(
+          weatherType: WeatherType.heavyRainy,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          ),
+          "Snow" => WeatherBg(
+          weatherType: WeatherType.middleSnow,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          ),
+          "Hail" => WeatherBg(
+          weatherType: WeatherType.heavySnow,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          ),
+          "Drizzle" => WeatherBg(
+          weatherType: WeatherType.lightRainy,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          ),
+          "Cloudy" => WeatherBg(
+          weatherType: WeatherType.foggy,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          ),
+          _ => WeatherBg(
+          weatherType: WeatherType.overcast,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          ),
+          },
+            Column(
               children: [
                 Image.asset('${data['Region Images']}',
                     height: MediaQuery.of(context).size.height / 4,
@@ -147,6 +229,8 @@ class _ItemdetailState extends State<ItemDetails> {
                 Text('${data['region_effekt']}'),
               ],
             ),
+            ]
+            )
           );
         }
 
