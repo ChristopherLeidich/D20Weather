@@ -209,16 +209,30 @@ class _DesertState extends State<DesertPage> {
                 },
                 Column(
                   children: [
-                    Image.asset('assets/images/Desert(1080x600).png',
-                        height: MediaQuery
-                            .of(context)
-                            .size
-                            .height / 4,
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width,
-                        fit: BoxFit.fill),
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                          Image.asset('assets/images/Desert(1080x600).png',
+                              height: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .height / 4,
+                              width: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width,
+                              fit: BoxFit.fill),
+                          Center(
+                            child:Text(
+                              '$preSymbol $printableValues °C',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 48,
+                              ),
+                            ),
+                          ),
+                      ]
+                    ),
                     TextWidget(
                       region: regionList[5],
                       currentIndex: 5,

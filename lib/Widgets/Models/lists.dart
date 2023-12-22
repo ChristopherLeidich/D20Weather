@@ -61,16 +61,16 @@ final List<Regional> regionList = [
           'It is hard for unprepared parties to '
           'traverse the area without issues.',
       effectRegionalName: 'Insect Plague',
-      effectRegionaldescription: 'Living creatures are constantly swarmed by \n'
+      effectRegionaldescription: 'Non-Undead creatures are constantly swarmed by \n'
           'tiny mosquitoes and other insects',
       effectRegional1: 'Once every 1d6 ',
       roller1: '1d6',
-      effectRegional2: 'hour(s) every living '
+      effectRegional2: 'hour(s) every Non-Undead '
           'member of the party has to roll '
-          'a basic DC15 Fortitude-Save or take 1d2 ',
+          'a basic DC15 Fortitude-Save or loose 1d2 ',
       roller2: '1d2',
       effectRegional3:
-          'damage. On a critical failure the damage dice changes to 1d4 ',
+          'Hit-Points. On a critical failure the damage dice changes to 1d4 ',
       roller3: '1d4',
       effectRegional4:
           'and the party-member will get infected by a random disease based on the following 1d42',
@@ -89,7 +89,7 @@ final List<Regional> regionList = [
     effectRegionaldescription: 'The cold is clinging onto your body, '
         'leaving you more susceptible to harm from all sources.',
     effectRegional1:
-        'For the duration of your stay every \nmember of the party '
+        'For the duration of your stay every member of the party '
         'who does not have at least [5] Cold-Resistance '
         'has to roll a basic DC [18] Fortitude Save every 1d4 ',
     roller1: '1d4',
@@ -109,35 +109,38 @@ final List<Regional> regionList = [
   ),
   Regional(
       regionalName: 'Ocean',
-      regionalDescription: 'Description for Item 3',
+      regionalDescription: 'Oceans are a wellspring of life to many Lifeforms. '
+          'However not all of them are always on good Terms with Human-Society. '
+          'As a Famous Fisher from the Astral Coast Once Said: "The Ocean is beautiful and '
+          'bountiful to those fools that don`t have to work with it every day..."',
       effectRegionalName: 'Strong Waves',
       effectRegionaldescription: ' ',
       effectRegional1: ' ',
-      roller1: '1d6',
+      roller1: '1d4',
       effectRegional2: ' ',
-      roller2: '1d6',
+      roller2: '1d20',
       effectRegional3: ' ',
-      roller3: '1d6',
+      roller3: '1d20',
       effectRegional4: ' ',
-      roller4: '1d6',
+      roller4: '1d4',
       effectRegional5: ' ',
       regionalTemperatureLimitPositive: 44,
       regionalTemperatureLimitNegative: 4,
       negativeTemperature: true),
   Regional(
       regionalName: 'Beach',
-      regionalDescription: 'Description for Item 3',
-      effectRegionalName: ' ',
-      effectRegionaldescription: ' ',
-      effectRegional1: ' ',
-      roller1: '1d1',
-      effectRegional2: ' ',
-      roller2: '1d1',
-      effectRegional3: ' ',
-      roller3: '1d1',
-      effectRegional4: ' ',
-      roller4: '1d1',
-      effectRegional5: ' ',
+      regionalDescription: 'Beaches are often not what the Common Man would picture of the word. Beaches can range from beautiful Glistening Beaches of Clear Water and Fine White Sand in Warm weathers to Literal Stormfronts of Raging Tides unhospitable to any who may think of exploring the area. In short You may never know for sure what you will encounter.',
+      effectRegionalName: 'High and Low Tide',
+      effectRegionaldescription: 'The Waning and Waxing of the Moon affects no Region as much as the Ocean. It is in a constant Mode of Change which makes survival in the long term an outright challenge.',
+      effectRegional1: 'Roll a Dice. If the Result is even it is currently High-Tide. On an odd result it is Low Tide',
+      roller1: '1d4',
+      effectRegional2: 'High Tide: The Chance of encountering Creatures from the Sea is doubled and all Dice to determine the Amount of Creatures from withing the Ocean is doubled as Well. If a random Enconuter is a Sea-Creature roll 1d20',
+      roller2: '1d20',
+      effectRegional3: 'on an 18 or Higher one of The Creatures is an Elite Monster.\nLow Tide: The Chance of Encountering land-bound or amphibious Creatures is doubled and all Dice to determine the Amount of Creatures from land-bound or amphibious Creatures is doubled as Well. If a random Enconuter is not a Sea-Creature roll 1d20',
+      roller3: '1d20',
+      effectRegional4: 'on an 18 or Higher one of The Creatures is an Elite Monster. If the Encounter however is a Sea-Creature roll 1d4',
+      roller4: '1d4',
+      effectRegional5: '. The Amount of Creatures Rolled is in a weakened State when Encountered',
       regionalTemperatureLimitPositive: 42,
       regionalTemperatureLimitNegative: 0,
       negativeTemperature: false),

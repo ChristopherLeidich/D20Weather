@@ -237,22 +237,6 @@ class _MyCustomAppBarState extends State<MyCustomAppBar>
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          /*Transform(
-            transform: Matrix4.translationValues(
-              0,
-              _translateButton.value * 4,
-              0,
-            ),
-            child: FloatingActionButton(
-              backgroundColor: Colors.red,
-              onPressed: () {
-                /* Go to specified Page. Öffne Entry Field. Nutzer gibt Nummer ein. Seite xy wird geöffnet*/
-              },
-              child: const Icon(
-                Icons.history_edu,
-              ),
-            ),
-          ),*/
           Transform(
             transform: Matrix4.translationValues(
               0,
