@@ -67,6 +67,7 @@ dependencies:
   cloud_firestore: ^4.13.5
   palette_generator: ^0.3.3+3
   expandable_text: ^2.3.0
+  dartdoc: ^6.3.0
 
 flutter_launcher_icons:
   #  image_path: "assets/images/icon-128x128.png"
