@@ -55,16 +55,17 @@ class _MyCustomAppBarState extends State<MyCustomAppBar>
 
   final CarouselController _carouselController = CarouselController();
 
-  bool _hasRandomized = false;
+  late bool _hasRandomized = false;
 
   @override
   void initState() {
+    // for the FAB menu
     _animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 600))
       ..addListener(() {
+        // on every change of value
         setState(() {});
       });
-
     _buttonAnimatedIcon =
         Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
 
@@ -76,7 +77,8 @@ class _MyCustomAppBarState extends State<MyCustomAppBar>
       curve: Curves.easeInOut,
     ));
     super.initState();
-    if (!_hasRandomized) {
+    // randomizes once when page is opened
+    if (_hasRandomized) {
       randomizer();
       _hasRandomized = true;
     }
@@ -120,6 +122,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar>
         title: const Align(
             alignment: Alignment.centerRight, child: Text('D20Weather')),
         leading: Builder(
+          // menu button
           builder: (context) => IconButton(
             icon: const Icon(
               Icons.list_outlined,
@@ -133,6 +136,7 @@ class _MyCustomAppBarState extends State<MyCustomAppBar>
       drawer: const MyDrawer(),
       body: Stack(
         children: [
+          // change background according to weather situation
           switch (wetterBedingung) {
             "Umbral-Storm" => ParallaxRain(
                 dropColors: const [
@@ -234,9 +238,11 @@ class _MyCustomAppBarState extends State<MyCustomAppBar>
           ),
         ],
       ),
+      //column of FABs that expand on click of main FAB
       floatingActionButton: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          //set end position of buttons through transform
           Transform(
             transform: Matrix4.translationValues(
               0,
