@@ -1,8 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fantasy_weather_app/Widgets/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fantasy_weather_app/second_page.dart';
 import 'package:fantasy_weather_app/main.dart';
+import 'package:palette_generator/palette_generator.dart';
 
 import 'create_custom_page.dart';
 
@@ -153,25 +155,36 @@ class MyDrawer extends StatelessWidget {
 class SubDrawer extends StatelessWidget {
   const SubDrawer({super.key});
 
+  Future pageView() async {
+    var firestore = FirebaseFirestore.instance;
+    
+    QuerySnapshot qn = await firestore.collection('custom_page_data').get();
+
+    return qn.docs;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        ListTile(
-          leading: const Icon(Icons.star),
-          title: const Text('Sub-Item 1'),
-          onTap: () {
-            // Handle sub-item 1
+        FutureBuilder(
+          future:pageView(),
+          builder: (_, snapshot){
+            if(snapshot.connectionState == ConnectionState.waiting){
+              return const Center(child: CircularProgressIndicator());
+            } else {
+                return ListView.builder(
+                    itemCount: snapshot.data.lengh,
+                    itemBuilder: (_, index){
+
+                      return ListTile(
+                        title: Text(snapshot.data[index].data["Title"]),
+                      );
+                }
+              );
+            }
           },
-        ),
-        ListTile(
-          leading: const Icon(Icons.star),
-          title: const Text('Sub-Item 2'),
-          onTap: () {
-            // Handle sub-item 2
-          },
-        ),
-          const AboutListTile( // <-- SEE HERE
+          initialData: const AboutListTile( // <-- SEE HERE
             icon: Icon(Icons.info,),
             applicationIcon: Icon( Icons.local_play,),
                 applicationName: 'D20Weather',
@@ -180,6 +193,7 @@ class SubDrawer extends StatelessWidget {
           ///Content goes here...
             child: Text('About app'),
           ),
+        ),
       ],
     );
   }
