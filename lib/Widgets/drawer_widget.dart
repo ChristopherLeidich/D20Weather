@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fantasy_weather_app/Widgets/PresetPages/custom_page.dart';
 import 'package:fantasy_weather_app/Widgets/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -163,6 +164,7 @@ class SubDrawer extends StatelessWidget {
     return qn.docs;
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -179,6 +181,9 @@ class SubDrawer extends StatelessWidget {
 
                       return ListTile(
                         title: Text(snapshot.data[index].data["Title"]),
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ItemDetails(itemId: snapshot.data['itemId'], post: post)));
+                        }
                       );
                 }
               );

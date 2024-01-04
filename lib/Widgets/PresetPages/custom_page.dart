@@ -11,8 +11,12 @@ import '../starviewfield.dart';
 
 class ItemDetails extends StatefulWidget{
 
+  final DocumentSnapshot post;
 
-  ItemDetails(this.itemId, {super.key}) {
+
+
+
+  ItemDetails(this.itemId, this.post, {super.key}) {
     final reference =
     FirebaseFirestore.instance.collection('custom_page_data').doc(itemId);
     _futureData = reference.get();
