@@ -29,18 +29,11 @@ class TextWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Iterable<Match> matches = dicePattern.allMatches(region.effectRegional);
 
-    // Extract the matched strings without brackets
-    List<String> diceStrings = matches.map((match) => match.group(1)!).toList();
-    List<String> diceSides = matches.map((match) => match.group(2)!).toList();
-    List<String> diceValues = [];
-    List<String> diceResults = [];
-
-    for(int i = 0; i < diceStrings.length; i++){
-      diceValues.add("${diceStrings[i]}d${diceSides[i]}");
-      diceResults.add(roller.roll(diceValues[i]).toString());
-    }
+    // for(int i = 0; i < diceStrings.length; i++){
+    //   diceValues.add("${diceStrings[i]}d${diceSides[i]}");
+    //   diceResults.add('[${roller.roll(diceValues[i]).toString()}]');
+    // }
 
 
 
@@ -70,12 +63,26 @@ class TextWidget extends StatelessWidget {
               viewportBuilder: (BuildContext context, ViewportOffset position) {
                 String substitutedEffectRegional = region.effectRegional;
 
-                for (int i = 0; i < diceStrings.length; i++) {
+                Iterable<Match> matches = dicePattern.allMatches(region.effectRegional);
+
+                // Extract the matched strings without brackets
+                List<String> diceStrings = matches.map((match) => match.group(1)!).toList();
+                List<String> diceSides = matches.map((match) => match.group(2)!).toList();
+                List<String> diceValues = [];
+                List<String> diceResults = [];
+
+
+                for (int i = 0; i < diceStrings.length;) {
+
+                    diceValues.add("${diceStrings[i]}d${diceSides[i]}");
+                    diceResults.add('[${roller.roll(diceValues[i]).toString()}]');
+
                   final sub = Substitute(
                     find: r'\[\[(\d+)d(\d+)\]\]',
                     replacement: diceResults[i],
-                    global: true,
+                    global: false,
                   );
+                  i++;
 
                   substitutedEffectRegional = sub.apply(substitutedEffectRegional);
                 }
