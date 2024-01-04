@@ -3,6 +3,7 @@ import 'package:d20/d20.dart';
 import 'package:flutter/rendering.dart';
 import 'package:expandable_text/expandable_text.dart';
 import 'Models/lists.dart';
+import 'package:substitute/substitute.dart';
 
 
 class TextWidget extends StatelessWidget {
@@ -14,7 +15,7 @@ class TextWidget extends StatelessWidget {
   final D20 roller;
   final String text = "1d6";
 
-  const TextWidget(
+  TextWidget(
       {super.key,
       required this.currentIndex,
       required this.wind,
@@ -23,8 +24,26 @@ class TextWidget extends StatelessWidget {
       required this.region,
       required this.roller});
 
+  final RegExp dicePattern = RegExp(r'\[\[(\d+)d(\d+)\]\]');
+
+
   @override
   Widget build(BuildContext context) {
+    Iterable<Match> matches = dicePattern.allMatches(region.effectRegional);
+
+    // Extract the matched strings without brackets
+    List<String> diceStrings = matches.map((match) => match.group(1)!).toList();
+    List<String> diceSides = matches.map((match) => match.group(2)!).toList();
+    List<String> diceValues = [];
+    List<String> diceResults = [];
+
+    for(int i = 0; i < diceStrings.length; i++){
+      diceValues.add("${diceStrings[i]}d${diceSides[i]}");
+      diceResults.add(roller.roll(diceValues[i]).toString());
+    }
+
+
+
     return Flexible(
       child: SingleChildScrollView(
         scrollDirection: Axis.vertical,
@@ -49,6 +68,17 @@ class TextWidget extends StatelessWidget {
             child: Scrollable(
               axisDirection: AxisDirection.down,
               viewportBuilder: (BuildContext context, ViewportOffset position) {
+                String substitutedEffectRegional = region.effectRegional;
+
+                for (int i = 0; i < diceStrings.length; i++) {
+                  final sub = Substitute(
+                    find: r'\[\[(\d+)d(\d+)\]\]',
+                    replacement: diceResults[i],
+                    global: true,
+                  );
+
+                  substitutedEffectRegional = sub.apply(substitutedEffectRegional);
+                }
                 return Column(
                   //switch case später einfügen
                   mainAxisSize: MainAxisSize.min,
@@ -103,15 +133,7 @@ class TextWidget extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(5.0),
                               child: ExpandableText(
-                                '${region.effectRegional1} '
-                                '[${roller.roll(region.roller1).toString()}] '
-                                '${region.effectRegional2} '
-                                '[${roller.roll(region.roller2).toString()}] '
-                                '${region.effectRegional3} '
-                                '[${roller.roll(region.roller3).toString()}] '
-                                '${region.effectRegional4} '
-                                '[${roller.roll(region.roller4).toString()}] '
-                                '${region.effectRegional5}',
+                                substitutedEffectRegional,
                                 style: const TextStyle(
                                   height: 2.0,
                                   backgroundColor: Colors.transparent,
