@@ -118,6 +118,14 @@ and</li>
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">@override
 Widget build(BuildContext context) {
+
+  &#47;&#47; for(int i = 0; i &lt; diceStrings.length; i++){
+  &#47;&#47;   diceValues.add(&quot;${diceStrings[i]}d${diceSides[i]}&quot;);
+  &#47;&#47;   diceResults.add(&#39;[${roller.roll(diceValues[i]).toString()}]&#39;);
+  &#47;&#47; }
+
+
+
   return Flexible(
     child: SingleChildScrollView(
       scrollDirection: Axis.vertical,
@@ -142,6 +150,31 @@ Widget build(BuildContext context) {
           child: Scrollable(
             axisDirection: AxisDirection.down,
             viewportBuilder: (BuildContext context, ViewportOffset position) {
+              String substitutedEffectRegional = region.effectRegional;
+
+              Iterable&lt;Match&gt; matches = dicePattern.allMatches(region.effectRegional);
+
+              &#47;&#47; Extract the matched strings without brackets
+              List&lt;String&gt; diceStrings = matches.map((match) =&gt; match.group(1)!).toList();
+              List&lt;String&gt; diceSides = matches.map((match) =&gt; match.group(2)!).toList();
+              List&lt;String&gt; diceValues = [];
+              List&lt;String&gt; diceResults = [];
+
+
+              for (int i = 0; i &lt; diceStrings.length;) {
+
+                  diceValues.add(&quot;${diceStrings[i]}d${diceSides[i]}&quot;);
+                  diceResults.add(&#39;[${roller.roll(diceValues[i]).toString()}]&#39;);
+
+                final sub = Substitute(
+                  find: r&#39;\[\[(\d+)d(\d+)\]\]&#39;,
+                  replacement: diceResults[i],
+                  global: false,
+                );
+                i++;
+
+                substitutedEffectRegional = sub.apply(substitutedEffectRegional);
+              }
               return Column(
                 &#47;&#47;switch case später einfügen
                 mainAxisSize: MainAxisSize.min,
@@ -196,15 +229,7 @@ Widget build(BuildContext context) {
                         Padding(
                           padding: const EdgeInsets.all(5.0),
                             child: ExpandableText(
-                              &#39;${region.effectRegional1} &#39;
-                              &#39;[${roller.roll(region.roller1).toString()}] &#39;
-                              &#39;${region.effectRegional2} &#39;
-                              &#39;[${roller.roll(region.roller2).toString()}] &#39;
-                              &#39;${region.effectRegional3} &#39;
-                              &#39;[${roller.roll(region.roller3).toString()}] &#39;
-                              &#39;${region.effectRegional4} &#39;
-                              &#39;[${roller.roll(region.roller4).toString()}] &#39;
-                              &#39;${region.effectRegional5}&#39;,
+                              substitutedEffectRegional,
                               style: const TextStyle(
                                 height: 2.0,
                                 backgroundColor: Colors.transparent,

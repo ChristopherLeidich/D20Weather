@@ -15,14 +15,14 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
-    if (user == null) {
+    if (user == null) {    ///if user is not logged it return Drawer 1 else Return Drawer with User Data and more Features.
       return Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
               decoration: const BoxDecoration(
-                color: Color(0xFF813181), // Set a background color for the header
+                color: Color(0xFF813181), /// Set a background color for the header
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -61,9 +61,9 @@ class MyDrawer extends StatelessWidget {
               leading: const Icon(Icons.home),
               title: const Text('Home'),
               onTap: () {
-                // Handle settings or navigation
-                Navigator.pop(context); // Close the drawer
-                // Navigate to the second page
+                /// Handle settings or navigation
+                Navigator.pop(context); /// Close the drawer
+                /// Navigate to the next page
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const MyApp()));
               },
             ),
@@ -92,7 +92,7 @@ class MyDrawer extends StatelessWidget {
                 Navigator.push(context, MaterialPageRoute(builder: (context) => const CreateCustomPage(title: '', description: '', pageName: '',)));
               },
             ),
-            const Divider(), // Divider between main and sub-drawer
+            const Divider(), /// Divider between main and sub-drawer
             const SubDrawer(),
           ],
         ),
@@ -144,7 +144,7 @@ class MyDrawer extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => const CreateCustomPage(title: '', description: '', pageName: '',)));
               },
             ),
-            const Divider(), // Divider between main and sub-drawer
+            const Divider(), /// Divider between main and sub-drawer
             const SubDrawer(),
           ],
         ),
@@ -153,7 +153,7 @@ class MyDrawer extends StatelessWidget {
   }
 }
 
-class SubDrawer extends StatelessWidget {
+class SubDrawer extends StatelessWidget {     ///Subdrawer for Custom Pages and About App Popup
   const SubDrawer({super.key});
 
   Future pageView() async {
@@ -181,19 +181,19 @@ class SubDrawer extends StatelessWidget {
 
                       return ListTile(
                         title: Text(snapshot.data[index].data["Title"]),
-                        onTap: () {
+                        /*onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => ItemDetails(itemId: snapshot.data['itemId'], post: post)));
-                        }
+                        }*/
                       );
                 }
               );
             }
           },
-          initialData: const AboutListTile( // <-- SEE HERE
+          initialData: const AboutListTile(     ///Contains Information a bout Licences and The App itself
             icon: Icon(Icons.info,),
             applicationIcon: Icon( Icons.local_play,),
                 applicationName: 'D20Weather',
-                applicationVersion: '0.1.6',
+                applicationVersion: '0.2.0',
                 applicationLegalese: 'D20Weather © 2023 by Christopher Leidich and Francesco Quarta is licensed under CC BY-NC-SA 4.0',
           ///Content goes here...
             child: Text('About app'),

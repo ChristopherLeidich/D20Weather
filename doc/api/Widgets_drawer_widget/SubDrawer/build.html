@@ -120,29 +120,36 @@ and</li>
 Widget build(BuildContext context) {
   return Column(
     children: &lt;Widget&gt;[
-      ListTile(
-        leading: const Icon(Icons.star),
-        title: const Text(&#39;Sub-Item 1&#39;),
-        onTap: () {
-          &#47;&#47; Handle sub-item 1
+      FutureBuilder(
+        future:pageView(),
+        builder: (_, snapshot){
+          if(snapshot.connectionState == ConnectionState.waiting){
+            return const Center(child: CircularProgressIndicator());
+          } else {
+              return ListView.builder(
+                  itemCount: snapshot.data.lengh,
+                  itemBuilder: (_, index){
+
+                    return ListTile(
+                      title: Text(snapshot.data[index].data[&quot;Title&quot;]),
+                      &#47;*onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) =&gt; ItemDetails(itemId: snapshot.data[&#39;itemId&#39;], post: post)));
+                      }*&#47;
+                    );
+              }
+            );
+          }
         },
-      ),
-      ListTile(
-        leading: const Icon(Icons.star),
-        title: const Text(&#39;Sub-Item 2&#39;),
-        onTap: () {
-          &#47;&#47; Handle sub-item 2
-        },
-      ),
-        const AboutListTile( &#47;&#47; &lt;-- SEE HERE
+        initialData: const AboutListTile(     &#47;&#47;&#47;Contains Information a bout Licences and The App itself
           icon: Icon(Icons.info,),
           applicationIcon: Icon( Icons.local_play,),
               applicationName: &#39;D20Weather&#39;,
-              applicationVersion: &#39;0.1.6&#39;,
+              applicationVersion: &#39;0.2.0&#39;,
               applicationLegalese: &#39;D20Weather © 2023 by Christopher Leidich and Francesco Quarta is licensed under CC BY-NC-SA 4.0&#39;,
         &#47;&#47;&#47;Content goes here...
           child: Text(&#39;About app&#39;),
         ),
+      ),
     ],
   );
 }</code></pre>
