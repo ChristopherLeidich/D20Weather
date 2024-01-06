@@ -153,34 +153,50 @@ class MyDrawer extends StatelessWidget {
   }
 }
 
-class SubDrawer extends StatelessWidget {     ///Subdrawer for Custom Pages and About App Popup
+class SubDrawer extends StatefulWidget{
   const SubDrawer({super.key});
 
-  Future pageView() async {
-    var firestore = FirebaseFirestore.instance;
-    
-    QuerySnapshot qn = await firestore.collection('custom_page_data').get();
 
-    return qn.docs;
-  }
+  @override
+    State<SubDrawer> createState() =>_SubDrawerState();
+}
 
+
+class _SubDrawerState extends State<SubDrawer> {     ///Subdrawer for Custom Pages and About App Popup
+
+  var firestore = FirebaseFirestore.instance.collection("custom_page_data");
+  late List<Map<String, dynamic>> items;
+
+  Future<void> itemListProvider() async {
+      List<Map<String, dynamic>> tempList = [];
+      var qn = await firestore.get();
+
+      for (var element in qn.docs) {
+        tempList.add(element.data());
+      }
+
+        setState((){
+          items = tempList;
+        }
+      );
+    }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         FutureBuilder(
-          future:pageView(),
+          future: itemListProvider(),
           builder: (_, snapshot){
             if(snapshot.connectionState == ConnectionState.waiting){
               return const Center(child: CircularProgressIndicator());
             } else {
                 return ListView.builder(
-                    itemCount: snapshot.data.lengh,
+                    itemCount: items.length,
                     itemBuilder: (_, index){
 
                       return ListTile(
-                        title: Text(snapshot.data[index].data["Title"]),
+                        title: Text(items[index]["Title"]),
                         /*onTap: () {
                           Navigator.push(context, MaterialPageRoute(builder: (context) => ItemDetails(itemId: snapshot.data['itemId'], post: post)));
                         }*/
@@ -189,15 +205,16 @@ class SubDrawer extends StatelessWidget {     ///Subdrawer for Custom Pages and 
               );
             }
           },
-          initialData: const AboutListTile(     ///Contains Information a bout Licences and The App itself
-            icon: Icon(Icons.info,),
-            applicationIcon: Icon( Icons.local_play,),
-                applicationName: 'D20Weather',
-                applicationVersion: '0.2.0',
-                applicationLegalese: 'D20Weather © 2023 by Christopher Leidich and Francesco Quarta is licensed under CC BY-NC-SA 4.0',
+          initialData: null
+        ),
+        const AboutListTile(     ///Contains Information a bout Licences and The App itself
+          icon: Icon(Icons.info,),
+          applicationIcon: Icon( Icons.local_play,),
+          applicationName: 'D20Weather',
+          applicationVersion: '0.2.0',
+          applicationLegalese: 'D20Weather © 2023 by Christopher Leidich and Francesco Quarta is licensed under CC BY-NC-SA 4.0',
           ///Content goes here...
-            child: Text('About app'),
-          ),
+          child: Text('About app'),
         ),
       ],
     );
