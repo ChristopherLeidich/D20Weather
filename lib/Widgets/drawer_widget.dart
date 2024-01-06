@@ -188,6 +188,9 @@ class _SubDrawerState extends State<SubDrawer> {     ///Subdrawer for Custom Pag
         FutureBuilder(
           future: itemListProvider(),
           builder: (_, snapshot){
+            if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            }
             if(snapshot.connectionState == ConnectionState.waiting){
               return const Center(child: CircularProgressIndicator());
             } else {
