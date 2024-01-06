@@ -1,5 +1,5 @@
 import 'dart:math' as math;
-
+import 'package:fantasy_weather_app/Widgets/randomizer.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -24,10 +24,15 @@ class _ExpandableFabState extends State<ExpandableFab>
   late final AnimationController _controller;
   late final Animation<double> _expandAnimation;
   bool _open = false;
+  bool hasRandomized = false;
 
   @override
   void initState() {
     super.initState();
+    if (!hasRandomized) {
+      randomizer();
+      hasRandomized = true;
+    }
     _open = widget.initialOpen ?? false;
     _controller = AnimationController(
       value: _open ? 1.0 : 0.0,
