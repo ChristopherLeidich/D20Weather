@@ -193,19 +193,21 @@ class _SubDrawerState extends State<SubDrawer> {     ///Subdrawer for Custom Pag
             }
             if(snapshot.connectionState == ConnectionState.waiting){
               return const Center(child: CircularProgressIndicator());
-            } else {
+            } else if(snapshot.connectionState == ConnectionState.done){
                 return ListView.builder(
                     itemCount: items.length,
                     itemBuilder: (_, index){
 
                       return ListTile(
                         title: Text(items[index]["Title"]),
-                        /*onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ItemDetails(itemId: snapshot.data['itemId'], post: post)));
-                        }*/
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ItemDetails(itemId: items[index].toString())));
+                        }
                       );
                 }
               );
+            }else {
+              return Center(child: Text('An unknown error occurred ${snapshot.error}'));
             }
           },
           initialData: null
