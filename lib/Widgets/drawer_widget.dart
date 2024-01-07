@@ -83,7 +83,6 @@ class MyDrawer extends StatelessWidget {
               leading: const Icon(Icons.add_box_outlined),
               title: const Text('Custom Page Builder'),
               onTap: () {
-                // Handle about
                 Navigator.pop(context);
                 if (context.mounted) {
                   ScaffoldMessenger.of(context)
@@ -162,55 +161,60 @@ class SubDrawer extends StatefulWidget{
 }
 
 
-class _SubDrawerState extends State<SubDrawer> {     ///Subdrawer for Custom Pages and About App Popup
-
+class _SubDrawerState extends State<SubDrawer> {
   var firestore = FirebaseFirestore.instance.collection("custom_page_data");
   late List<Map<String, dynamic>> items;
 
   Future<void> itemListProvider() async {
-      List<Map<String, dynamic>> tempList = [];
-      var qn = await firestore.get();
+    List<Map<String, dynamic>> tempList = [];
+    var qn = await firestore.get();
 
-      for (var element in qn.docs) {
-        tempList.add(element.data());
-      }
-
-        setState((){
-          items = tempList;
-        }
-      );
+    for (var element in qn.docs) {
+      tempList.add(element.data());
     }
+
+    /// Check if the widget is still mounted before calling setState
+    if (mounted) {
+      setState(() {
+        items = tempList;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
         FutureBuilder(
-          future: itemListProvider(),
-          builder: (_, snapshot){
+          future: itemListProvider(), // Pass the function, not the result of the function call
+          builder: (_, snapshot) {
             if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             }
-            if(snapshot.connectionState == ConnectionState.waiting){
+            if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
-            } else if(snapshot.connectionState == ConnectionState.done){
-                return ListView.builder(
-                    itemCount: items.length,
-                    itemBuilder: (_, index){
-
-                      return ListTile(
-                        title: Text(items[index]["Title"]),
-                        onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => ItemDetails(itemId: items[index].toString())));
-                        }
+            } else if (snapshot.connectionState == ConnectionState.done) {
+              return ListView.builder(
+                itemCount: items.length,
+                itemBuilder: (_, index) {
+                  return ListTile(
+                    title: Text(items[index]["title"]),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ItemDetails(itemId: items[index].toString()),
+                        ),
                       );
-                }
+                    },
+                  );
+                },
               );
-            }else {
+            } else {
               return Center(child: Text('An unknown error occurred ${snapshot.error}'));
             }
           },
-          initialData: null
+          initialData: null,
         ),
         const AboutListTile(     ///Contains Information a bout Licences and The App itself
           icon: Icon(Icons.info,),
