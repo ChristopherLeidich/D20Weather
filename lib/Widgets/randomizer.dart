@@ -4,6 +4,7 @@ import 'dart:math';
 
 double doubleValues = 0.0; ///used for generating a random double Value
 int randIndex = 0;
+int weatherIndex = 0;
 String printableValues = '0.0'; ///this is the temperature that gets printed in the End.
 String preSymbol = '+'; ///Symbol for negative/Positive Temperatures
 int currentIndex = 0;
@@ -15,7 +16,7 @@ int regionalCases = 0;
 void randomizer() {
 
     regionalCases = Random().nextInt(2);
-    direction = dirlist[Random().nextInt(dirlist.length)];
+    direction = dirlist[Random().nextInt(dirlist.length)];      /// Generate a random Wind direction
     wetterBedingung = wetterbedingunsliste[Random().nextInt(wetterbedingunsliste.length)];
 
     randIndex = Random().nextInt(regionList.length);
