@@ -8,7 +8,7 @@ class Regional {
   final String effectRegional;
 
   final int regionalTemperatureLimitPositive;
-  final int regionalTemperatureLimitNegative;
+  final double regionalTemperatureLimitNegative;
   final bool negativeTemperature;
 
   Regional(
@@ -62,7 +62,7 @@ final List<Regional> regionList = [
           'and the party-member will get infected by a random disease based on the following 1d42 [[1d42]]'
           'more information on in-game diseases at: https://www.d20pfsrd.com/gamemastering/afflictions/diseases/diseases-paizo-inc/',
       regionalTemperatureLimitPositive: 48,
-      regionalTemperatureLimitNegative: 0,
+      regionalTemperatureLimitNegative: -0,
       negativeTemperature: false),
   Regional(
     regionalName: 'Glacier',
@@ -85,7 +85,7 @@ final List<Regional> regionList = [
         'rolle for the following fortitude save instead after every 1d8 [[1d8]] '
         'hour(s) with the same effect on failure or critical failure.',
     regionalTemperatureLimitPositive: 3,
-    regionalTemperatureLimitNegative: 48,
+    regionalTemperatureLimitNegative: -48,
     negativeTemperature: true,
   ),
   Regional(
@@ -100,7 +100,7 @@ final List<Regional> regionList = [
                       'A Succsessful Save makes you Immune to the effect of Strong Waves for the Next 1d4 [[1d4]] Hours.\n'
                       'On a Critical failiure You Instead become Clumsy 3 until the Start you your next Round and become Disarmed.',
       regionalTemperatureLimitPositive: 44,
-      regionalTemperatureLimitNegative: 4,
+      regionalTemperatureLimitNegative: -4,
       negativeTemperature: true),
   Regional(
       regionalName: 'Beach',
@@ -116,7 +116,7 @@ final List<Regional> regionList = [
                         'on an 18 or Higher one of The Creatures is an Elite Monster. If the Encounter however is a Sea-Creature roll 1d4 [[1d4]].'
                         ' The Amount of Creatures Rolled is in a weakened State when Encountered',
       regionalTemperatureLimitPositive: 42,
-      regionalTemperatureLimitNegative: 0,
+      regionalTemperatureLimitNegative: -0,
       negativeTemperature: false),
   Regional(
       regionalName: 'Forest',
@@ -125,7 +125,7 @@ final List<Regional> regionList = [
       effectRegionaldescription: ' ',
       effectRegional: ' ',
       regionalTemperatureLimitPositive: 22,
-      regionalTemperatureLimitNegative: 24,
+      regionalTemperatureLimitNegative: -24,
       negativeTemperature: true),
   Regional(
       regionalName: 'Desert',
@@ -134,7 +134,7 @@ final List<Regional> regionList = [
       effectRegionaldescription: ' ',
       effectRegional: ' ',
       regionalTemperatureLimitPositive: 54,
-      regionalTemperatureLimitNegative: 10,
+      regionalTemperatureLimitNegative: -10,
       negativeTemperature: true),
 ];
 
