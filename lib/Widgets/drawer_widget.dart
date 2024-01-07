@@ -160,72 +160,71 @@ class SubDrawer extends StatefulWidget{
     State<SubDrawer> createState() =>_SubDrawerState();
 }
 
-
 class _SubDrawerState extends State<SubDrawer> {
-  var firestore = FirebaseFirestore.instance.collection("custom_page_data");
-  late List<Map<String, dynamic>> items;
+  late Future<List<String>> itemListFuture; // Use 'late' keyword to indicate it will be initialized later
 
-  Future<void> itemListProvider() async {
-    List<Map<String, dynamic>> tempList = [];
-    var qn = await firestore.get();
-
-    for (var element in qn.docs) {
-      tempList.add(element.data());
+  Future<List<String>> itemListProvider() async {
+    try {
+      final snapshot = await FirebaseFirestore.instance.collection("custom_page_data").get();
+      final itemList = snapshot.docs.map((document) => document.reference.id).toList();
+      return itemList;
+    } catch (error) {
+      print('Error fetching data: $error');
+      throw error; // Rethrow the error so that FutureBuilder can catch it
     }
+  }
 
-    /// Check if the widget is still mounted before calling setState
-    if (mounted) {
-      setState(() {
-        items = tempList;
-      });
-    }
+  @override
+  void initState() {
+    super.initState();
+    itemListFuture = itemListProvider();
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        FutureBuilder(
-          future: itemListProvider(), // Pass the function, not the result of the function call
+        FutureBuilder<List<String>>(
+          future: itemListFuture,
           builder: (_, snapshot) {
             if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             }
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(child: CircularProgressIndicator());
-            } else if (snapshot.connectionState == ConnectionState.done) {
-              return ListView.builder(
-                itemCount: items.length,
-                itemBuilder: (_, index) {
-                  return ListTile(
-                    title: Text(items[index]["title"]),
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ItemDetails(itemId: items[index].toString()),
-                        ),
-                      );
-                    },
-                  );
-                },
-              );
-            } else {
-              return Center(child: Text('An unknown error occurred ${snapshot.error}'));
             }
+
+            final items = snapshot.data ?? [];
+
+            return ListView.builder(
+              itemCount: items.length,
+              itemBuilder: (_, index) {
+                return ListTile(
+                  leading: const Icon(Icons.star),
+                  title: Text(items[index]),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ItemDetails(itemId: items[index].toString()),
+                      ),
+                    );
+                  },
+                );
+              },
+            );
           },
-          initialData: null,
         ),
-        const AboutListTile(     ///Contains Information a bout Licences and The App itself
+        const AboutListTile(
           icon: Icon(Icons.info,),
-          applicationIcon: Icon( Icons.local_play,),
+          applicationIcon: Icon(Icons.local_play,),
           applicationName: 'D20Weather',
           applicationVersion: '0.2.0',
           applicationLegalese: 'D20Weather © 2023 by Christopher Leidich and Francesco Quarta is licensed under CC BY-NC-SA 4.0',
-          ///Content goes here...
           child: Text('About app'),
         ),
       ],
     );
   }
 }
+
