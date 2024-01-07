@@ -20,19 +20,20 @@ void randomizer() {
     wetterBedingung = wetterbedingunsliste[Random().nextInt(wetterbedingunsliste.length)];
 
     randIndex = Random().nextInt(regionList.length);
+    weatherIndex = Random().nextInt(weatherList.length);
 
-    wind = Random().nextInt(64); /// Needs to be replaced with a non-static Value provided by the weatherList inside the {@lists.dart}
+    wind = Random().nextInt(weatherList[weatherIndex].weatherWindspeed); /// Needs to be replaced with a non-static Value provided by the weatherList inside the {@lists.dart}
 
 
     if (regionList[randIndex].negativeTemperature == true) {      ///checks if the Current Area allows for negative Temperatures to be generated
       switch (regionalCases) {                                    /// Takes a Random Value from Line 17
         case 0:                                                   /// Generate a Positive Temperature
-          doubleValues = Random().nextDouble() * regionList[randIndex].regionalTemperatureLimitPositive;
+          doubleValues = Random().nextDouble() * regionList[randIndex].regionalTemperatureLimitPositive + weatherList[weatherIndex].weatherTemperatureModifer;
           preSymbol = '+';                                        /// Set Pre-Symbol to "+"
           printableValues = doubleValues.toStringAsFixed(1);      /// make the Generated Value a String with 1 digit behind the ,
           break;
         case 1:                                                  /// Generate a Positive Temperature
-          doubleValues = Random().nextDouble() * regionList[randIndex].regionalTemperatureLimitNegative;
+          doubleValues = Random().nextDouble() * regionList[randIndex].regionalTemperatureLimitNegative + weatherList[weatherIndex].weatherTemperatureModifer;
           preSymbol = '-';                                        /// Set Pre-Symbol to "-"
           printableValues = doubleValues.toStringAsFixed(1);
           break;
@@ -44,7 +45,7 @@ void randomizer() {
           break;
       }
     } else {                                                    /// If there is no Negative Value saved in the first Place so regionList[randIndex].negativeTemperature is set to false execute this and generate a positive Value
-      doubleValues = Random().nextDouble() * regionList[randIndex].regionalTemperatureLimitPositive;
+      doubleValues = Random().nextDouble() * regionList[randIndex].regionalTemperatureLimitPositive + weatherList[weatherIndex].weatherTemperatureModifer;
       preSymbol = '+';
       printableValues = doubleValues.toStringAsFixed(1);
 

@@ -28,13 +28,19 @@ class Weather {
   final String weatherEffectname;
   final String weatherEffectdescription;
   final String weatherEffect;
+  final double weatherTemperatureModifer;
+  final int weatherWindspeed;
 
-  Weather(
-      {required this.weatherName,
+  Weather({
+
+      required this.weatherName,
       required this.weatherDescription,
       required this.weatherEffectname,
       required this.weatherEffectdescription,
-      required this.weatherEffect});
+      required this.weatherEffect,
+      required this.weatherTemperatureModifer,
+      required this.weatherWindspeed,
+  });
 }
 
 final List<Regional> regionList = [
@@ -132,49 +138,6 @@ final List<Regional> regionList = [
       negativeTemperature: true),
 ];
 
-/*final List<Affliction> AfflictionList = [
-  Affliction(Athrakitis)
-  Affliction(Basidirond Spores)
-      Affliction(Blightburn Sickness)
-      Affliction(Blinding Sickness)
-      Affliction(Blister Phage)
-      Affliction(Bluespit)
-      Affliction(Bog Rot)
-      Affliction(Bonecrusher (Dengue) Fever)
-  Affliction(Boot Soup)
-      Affliction(Brainworms)
-      Affliction(Bubonic Plague)
-      Affliction(Cackle Fever)
-  Affliction(Cholera)
-  Affliction(Coward's Mark)
-  Affliction(Demon Fever)
-  Affliction(Devil Chills)
-  Affliction(Dysentery)
-      Affliction(Enteric Fever)
-      Affliction(Filth Fever)
-      Affliction(Final Rest)
-  Affliction(Firegut)
-  Affliction(Green Haze)
-  Affliction(Greenscale)
-      Affliction(Leprosy)
-  Affliction(Malaria (Jungle Fever))
-  Affliction(Mindfire)
-      Affliction(Pulsing Puffs)
-      Affliction(Rabies)
-      Affliction(Rapture Pox)
-      Affliction(Red Ache=
-      Affliction(Red Drip=
-      Affliction(Scarlet Leprosy)
-      Affliction(Seasickness)
-      Affliction(Shakes)
-      Affliction(Shattermind)
-      Affliction(Sleeping Sickness)
-      Affliction(Slimy Doom)
-      Affliction(Tetanus)
-      Affliction(Tuberculosis)
-      Affliction(Typhoid Fever)
-      Affliction(Zombie Rot)
-]*/
 
 final List<Weather> weatherList = [
   Weather(
@@ -182,62 +145,92 @@ final List<Weather> weatherList = [
       weatherDescription: 'Small Raindrops Form on your Skin. Sight for Sore Eyes in a hot environments but makes it so much harder to endure in cold Climates. ',
       weatherEffectname: 'Wet',
       weatherEffectdescription: 'weatherEffectdescription',
-      weatherEffect: 'weatherEffect'),
+      weatherEffect: 'weatherEffect',
+      weatherTemperatureModifer: -5,
+      weatherWindspeed: 38
+  ),
   Weather(
       weatherName: 'Drought',
       weatherDescription: 'There is not a single Drop of Water in Sight. the Air is unnatually dry to the point it makes the Skin Brittle. '
                           'If no Water is Provided it is a clear Sign that you have not much longer to life if this continues.',
       weatherEffectname: 'weatherEffectname',
       weatherEffectdescription: 'weatherEffectdescription',
-      weatherEffect: 'weatherEffect'),
+      weatherEffect: 'weatherEffect',
+      weatherTemperatureModifer: 10,
+      weatherWindspeed: 15
+  ),
   Weather(
       weatherName: 'Storm',
       weatherDescription: '',
       weatherEffectname: 'weatherEffectname',
       weatherEffectdescription: 'weatherEffectdescription',
-      weatherEffect: 'weatherEffect'),
+      weatherEffect: 'weatherEffect',
+      weatherTemperatureModifer: -10,
+      weatherWindspeed: 120
+  ),
   Weather(
       weatherName: 'Thunderstorm',
       weatherDescription: '',
       weatherEffectname: 'weatherEffectname',
       weatherEffectdescription: 'weatherEffectdescription',
-      weatherEffect: 'weatherEffect'),
+      weatherEffect: 'weatherEffect',
+      weatherTemperatureModifer: -4,
+      weatherWindspeed: 180
+  ),
   Weather(
       weatherName: 'Snow',
       weatherDescription: '',
       weatherEffectname: 'weatherEffectname',
       weatherEffectdescription: 'weatherEffectdescription',
-      weatherEffect: 'weatherEffect'),
+      weatherEffect: 'weatherEffect',
+      weatherTemperatureModifer: -11,
+      weatherWindspeed: 12
+  ),
   Weather(
       weatherName: 'Hail',
       weatherDescription: '',
       weatherEffectname: 'weatherEffectname',
       weatherEffectdescription: 'weatherEffectdescription',
-      weatherEffect: 'weatherEffect'),
+      weatherEffect: 'weatherEffect',
+      weatherTemperatureModifer: -18,
+      weatherWindspeed: 38
+  ),
   Weather(
       weatherName: 'Cloudy',
       weatherDescription: '',
       weatherEffectname: 'weatherEffectname',
       weatherEffectdescription: 'weatherEffectdescription',
-      weatherEffect: 'weatherEffect'),
+      weatherEffect: 'weatherEffect',
+      weatherTemperatureModifer: -1,
+      weatherWindspeed: 28
+  ),
   Weather(
       weatherName: 'Radiant-Storm',
       weatherDescription: '',
       weatherEffectname: 'weatherEffectname',
       weatherEffectdescription: 'weatherEffectdescription',
-      weatherEffect: 'weatherEffect'),
+      weatherEffect: 'weatherEffect',
+      weatherTemperatureModifer: 0,
+      weatherWindspeed: 1
+  ),
   Weather(
       weatherName: 'Umbral-Storm',
       weatherDescription: '',
       weatherEffectname: 'weatherEffectname',
       weatherEffectdescription: 'weatherEffectdescription',
-      weatherEffect: 'weatherEffect'),
+      weatherEffect: 'weatherEffect',
+      weatherTemperatureModifer: -25,
+      weatherWindspeed: 190
+  ),
   Weather(
       weatherName: 'Phantasmal-Rain',
       weatherDescription: '',
       weatherEffectname: 'weatherEffectname',
       weatherEffectdescription: 'weatherEffectdescription',
-      weatherEffect: 'weatherEffect'),
+      weatherEffect: 'weatherEffect',
+      weatherTemperatureModifer: -20,
+      weatherWindspeed: 10
+  ),
 ];
 
 var dirlist = [
