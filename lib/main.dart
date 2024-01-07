@@ -66,6 +66,12 @@ class _WeatherD20state extends State<WeatherD20> {
   }
 
   @override
+  void initState() {
+    randomizer();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
