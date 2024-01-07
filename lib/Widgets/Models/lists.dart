@@ -89,8 +89,10 @@ final List<Regional> regionList = [
           'As a Famous Fisher from the Astral Coast Once Said: "The Ocean is beautiful and '
           'bountiful to those fools that don`t have to work with it every day..."',
       effectRegionalName: 'Strong Waves',
-      effectRegionaldescription: ' ',
-      effectRegional: ' ',
+      effectRegionaldescription: ' When Traveling the Oceans Krakens and Giant Seesnakes are not the Only things to be weary about. Even the Waves are bigger here.',
+      effectRegional: 'When in Battle at the Start of each turn every Party-member has to make a basic DC 14 Reflex Saver  or be knocked Prone und you become Clumsy 1 until the Start of your next Round. '
+                      'A Succsessful Save makes you Immune to the effect of Strong Waves for the Next 1d4 [[1d4]] Hours.\n'
+                      'On a Critical failiure You Instead become Clumsy 3 until the Start you your next Round and become Disarmed.',
       regionalTemperatureLimitPositive: 44,
       regionalTemperatureLimitNegative: 4,
       negativeTemperature: true),
@@ -177,13 +179,14 @@ final List<Regional> regionList = [
 final List<Weather> weatherList = [
   Weather(
       weatherName: 'Drizzle',
-      weatherDescription: '',
-      weatherEffectname: 'weatherEffectname',
+      weatherDescription: 'Small Raindrops Form on your Skin. Sight for Sore Eyes in a hot environments but makes it so much harder to endure in cold Climates. ',
+      weatherEffectname: 'Wet',
       weatherEffectdescription: 'weatherEffectdescription',
       weatherEffect: 'weatherEffect'),
   Weather(
       weatherName: 'Drought',
-      weatherDescription: '',
+      weatherDescription: 'There is not a single Drop of Water in Sight. the Air is unnatually dry to the point it makes the Skin Brittle. '
+                          'If no Water is Provided it is a clear Sign that you have not much longer to life if this continues.',
       weatherEffectname: 'weatherEffectname',
       weatherEffectdescription: 'weatherEffectdescription',
       weatherEffect: 'weatherEffect'),
