@@ -30,24 +30,24 @@ void randomizer() {
         case 0:                                                   /// Generate a Positive Temperature
           doubleValues = Random().nextDouble() * regionList[randIndex].regionalTemperatureLimitPositive;
           preSymbol = '+';                                        /// Set Pre-Symbol to "+"
-          printableValues = preSymbol + (doubleValues + weatherList[weatherIndex].weatherTemperatureModifer).toStringAsFixed(1);      /// make the Generated Value a String with 1 digit behind the ,
+          printableValues = ((doubleValues + weatherList[weatherIndex].weatherTemperatureModifer).abs()).toStringAsFixed(1);      /// make the Generated Value a String with 1 digit behind the ,
           break;
         case 1:                                                  /// Generate a Positive Temperature
           doubleValues = Random().nextDouble() * regionList[randIndex].regionalTemperatureLimitNegative;
           preSymbol = '-';                                        /// Set Pre-Symbol to "-"
-          printableValues = (doubleValues + weatherList[weatherIndex].weatherTemperatureModifer).toStringAsFixed(1);
+          printableValues =  ((doubleValues + weatherList[weatherIndex].weatherTemperatureModifer).abs()).toStringAsFixed(1);   ///use .abs() to make String absolute Numbers to remove Previous Mathematical Symbols So Value is always either absolute Positive or Negative
           break;
         default:                                                  /// This is the Default Case just meant for Debugging Purposes. This Value should never be reached
           doubleValues = 1;
           preSymbol = '+';
-          printableValues = preSymbol + doubleValues.toStringAsFixed(1);
+          printableValues = doubleValues.toStringAsFixed(1);
 
           break;
       }
     } else {                                                    /// If there is no Negative Value saved in the first Place so regionList[randIndex].negativeTemperature is set to false execute this and generate a positive Value
       doubleValues = Random().nextDouble() * regionList[randIndex].regionalTemperatureLimitPositive;
       preSymbol = '+';
-      printableValues = preSymbol + (doubleValues + weatherList[weatherIndex].weatherTemperatureModifer).toStringAsFixed(1);
+      printableValues = ((doubleValues + weatherList[weatherIndex].weatherTemperatureModifer).abs()).toStringAsFixed(1);
 
     }
   }
