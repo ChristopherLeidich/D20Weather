@@ -77,44 +77,41 @@
   <h2><span>Implementation</span></h2>
   <pre class="language-dart"><code class="language-dart">void randomizer() {
 
-      regionalCases = Random().nextInt(2);
-      direction = dirlist[Random().nextInt(dirlist.length)];
-      wetterBedingung = wetterbedingunsliste[Random().nextInt(wetterbedingunsliste.length)];
+    regionalCases = Random().nextInt(2);
+    direction = dirlist[Random().nextInt(dirlist.length)];      &#47;&#47;&#47; Generate a random Wind direction
+    wetterBedingung = wetterbedingunsliste[Random().nextInt(wetterbedingunsliste.length)];
 
-      randIndex = Random().nextInt(regionList.length);
+    randIndex = Random().nextInt(regionList.length);
+    weatherIndex = Random().nextInt(weatherList.length);
 
-      wind = Random().nextInt(64);
+    wind = Random().nextInt(weatherList[weatherIndex].weatherWindspeed); &#47;&#47;&#47; Needs to be replaced with a non-static Value provided by the weatherList inside the {@lists.dart}
 
 
-      if (regionList[randIndex].negativeTemperature == true) {
-        switch (regionalCases) {
-          case 0:
-            doubleValues = Random().nextDouble() * regionList[randIndex].regionalTemperatureLimitPositive;
-            preSymbol = &#39;+&#39;;
-            printableValues = doubleValues.toStringAsFixed(1);
-            break;
-          case 1:
-            doubleValues = Random().nextDouble() * regionList[randIndex].regionalTemperatureLimitNegative;
-            preSymbol = &#39;-&#39;;
-            printableValues = doubleValues.toStringAsFixed(1);
-            break;
-          default:
-            doubleValues = 1;
-            preSymbol = &#39;+&#39;;
-            printableValues = doubleValues.toStringAsFixed(1);
+    if (regionList[randIndex].negativeTemperature == true) {      &#47;&#47;&#47;checks if the Current Area allows for negative Temperatures to be generated
+      switch (regionalCases) {                                    &#47;&#47;&#47; Takes a Random Value from Line 17
+        case 0:                                                   &#47;&#47;&#47; Generate a Positive Temperature
+          doubleValues = Random().nextDouble() * regionList[randIndex].regionalTemperatureLimitPositive;
+          preSymbol = &#39;+&#39;;                                        &#47;&#47;&#47; Set Pre-Symbol to &quot;+&quot;
+          printableValues = ((doubleValues + weatherList[weatherIndex].weatherTemperatureModifer).abs()).toStringAsFixed(1);      &#47;&#47;&#47; make the Generated Value a String with 1 digit behind the ,
+          break;
+        case 1:                                                  &#47;&#47;&#47; Generate a Positive Temperature
+          doubleValues = Random().nextDouble() * regionList[randIndex].regionalTemperatureLimitNegative;
+          preSymbol = &#39;-&#39;;                                        &#47;&#47;&#47; Set Pre-Symbol to &quot;-&quot;
+          printableValues =  ((doubleValues + weatherList[weatherIndex].weatherTemperatureModifer).abs()).toStringAsFixed(1);   &#47;&#47;&#47;use .abs() to make String absolute Numbers to remove Previous Mathematical Symbols So Value is always either absolute Positive or Negative
+          break;
+        default:                                                  &#47;&#47;&#47; This is the Default Case just meant for Debugging Purposes. This Value should never be reached
+          doubleValues = 1;
+          preSymbol = &#39;+&#39;;
+          printableValues = doubleValues.toStringAsFixed(1);
 
-            break;
-        }
-      } else {
-        doubleValues = Random().nextDouble() * regionList[randIndex].regionalTemperatureLimitPositive;
-        preSymbol = &#39;+&#39;;
-        printableValues = doubleValues.toStringAsFixed(1);
-
+          break;
       }
+    } else {                                                    &#47;&#47;&#47; If there is no Negative Value saved in the first Place so regionList[randIndex].negativeTemperature is set to false execute this and generate a positive Value
+      doubleValues = Random().nextDouble() * regionList[randIndex].regionalTemperatureLimitPositive;
+      preSymbol = &#39;+&#39;;
+      printableValues = ((doubleValues + weatherList[weatherIndex].weatherTemperatureModifer).abs()).toStringAsFixed(1);
 
-
-      &#47;&#47;printableValues = doubleValues.toStringAsFixed(1);
-      &#47;&#47;fixes the length of digits after the , to 1 (e.g. 1.1 instead of 1.00000001)
+    }
   }</code></pre>
 </section>
 
