@@ -107,7 +107,7 @@ class TextWidget extends StatelessWidget {
                               children: [
                                 Text("Positive Temperature Limit: +${region.regionalTemperatureLimitPositive.toString()}"),
                                 Text("Negative Temperature Limit: -${region.regionalTemperatureLimitNegative.toString()}"),
-                                Text("Maximum Windspeed: ${weatherList[weatherIndex].weatherWindspeed} km/h")
+                                Text("Maximum Wind Speed: ${weatherList[weatherIndex].weatherWindspeed} km/h")
                               ]
                             )
                         ),
