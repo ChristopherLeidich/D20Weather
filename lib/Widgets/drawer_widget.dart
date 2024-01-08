@@ -230,3 +230,9 @@ class _SubDrawerState extends State<SubDrawer> {
   }
 }
 
+
+/*final RegExp dicePattern = RegExp(r'(\d+)d(\d+)');
+*  roller.roll())
+*
+* */
+
