@@ -15,14 +15,17 @@ class MyDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
-    if (user == null) {    ///if user is not logged it return Drawer 1 else Return Drawer with User Data and more Features.
+    if (user == null) {
+      ///if user is not logged it return Drawer 1 else Return Drawer with User Data and more Features.
       return Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
               decoration: const BoxDecoration(
-                color: Color(0xFF813181), /// Set a background color for the header
+                color: Color(0xFF813181),
+
+                /// Set a background color for the header
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -45,13 +48,16 @@ class MyDrawer extends StatelessWidget {
                     label: const Text(
                       'Login',
                       style: TextStyle(
-                          fontSize: 24,
+                        fontSize: 24,
                         color: Colors.white,
                       ),
                     ),
                     onPressed: () {
                       Navigator.pop(context);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => const LoginPage()));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoginPage()));
                     },
                   ),
                 ],
@@ -62,9 +68,12 @@ class MyDrawer extends StatelessWidget {
               title: const Text('Home'),
               onTap: () {
                 /// Handle settings or navigation
-                Navigator.pop(context); /// Close the drawer
+                Navigator.pop(context);
+
+                /// Close the drawer
                 /// Navigate to the next page
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const MyApp()));
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const MyApp()));
               },
             ),
             ListTile(
@@ -74,31 +83,42 @@ class MyDrawer extends StatelessWidget {
                 // Handle settings or navigation
                 Navigator.pop(context); // Close the drawer
                 // Navigate to the second page
-                Navigator.push(context, MaterialPageRoute(
-                  builder: (context) => const SecondPage(title: ''),
-                ));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SecondPage(title: ''),
+                    ));
               },
             ),
             AbsorbPointer(
-            child: ListTile(
+              child: ListTile(
                 leading: const Icon(Icons.add_box_outlined),
                 title: const Text('Custom Page Builder'),
                 onTap: () {
                   Navigator.pop(context);
                   if (context.mounted) {
-                    ScaffoldMessenger.of(context)
-                        .showSnackBar(const SnackBar(content: Text('Could not open Page. \n You need to be logged in to open this Page. \n Redirecting to Login Screen')));
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text(
+                            'Could not open Page. \n You need to be logged in to open this Page. \n Redirecting to Login Screen')));
                   }
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => const CreateCustomPage(title: '', description: '', pageName: '',)));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CreateCustomPage(
+                                title: '',
+                                description: '',
+                                pageName: '',
+                              )));
                 },
               ),
             ),
-            const Divider(), /// Divider between main and sub-drawer
+            const Divider(),
+
+            /// Divider between main and sub-drawer
             const SubDrawer(),
           ],
         ),
       );
-
     } else {
       return Drawer(
         child: ListView(
@@ -130,8 +150,12 @@ class MyDrawer extends StatelessWidget {
                 // Handle settings or navigation
                 Navigator.pop(context); // Close the drawer
                 // Navigate to the second page
-                Navigator.push(context, MaterialPageRoute(
-                    builder: (context) => const SecondPage(title: '',)));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const SecondPage(
+                              title: '',
+                            )));
               },
             ),
             ListTile(
@@ -141,11 +165,19 @@ class MyDrawer extends StatelessWidget {
                 // Handle about
                 Navigator.pop(context);
 
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const CreateCustomPage(title: '', description: '', pageName: '',)));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CreateCustomPage(
+                              title: '',
+                              description: '',
+                              pageName: '',
+                            )));
               },
             ),
-            const Divider(), /// Divider between main and sub-drawer
+            const Divider(),
+
+            /// Divider between main and sub-drawer
             const SubDrawer(),
           ],
         ),
@@ -154,21 +186,23 @@ class MyDrawer extends StatelessWidget {
   }
 }
 
-class SubDrawer extends StatefulWidget{
+class SubDrawer extends StatefulWidget {
   const SubDrawer({super.key});
 
-
   @override
-    State<SubDrawer> createState() =>_SubDrawerState();
+  State<SubDrawer> createState() => _SubDrawerState();
 }
 
 class _SubDrawerState extends State<SubDrawer> {
-  late Future<List<String>> itemListFuture; // Use 'late' keyword to indicate it will be initialized later
+  late Future<List<String>>
+      itemListFuture; // Use 'late' keyword to indicate it will be initialized later
 
   Future<List<String>> itemListProvider() async {
     try {
-      final snapshot = await FirebaseFirestore.instance.collection("custom_page_data").get();
-      final itemList = snapshot.docs.map((document) => document.reference.id).toList();
+      final snapshot =
+          await FirebaseFirestore.instance.collection("custom_page_data").get();
+      final itemList =
+          snapshot.docs.map((document) => document.reference.id).toList();
       return itemList;
     } catch (error) {
       print('Error fetching data: $error');
@@ -208,7 +242,8 @@ class _SubDrawerState extends State<SubDrawer> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => ItemDetails(itemId: items[index].toString()),
+                        builder: (context) =>
+                            ItemDetails(itemId: items[index].toString()),
                       ),
                     );
                   },
@@ -218,11 +253,16 @@ class _SubDrawerState extends State<SubDrawer> {
           },
         ),
         const AboutListTile(
-          icon: Icon(Icons.info,),
-          applicationIcon: Icon(Icons.local_play,),
+          icon: Icon(
+            Icons.info,
+          ),
+          applicationIcon: Icon(
+            Icons.local_play,
+          ),
           applicationName: 'D20Weather',
           applicationVersion: '0.2.0',
-          applicationLegalese: 'D20Weather © 2023 by Christopher Leidich and Francesco Quarta is licensed under CC BY-NC-SA 4.0',
+          applicationLegalese:
+              'D20Weather © 2023 by Christopher Leidich and Francesco Quarta is licensed under CC BY-NC-SA 4.0',
           child: Text('About app'),
         ),
       ],
@@ -230,9 +270,49 @@ class _SubDrawerState extends State<SubDrawer> {
   }
 }
 
-
 /*final RegExp dicePattern = RegExp(r'(\d+)d(\d+)');
+* Match singleMatch = dicePattern.match(value);
+* string diceResult;
 *  roller.roll())
-*
-* */
+*final TextEditingController _dicecontroller = TextEditingController();
+* Column( children: [
+* TextFormField(
+                controller: _dicecontroller,
+                maxLength: 6,
+                keyboardType: TextInputType.string,
+                decoration: const InputDecoration(
+                    labelText: 'Dice Roller',
+                    hintText: 'Enter a valid Dice. Example: 1d20\n
+                    Number in front = Number of Dices\n
+                    Number behind = Number of Faces'
+                ),
+                validator: (String? value){
 
+                  if(value==null || value.isEmpty)
+                  {
+                    return 'Please enter a correct dice expression.';
+                  }
+
+                  if(singleMatch == null)
+                  {
+                    return 'Input must match a regular dice expression. Example: 1d20';
+                  }
+                  else string diceResult = roller.roll(value);
+
+
+                  return null;
+                },
+                ),
+     IconButton(
+          icon: const Icon(Icons.volume_up),
+          tooltip: 'Increase volume by 10',
+          onPressed: () {
+            setState(() {
+
+            });
+          },
+        ),
+
+     ]
+     )
+ */
