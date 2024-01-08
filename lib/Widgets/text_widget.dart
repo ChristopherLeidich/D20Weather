@@ -1,3 +1,4 @@
+import 'package:fantasy_weather_app/Widgets/randomizer.dart';
 import 'package:flutter/material.dart';
 import 'package:d20/d20.dart';
 import 'package:flutter/rendering.dart';
@@ -26,16 +27,8 @@ class TextWidget extends StatelessWidget {
 
   final RegExp dicePattern = RegExp(r'\[\[(\d+)d(\d+)\]\]');
 
-
   @override
   Widget build(BuildContext context) {
-
-    // for(int i = 0; i < diceStrings.length; i++){
-    //   diceValues.add("${diceStrings[i]}d${diceSides[i]}");
-    //   diceResults.add('[${roller.roll(diceValues[i]).toString()}]');
-    // }
-
-
 
     return Flexible(
       child: SingleChildScrollView(
@@ -92,16 +85,36 @@ class TextWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: Text(region.regionalName,
-                          style: const TextStyle(
-                            height: 2.0,
-                            backgroundColor: Colors.transparent,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 18,
-                          )),
+                    Row(
+                      children: [
+                      Padding(
+                        padding: const EdgeInsets.all(3.0),
+                        child: Text(region.regionalName,
+                            style: const TextStyle(
+                              height: 2.0,
+                              backgroundColor: Colors.transparent,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 18,
+                            )),
+                      ),
+                      Tooltip(
+                        richMessage: WidgetSpan(
+                            alignment: PlaceholderAlignment.baseline,
+                            baseline: TextBaseline.alphabetic,
+                            child: Column(
+
+                              children: [
+                                Text("Positive Temperature Limit: +${region.regionalTemperatureLimitPositive.toString()}"),
+                                Text("Negative Temperature Limit: -${region.regionalTemperatureLimitNegative.toString()}"),
+                                Text("Maximum Windspeed: ${weatherList[weatherIndex].weatherWindspeed} km/h")
+                              ]
+                            )
+                        ),
+                        child: const Icon(Icons.info_outline, size: 5),
+                      )
+
+                      ]
                     ),
                     Padding(
                       padding: const EdgeInsets.all(5.0),

@@ -63,7 +63,8 @@ final List<Regional> regionList = [
           'more information on in-game diseases at: https://www.d20pfsrd.com/gamemastering/afflictions/diseases/diseases-paizo-inc/',
       regionalTemperatureLimitPositive: 48,
       regionalTemperatureLimitNegative: -0,
-      negativeTemperature: false),
+      negativeTemperature: false,
+  ),
   Regional(
     regionalName: 'Glacier',
     regionalDescription: 'A cold barren wasteland of Ice and Snow. '
@@ -81,8 +82,8 @@ final List<Regional> regionList = [
         ' in a warm location or until death.'
         '\nOn a critical failure they additionally gain a stack of the '
         'wounded condition and the damage dice changes to 1d8 [[1d8]] '
-        'cold damage.\nparty members with at least cold resistance [5] have to '
-        'rolle for the following fortitude save instead after every 1d8 [[1d8]] '
+        'cold damage.\nparty members with at least cold resistance 5 have to '
+        'roll for the following fortitude save instead after every 1d8 [[1d8]] '
         'hour(s) with the same effect on failure or critical failure.',
     regionalTemperatureLimitPositive: 3,
     regionalTemperatureLimitNegative: -48,
@@ -95,10 +96,10 @@ final List<Regional> regionList = [
           'As a Famous Fisher from the Astral Coast Once Said: "The Ocean is beautiful and '
           'bountiful to those fools that don`t have to work with it every day..."',
       effectRegionalName: 'Strong Waves',
-      effectRegionaldescription: ' When Traveling the Oceans Krakens and Giant Seesnakes are not the Only things to be weary about. Even the Waves are bigger here.',
+      effectRegionaldescription: ' When Traveling the Oceans Krakens and Giant Seasnakes are not the Only things to be weary about. Even the Waves are bigger here.',
       effectRegional: 'When in Battle at the Start of each turn every Party-member has to make a basic DC 14 Reflex Saver  or be knocked Prone und you become Clumsy 1 until the Start of your next Round. '
-                      'A Succsessful Save makes you Immune to the effect of Strong Waves for the Next 1d4 [[1d4]] Hours.\n'
-                      'On a Critical failiure You Instead become Clumsy 3 until the Start you your next Round and become Disarmed.',
+                      'A Successful Save makes you Immune to the effect of Strong Waves for the Next 1d4 [[1d4]] Hours.\n'
+                      'On a Critical failure You Instead become Clumsy 3 until the Start you your next Round and become Disarmed.',
       regionalTemperatureLimitPositive: 44,
       regionalTemperatureLimitNegative: -4,
       negativeTemperature: true),
@@ -109,10 +110,10 @@ final List<Regional> regionList = [
       effectRegionaldescription: 'The Waning and Waxing of the Moon affects no Region as much as the Ocean. It is in a constant Mode of Change which makes survival in the long term an outright challenge.',
       effectRegional:  'Roll a Dice. If the Result is even it is currently High-Tide. On an odd result it is Low Tide [[1d4]] '
                         'High Tide: The Chance of encountering Creatures from the Sea is doubled and all Dice to determine the '
-                        'Amount of Creatures from withing the Ocean is doubled as Well. If a random Enconuter is a Sea-Creature roll 1d20 [[1d20]]'
+                        'Amount of Creatures from withing the Ocean is doubled as Well. If a random Encounter is a Sea-Creature roll 1d20 [[1d20]]'
                         'on an 18 or Higher one of The Creatures is an Elite Monster.\nLow Tide: The Chance of Encountering land-bound '
                         'or amphibious Creatures is doubled and all Dice to determine the Amount of Creatures from land-bound or amphibious'
-                        ' Creatures is doubled as Well. If a random Enconuter is not a Sea-Creature roll 1d20 [[1d20]]'
+                        ' Creatures is doubled as Well. If a random Encounter is not a Sea-Creature roll 1d20 [[1d20]]'
                         'on an 18 or Higher one of The Creatures is an Elite Monster. If the Encounter however is a Sea-Creature roll 1d4 [[1d4]].'
                         ' The Amount of Creatures Rolled is in a weakened State when Encountered',
       regionalTemperatureLimitPositive: 42,
@@ -144,14 +145,14 @@ final List<Weather> weatherList = [
       weatherName: 'Drizzle',
       weatherDescription: 'Small Raindrops Form on your Skin. Sight for Sore Eyes in a hot environments but makes it so much harder to endure in cold Climates. ',
       weatherEffectname: 'Wet',
-      weatherEffectdescription: 'weatherEffectdescription',
+      weatherEffectdescription: 'The Longer you Stay outside the more drenched you will become. The Small Drops of water accumulate easily on you gear und will make you more Susceptible to Electricity and Coldness.',
       weatherEffect: 'weatherEffect',
       weatherTemperatureModifer: -5,
       weatherWindspeed: 38
   ),
   Weather(
       weatherName: 'Drought',
-      weatherDescription: 'There is not a single Drop of Water in Sight. the Air is unnatually dry to the point it makes the Skin Brittle. '
+      weatherDescription: 'There is not a single Drop of Water in Sight. the Air is unnaturally dry to the point it makes the Skin Brittle. '
                           'If no Water is Provided it is a clear Sign that you have not much longer to life if this continues.',
       weatherEffectname: 'weatherEffectname',
       weatherEffectdescription: 'weatherEffectdescription',
@@ -206,8 +207,8 @@ final List<Weather> weatherList = [
   ),
   Weather(
       weatherName: 'Radiant-Storm',
-      weatherDescription: '',
-      weatherEffectname: 'weatherEffectname',
+      weatherDescription: 'Small Particles of Light Start to fall from the Edges of the Antumbral Realms onto the Prime-Material-Realm an drench the World into a Soothing Light.',
+      weatherEffectname: 'Positive Enhancement',
       weatherEffectdescription: 'weatherEffectdescription',
       weatherEffect: 'weatherEffect',
       weatherTemperatureModifer: 0,
