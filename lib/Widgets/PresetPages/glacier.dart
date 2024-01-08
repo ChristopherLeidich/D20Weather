@@ -55,7 +55,7 @@ class _GlacierState extends State<GlacierPage> {
       drawer: const MyDrawer(),
       body: Stack(
           children: [
-          switch (wetterBedingung) {
+          switch (weatherList[weatherIndex].weatherName) {
     "Umbral-Storm" => ParallaxRain(
     dropColors: const [
     Colors.deepPurpleAccent,

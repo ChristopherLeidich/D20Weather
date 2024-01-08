@@ -5,6 +5,7 @@ import 'package:flutter_weather_bg_null_safety/utils/weather_type.dart';
 import 'package:palette_generator/palette_generator.dart';
 import 'package:parallax_rain/parallax_rain.dart';
 
+import '../Models/lists.dart';
 import '../drawer_widget.dart';
 import '../randomizer.dart';
 import '../starviewfield.dart';
@@ -142,7 +143,7 @@ class _ItemdetailState extends State<ItemDetails> {
             drawer: const MyDrawer(),
             body: Stack(
                 children: [
-                switch (wetterBedingung) {
+                switch (weatherList[weatherIndex].weatherName) {
           "Umbral-Storm" => ParallaxRain(
           dropColors: const [
           Colors.deepPurpleAccent,

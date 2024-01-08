@@ -56,7 +56,7 @@ class _OceanState extends State<OceanPage> {
       drawer: const MyDrawer(),
       body: Stack(
           children: [
-          switch (wetterBedingung) {
+          switch (weatherList[weatherIndex].weatherName) {
     "Umbral-Storm" => ParallaxRain(
     dropColors: const [
     Colors.deepPurpleAccent,

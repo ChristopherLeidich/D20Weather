@@ -57,7 +57,7 @@ class _JungleState extends State<JunglePage> {
       drawer: const MyDrawer(),
       body: Stack(
           children: [
-          switch (wetterBedingung) {
+          switch (weatherList[weatherIndex].weatherName) {
     "Umbral-Storm" => ParallaxRain(
     dropColors: const [
     Colors.deepPurpleAccent,

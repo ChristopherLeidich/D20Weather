@@ -105,7 +105,7 @@ class _WeatherD20state extends State<WeatherD20> {
       body: Stack(
         children: [
           /// change background according to weather situation
-          switch (wetterBedingung) {
+          switch (weatherList[weatherIndex].weatherName) {
             "Umbral-Storm" => ParallaxRain(
                 dropColors: const [
                   Colors.deepPurpleAccent,

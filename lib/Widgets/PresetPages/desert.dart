@@ -60,7 +60,7 @@ class _DesertState extends State<DesertPage> {
         viewportBuilder: (BuildContext context, ViewportOffset position) {
           return Stack(
               children: [
-                switch (wetterBedingung) {
+                switch (weatherList[weatherIndex].weatherName) {
                   "Umbral-Storm" =>
                       ParallaxRain(
                         dropColors: const [
