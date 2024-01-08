@@ -103,7 +103,6 @@ class TextWidget extends StatelessWidget {
                             alignment: PlaceholderAlignment.baseline,
                             baseline: TextBaseline.alphabetic,
                             child: Column(
-
                               children: [
                                 Text("Positive Temperature Limit: +${region.regionalTemperatureLimitPositive.toString()}"),
                                 Text("Negative Temperature Limit: -${region.regionalTemperatureLimitNegative.toString()}"),
