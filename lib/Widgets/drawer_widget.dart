@@ -79,17 +79,19 @@ class MyDrawer extends StatelessWidget {
                 ));
               },
             ),
-            ListTile(
-              leading: const Icon(Icons.add_box_outlined),
-              title: const Text('Custom Page Builder'),
-              onTap: () {
-                Navigator.pop(context);
-                if (context.mounted) {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(const SnackBar(content: Text('Could not open Page. \n You need to be logged in to open this Page. \n Redirecting to Login Screen')));
-                }
-                Navigator.push(context, MaterialPageRoute(builder: (context) => const CreateCustomPage(title: '', description: '', pageName: '',)));
-              },
+            AbsorbPointer(
+            child: ListTile(
+                leading: const Icon(Icons.add_box_outlined),
+                title: const Text('Custom Page Builder'),
+                onTap: () {
+                  Navigator.pop(context);
+                  if (context.mounted) {
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(const SnackBar(content: Text('Could not open Page. \n You need to be logged in to open this Page. \n Redirecting to Login Screen')));
+                  }
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => const CreateCustomPage(title: '', description: '', pageName: '',)));
+                },
+              ),
             ),
             const Divider(), /// Divider between main and sub-drawer
             const SubDrawer(),
