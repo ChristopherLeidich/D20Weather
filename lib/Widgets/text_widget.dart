@@ -182,7 +182,7 @@ class TextWidget extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(5.0),
-                          child: Text(wetterBedingung,
+                          child: Text(weatherList[weatherIndex].weatherName,
                               style: const TextStyle(
                                 height: 2.0,
                                 backgroundColor: Colors.transparent,
