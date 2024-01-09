@@ -99,6 +99,7 @@ class TextWidget extends StatelessWidget {
                             )),
                       ),
                       Tooltip(
+                        triggerMode: TooltipTriggerMode.manual,
                         richMessage: WidgetSpan(
                             alignment: PlaceholderAlignment.baseline,
                             baseline: TextBaseline.alphabetic,
@@ -110,9 +111,8 @@ class TextWidget extends StatelessWidget {
                               ]
                             )
                         ),
-                        child: const Icon(Icons.info_outline, size: 5),
+                        child: const Icon(Icons.info_outline, size: 12),
                       )
-
                       ]
                     ),
                     Padding(

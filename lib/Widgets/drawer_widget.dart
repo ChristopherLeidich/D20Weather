@@ -91,6 +91,7 @@ class MyDrawer extends StatelessWidget {
               },
             ),
             AbsorbPointer(
+              absorbing: false,
               child: ListTile(
                 leading: const Icon(Icons.add_box_outlined),
                 title: const Text('Custom Page Builder'),

@@ -132,7 +132,6 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
               ),
               TextFormField(
                 keyboardType: TextInputType.multiline,
-                maxLines: 10,
                 controller: _regioneffectcontroller,
                 decoration: const InputDecoration(
                     labelText: 'Region Effect',
@@ -151,11 +150,6 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
                   if(value==null || value.isEmpty)
                   {
                     return 'A Number above 0';
-                  }
-
-                  if(value == '0')
-                  {
-                    return 'Value must be above 0';
                   }
 
                   if(value != num as String)
@@ -185,17 +179,6 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
                         hintText: 'Enter a Positive Temperature Limit in Celsius'
                     ),
                     validator: (String? value){
-
-                      if(value==null || value.isEmpty)
-                      {
-                        return 'A Number above 0';
-                      }
-
-                      if(value == '0')
-                      {
-                        return 'Value must be above 0';
-                      }
-
                       if(value != num as String)
                       {
                         return 'Must be a Number';
@@ -208,35 +191,60 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
               ),
               ElevatedButton(
 
-                  onPressed: () async{
-
-                    if(key.currentState!.validate())
-                    {
-                      String itemName=_titlecontroller.text;
+                  onPressed: () async {
+                    if (key.currentState!.validate()) {
+                      String itemName = _titlecontroller.text;
                       String regionName = _regioncontroller.text;
                       String regionEffect = _regioneffectcontroller.text;
-                      String regionDescription=_regiondescriptioncontroller.text;
-                      String positiveTemperatureLimit =_positiveTemperatureLimit.text;
-                      String negativeTemperatureLimit =_negativeTemperatureLimit.text;
-                      bool iscold = cold;
+                      String regionDescription = _regiondescriptioncontroller.text;
+
+                      double positiveTemperatureLimit = 0;
+                      double negativeTemperatureLimit = 0;
+
+                      // Convert positive temperature limit
+                      try {
+                        if (_positiveTemperatureLimit.text.isNotEmpty) {
+                          positiveTemperatureLimit = double.parse(_positiveTemperatureLimit.text);
+                        }
+                      } catch (e) {
+                        // Handle invalid input for positive temperature limit
+                        print('Invalid positive temperature limit input: ${_positiveTemperatureLimit.text}');
+                        return;
+                      }
+
+                      // Convert negative temperature limit if the switch is turned on
+                      if (cold) {
+                        try {
+                          if (_negativeTemperatureLimit.text.isNotEmpty) {
+                            negativeTemperatureLimit = double.parse(_negativeTemperatureLimit.text);
+                          }
+                        } catch (e) {
+                          // Handle invalid input for negative temperature limit
+                          print('Invalid negative temperature limit input: ${_negativeTemperatureLimit.text}');
+                          return;
+                        }
+                      }
+
+                      bool isCold = cold;
                       String image = imageUrl;
 
-                      //Create a Map of data
-                      Map<String,String> dataToSend={
-                        'title':itemName,
+                      // Create a Map of data
+                      Map<String, dynamic> dataToSend = {
+                        'title': itemName,
                         'region_name': regionName,
-                        'region_effekt':regionEffect,
-                        'region_description':regionDescription,
+                        'region_effect': regionEffect,
+                        'region_description': regionDescription,
                         'positive_temperature_limit': positiveTemperatureLimit,
-                        'negative_temperature': iscold.toString(),
+                        'negative_temperature': isCold,
                         'negative_temperature_limit': negativeTemperatureLimit,
                         'ImageURL': image,
                       };
 
-                      //Add a new item
+                      // Add a new item
                       _reference.add(dataToSend);
-                  }
-              }, child: const Text('Create Page'))
+                    }
+                  },
+                  child: const Text('Create Page'))
 
 
               // Your form widgets go here
