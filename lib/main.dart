@@ -265,7 +265,7 @@ class _WeatherD20state extends State<WeatherD20> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          content: Text(),
+          content: const Text(''),
           actions: [
             TextButton(
               onPressed: () => Navigator.of(context).pop(),

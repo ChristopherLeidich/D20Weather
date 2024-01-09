@@ -205,8 +205,7 @@ class _SubDrawerState extends State<SubDrawer> {
           snapshot.docs.map((document) => document.reference.id).toList();
       return itemList;
     } catch (error) {
-      print('Error fetching data: $error');
-      throw error; // Rethrow the error so that FutureBuilder can catch it
+      rethrow; // Rethrow the error so that FutureBuilder can catch it
     }
   }
 
