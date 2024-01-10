@@ -191,6 +191,23 @@ class TextWidget extends StatelessWidget {
                         ),
                       ],
                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: ExpandableText(
+                        weatherList[weatherIndex].weatherDescription,
+                        style: const TextStyle(
+                          height: 2.0,
+                          backgroundColor: Colors.transparent,
+                          color: Colors.white,
+                        ),
+                        expandText: 'show more',
+                        collapseText: 'show less',
+                        maxLines: 1,
+                        linkColor: Colors.black,
+                        animation: true,
+                        expanded: true,
+                      ),
+                    ),
                     const Padding(
                       padding: EdgeInsets.all(5.0),
                       child: Text('Wind: ',

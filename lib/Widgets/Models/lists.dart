@@ -121,10 +121,21 @@ final List<Regional> regionList = [
       negativeTemperature: false),
   Regional(
       regionalName: 'Forest',
-      regionalDescription: 'Description for Item 3',
-      effectRegionalName: ' ',
-      effectRegionaldescription: ' ',
-      effectRegional: ' ',
+      regionalDescription:  'One of the Most Common Areas to come across in All the Realms. '
+                            'Woods can either describe an Assortment of Trees or a wild Untamed Land of Dangers. '
+                            'To this Day Most Adventurers meet their Untimely End in Forests Either by Starvation '
+                            'due to misdirection or by one '
+                            'of its countless Inhabitants.',
+      effectRegionalName: 'Scrub and Foliage',
+      effectRegionaldescription:  'Most Times the Adventurers Path leads into untamed Areas of the Woods. '
+                                  'Not only are they More Dangerous in the Sense of Encountering more Wildlife '
+                                  'but also in the Fauna itself. Under-bushes, Plants toxic to the Touch and '
+                                  'brambles make the Traversal of such Areas an equally big Challenge as Deserts or Glaciers at Times.',
+      effectRegional: 'When Traversing the Forest Roll 1d100 [[1d100]] on a Roll above 80 the Area ahead is covered in Brambles and Scrub. '
+                      'Traversing such an Area counts as Difficult Terrain. Additionally on the First Movement-Action into such an Area '
+                      'every Creature must make a DC15 Reflex Save.\n On a Failure They become Immobilised until the Start of their next '
+                      'Turn and take 1d4 [[1d4]] precision Damage due to Thorns.\nOn a Critical Failure they Take 1d8 [[1d8]] precision Damage '
+                      'and make a DC14 Fortitude-Save or become Poisoned 1. This Check has no further Critical Failure Condition.',
       regionalTemperatureLimitPositive: 22,
       regionalTemperatureLimitNegative: -24,
       negativeTemperature: true),
