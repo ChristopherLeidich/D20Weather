@@ -132,6 +132,7 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
               ),
               TextFormField(
                 keyboardType: TextInputType.multiline,
+                maxLines: null,
                 controller: _regioneffectcontroller,
                 decoration: const InputDecoration(
                     labelText: 'Region Effect',
