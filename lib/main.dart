@@ -237,6 +237,120 @@ void main() async {
   runApp(const MyApp());
 }
 
+/*
+class _DiceRollerScreen extends StatefulWidget {
+  final RegExp dicePattern = RegExp(r'(\d+)d(\d+)');
+  late String diceResult;
+  final TextEditingController _diceController = TextEditingController();
+  late Match singleMatch;
+
+  _DiceRollerScreen({super.key});
+  @override
+  State<_DiceRollerScreen> createState() => _DiceRollerScreen();
+
+  String diceRollResult(value) {
+    return diceResult = roller.roll(value).toString();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+        child: Column(children: [
+      TextFormField(
+        controller: _diceController,
+        maxLength: 6,
+        decoration: const InputDecoration(
+            labelText: 'Dice Roller',
+            hintText: 'Enter a valid Dice. Example: 1d20\n'
+                'Number in front = Number of Dices\n'
+                'Number behind = Number of Faces'),
+        validator: (String? value) {
+          if (value == null || value.isEmpty) {
+            return 'Please enter a correct dice expression.';
+          }
+
+          singleMatch = dicePattern.firstMatch(value) as Match;
+
+          return null;
+        },
+      ),
+      IconButton(
+          icon: const Icon(Icons.volume_up),
+          onPressed: () async {
+            await diceRollResult(_diceController.value);
+          }),
+      SizedBox(height: 10.0, child: Text('Result: $diceRollResult'))
+    ]));
+  }
+}
+*/
+
+void _showAction(BuildContext context) {
+  final RegExp dicePattern = RegExp(r'(\d+)d(\d+)');
+  final TextEditingController diceController = TextEditingController();
+  final text = diceController.text;
+  //bool roll = false;
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is removed from the
+    // widget tree.
+    diceController.dispose();
+  }
+
+  Future<String> diceRollResult(text) async {
+    return roller.roll(text).toString();
+  }
+
+  late String diceResult = '';
+
+  showDialog<void>(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        content: SingleChildScrollView(
+            child: Column(children: [
+          TextFormField(
+            controller: diceController,
+            maxLength: 6,
+            decoration: const InputDecoration(
+                labelText: 'Dice Roller',
+                hintText: 'Enter a valid Dice. Example: 1d20\n'
+                    'Number in front = Number of Dices\n'
+                    'Number behind = Number of Faces'),
+            validator: (String? value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter a correct dice expression.';
+              }
+
+              Match singleMatch = dicePattern.firstMatch(value) as Match;
+              if (singleMatch[0] == null) {
+                return 'Enter a correct dice expression';
+              } else {
+                print(singleMatch[0]);
+              }
+              return null;
+            },
+          ),
+          SizedBox(height: 20.0, child: Text('Result: $diceResult')),
+        ])),
+        actions: [
+          TextButton(
+              onPressed: () async {
+                //roll = true;
+                String tempResult = await diceRollResult(text);
+                diceResult = tempResult;
+              },
+              child: const Text('ROLL')),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(),
+            child: const Text('CLOSE'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -259,23 +373,6 @@ class WeatherD20 extends StatefulWidget {
 
 class _WeatherD20state extends State<WeatherD20> {
   final CarouselController _carouselController = CarouselController();
-
-  void _showAction(BuildContext context, int index) {
-    showDialog<void>(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          content: const Text(''),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('CLOSE'),
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   @override
   void initState() {
@@ -424,15 +521,15 @@ class _WeatherD20state extends State<WeatherD20> {
         distance: 112,
         children: [
           ActionButton(
-            onPressed: () => _showAction(context, 0),
-            icon: const Icon(Icons.format_size),
+            onPressed: () => _showAction(context),
+            icon: const Icon(Icons.casino),
           ),
           ActionButton(
-            onPressed: () => _showAction(context, 1),
+            onPressed: () => {},
             icon: const Icon(Icons.insert_photo),
           ),
           ActionButton(
-            onPressed: () => _showAction(context, 2),
+            onPressed: () => {},
             icon: const Icon(Icons.videocam),
           ),
         ],

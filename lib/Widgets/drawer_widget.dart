@@ -274,10 +274,10 @@ class _SubDrawerState extends State<SubDrawer> {
 * Match singleMatch = dicePattern.match(value);
 * string diceResult;
 *  roller.roll())
-*final TextEditingController _dicecontroller = TextEditingController();
+*final TextEditingController _diceController = TextEditingController();
 * Column( children: [
-* TextFormField(
-                controller: _dicecontroller,
+  TextFormField(
+                controller: _diceController,
                 maxLength: 6,
                 keyboardType: TextInputType.string,
                 decoration: const InputDecoration(
@@ -297,8 +297,9 @@ class _SubDrawerState extends State<SubDrawer> {
                   {
                     return 'Input must match a regular dice expression. Example: 1d20';
                   }
-                  else string diceResult = roller.roll(value);
-
+                  else{
+                   diceResult = roller.roll(Value).toString()
+                  }
 
                   return null;
                 },
@@ -306,13 +307,80 @@ class _SubDrawerState extends State<SubDrawer> {
      IconButton(
           icon: const Icon(Icons.volume_up),
           tooltip: 'Increase volume by 10',
-          onPressed: () {
-            setState(() {
-
-            });
-          },
+           onPressed: () async{
+              String result = await _diceRollResult(value);
+              setState(){
+                infoDisplayedInText = result;
+               }
+           },
         ),
 
      ]
      )
+     *
+     *
+  String _diceRollResult(value) {
+     return diceResult = roller.roll(value).toString();
+  }
+     *
+     *
+     *
+ class _DiceRollerScreen extends StatefulWidget {
+
+  final RegExp dicePattern = RegExp(r'(\d+)d(\d+)');
+  Match singleMatch = dicePattern.match(value);
+  late String diceResult;
+  final TextEditingController _diceController = TextEditingController();
+
+  String _diceRollResult(value) {
+    return diceResult = roller.roll(value).toString();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      Column( children: [
+        TextFormField(
+                controller: _diceController,
+                maxLength: 6,
+                keyboardType: TextInputType.string,
+                decoration: const InputDecoration(
+                    labelText: 'Dice Roller',
+                    hintText: 'Enter a valid Dice. Example: 1d20\n
+                    Number in front = Number of Dices\n
+                    Number behind = Number of Faces'
+                ),
+                validator: (String? value){
+
+                  if(value==null || value.isEmpty)
+                  {
+                    return 'Please enter a correct dice expression.';
+                  }
+
+                  if(singleMatch == null)
+                  {
+                    return 'Input must match a regular dice expression. Example: 1d20';
+                  }
+                  else{
+                   diceResult = roller.roll(Value).toString()
+                  }
+
+                  return null;
+                },
+                ),
+        IconButton(
+          icon: const Icon(Icons.volume_up),
+          tooltip: 'Increase volume by 10',
+           onPressed: () async{
+              String result = await _diceRollResult(value);
+              setState(){
+                infoDisplayedInText = result;
+               }
+           },
+        ),
+      ]
+    );
+  }
+}
+
  */
