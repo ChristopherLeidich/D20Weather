@@ -27,7 +27,9 @@ fantasy_weather_app © 2023 by [Christopher Leidich](https://gitlab.ai.it.hs-wor
 
 ## Documentation
 
-Execute these Commands inside the Default App Repository
+The Documentation was made using the [dartdoc](https://pub.dev/packages/dartdoc) package.
+
+To view the current Version of the Documentation Execute these Commands inside the Default App Directory
 
 ```bash
 $ dart pub global activate dhttpd
