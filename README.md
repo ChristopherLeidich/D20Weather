@@ -29,9 +29,11 @@ fantasy_weather_app © 2023 by [Christopher Leidich](https://gitlab.ai.it.hs-wor
 
 Execute these Commands inside the Default App Repository
 
-``bash
+```bash
+
 $ dart pub global activate dhttpd
+
 $ dhttpd --path doc/api
-``
+```
 
 Then open your browser and Navigate to `http://localhost:8080`.
