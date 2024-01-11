@@ -193,8 +193,7 @@ class TextWidget extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(5.0),
-                      child: ExpandableText(
-                        weatherList[weatherIndex].weatherDescription,
+                      child: ExpandableText("Weather Description: ${weatherList[weatherIndex].weatherDescription}",
                         style: const TextStyle(
                           height: 2.0,
                           backgroundColor: Colors.transparent,

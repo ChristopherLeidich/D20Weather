@@ -195,63 +195,34 @@ class SubDrawer extends StatefulWidget {
 }
 
 class _SubDrawerState extends State<SubDrawer> {
-  late Future<List<String>>
-      itemListFuture; // Use 'late' keyword to indicate it will be initialized later
-
-  Future<List<String>> itemListProvider() async {
-    try {
-      final snapshot =
-          await FirebaseFirestore.instance.collection("custom_page_data").get();
-      final itemList =
-          snapshot.docs.map((document) => document.reference.id).toList();
-      return itemList;
-    } catch (error) {
-      rethrow; // Rethrow the error so that FutureBuilder can catch it
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    itemListFuture = itemListProvider();
-  }
+  final Stream<QuerySnapshot> _pageStream = FirebaseFirestore.instance.collection('custom_page_data').snapshots();
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        FutureBuilder<List<String>>(
-          future: itemListFuture,
-          builder: (_, snapshot) {
-            if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
-            }
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
+    StreamBuilder<QuerySnapshot>(
+    stream: _pageStream,
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (snapshot.hasError) {
+          return const Text('Something went wrong');
+        }
 
-            final items = snapshot.data ?? [];
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text("Loading");
+        }
 
-            return ListView.builder(
-              itemCount: items.length,
-              itemBuilder: (_, index) {
-                return ListTile(
-                  leading: const Icon(Icons.star),
-                  title: Text(items[index]),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            ItemDetails(itemId: items[index].toString()),
-                      ),
-                    );
-                  },
-                );
-              },
+        return ListView(
+          children: snapshot.data!.docs.map((DocumentSnapshot document) {
+            Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+            return ListTile(
+              title: Text(data['title']),
+              subtitle: Text(data['region_name']),
             );
-          },
-        ),
+          }).toList(),
+        );
+      },
+      ),
         const AboutListTile(
           icon: Icon(
             Icons.info,
