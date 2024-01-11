@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fantasy_weather_app/Widgets/PresetPages/custom_page.dart';
+//import 'package:fantasy_weather_app/Widgets/PresetPages/custom_page.dart';
 import 'package:fantasy_weather_app/Widgets/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fantasy_weather_app/second_page.dart';
 import 'package:fantasy_weather_app/main.dart';
-import 'package:palette_generator/palette_generator.dart';
+//import 'package:palette_generator/palette_generator.dart';
 
 import 'create_custom_page.dart';
 
@@ -205,13 +205,20 @@ class _SubDrawerState extends State<SubDrawer> {
     stream: _pageStream,
       builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
-          return const Text('Something went wrong');
+          return Text('Something went wrong ${snapshot.error}',
+            style: const TextStyle(
+              color: Colors.red,
+              ),
+            );
         }
-
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Text("Loading");
+          return const Column(
+              children: [
+                CircularProgressIndicator(),
+                Text("loading..."),
+              ]
+            );
         }
-
         return ListView(
           children: snapshot.data!.docs.map((DocumentSnapshot document) {
             Map<String, dynamic> data = document.data()! as Map<String, dynamic>;

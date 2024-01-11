@@ -17,7 +17,6 @@ void randomizer() {
 
     regionalCases = Random().nextInt(2);
     direction = dirlist[Random().nextInt(dirlist.length)];      /// Generate a random Wind direction
-    wetterBedingung = wetterbedingunsliste[Random().nextInt(wetterbedingunsliste.length)];
 
     randIndex = Random().nextInt(regionList.length);
     weatherIndex = Random().nextInt(weatherList.length);

@@ -145,8 +145,6 @@ class TextWidget extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Column(
-                      children: [
                         Column(
                           children: [
                           Padding(
@@ -168,77 +166,63 @@ class TextWidget extends StatelessWidget {
                             ),
                           ],
                       ),
-                    Row(
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.all(5.0),
-                          child: Text('Weather Condition: ',
-                              style: TextStyle(
-                                height: 2.0,
-                                backgroundColor: Colors.transparent,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              )),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Text(weatherList[weatherIndex].weatherName,
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text(weatherList[weatherIndex].weatherName,
+                                style: const TextStyle(
+                                  height: 4.0,
+                                  backgroundColor: Colors.transparent,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  )
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: ExpandableText(weatherList[weatherIndex].weatherDescription,
                               style: const TextStyle(
                                 height: 2.0,
                                 backgroundColor: Colors.transparent,
                                 color: Colors.white,
-                              )),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: ExpandableText("Weather Description: ${weatherList[weatherIndex].weatherDescription}",
-                        style: const TextStyle(
-                          height: 2.0,
-                          backgroundColor: Colors.transparent,
-                          color: Colors.white,
-                        ),
-                        expandText: 'show more',
-                        collapseText: 'show less',
-                        maxLines: 1,
-                        linkColor: Colors.black,
-                        animation: true,
-                        expanded: true,
-                      ),
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.all(5.0),
-                      child: Text('Wind: ',
-                          style: TextStyle(
-                            height: 2.0,
-                            backgroundColor: Colors.transparent,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          )),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Text('Wind Direction: $direction',
-                          style: const TextStyle(
-                            height: 2.0,
-                            backgroundColor: Colors.transparent,
-                            color: Colors.white,
-                          )),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(5.0),
-                      child: Text('Wind-Speed: $wind km/h',
-                          style: const TextStyle(
-                            height: 2.0,
-                            backgroundColor: Colors.transparent,
-                            color: Colors.white,
-                          )
-                        ),
-                      ),
-                    ],
-                  ),
-                ]
+                              ),
+                              expandText: 'show more',
+                              collapseText: 'show less',
+                              maxLines: 1,
+                              linkColor: Colors.black,
+                              animation: true,
+                              expanded: true,
+                            ),
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.all(5.0),
+                            child: Text('Wind: ',
+                                style: TextStyle(
+                                  height: 2.0,
+                                  backgroundColor: Colors.transparent,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                )),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text('Wind Direction: $direction',
+                                style: const TextStyle(
+                                  height: 2.0,
+                                  backgroundColor: Colors.transparent,
+                                  color: Colors.white,
+                                )),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(5.0),
+                            child: Text('Wind-Speed: $wind km/h',
+                                style: const TextStyle(
+                                  height: 2.0,
+                                  backgroundColor: Colors.transparent,
+                                  color: Colors.white,
+                                  )
+                                ),
+                              ),
+                          ]
                 );
               },
             )
