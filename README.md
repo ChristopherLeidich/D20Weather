@@ -30,7 +30,6 @@ fantasy_weather_app © 2023 by [Christopher Leidich](https://gitlab.ai.it.hs-wor
 Execute these Commands inside the Default App Repository
 
 ```bash
-
 $ dart pub global activate dhttpd
 
 $ dhttpd --path doc/api
