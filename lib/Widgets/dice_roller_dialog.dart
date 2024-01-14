@@ -20,7 +20,6 @@ class _DiceRollDialogState extends State<DiceRollDialog> {
   }
 
   Future<String> diceRollResult(String text) async {
-    // Assuming roller is defined somewhere, you might need to adjust this part
     return roller.roll(text).toString();
   }
 
@@ -41,7 +40,7 @@ class _DiceRollDialogState extends State<DiceRollDialog> {
                 }
 
                 Match? singleMatch = dicePattern.firstMatch(value);
-                if (singleMatch == null || singleMatch[0] != value) {
+                if (singleMatch == null || singleMatch.toString() != value) {
                   return 'Enter a correct dice expression';
                 }
                 return null;
