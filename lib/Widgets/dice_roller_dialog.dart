@@ -9,7 +9,7 @@ class DiceRollDialog extends StatefulWidget {
 }
 
 class _DiceRollDialogState extends State<DiceRollDialog> {
-  final RegExp dicePattern = RegExp(r'(\d+)d(\d+)');
+  final RegExp dicePattern = RegExp(r'^\b(\d+d\d+\s?(\+\s?\d+)?)\b$');
   final TextEditingController diceController = TextEditingController();
   late String diceResult = '';
 
@@ -32,13 +32,9 @@ class _DiceRollDialogState extends State<DiceRollDialog> {
           children: [
             TextFormField(
               controller: diceController,
-              maxLength: 6,
+              maxLength: 8,
               decoration: const InputDecoration(
-                labelText: 'Dice Roller',
-                hintText: 'Enter a valid Dice. Example: 1d20\n'
-                    'Number in front = Number of Dices\n'
-                    'Number behind = Number of Faces',
-              ),
+                  labelText: 'Dice Roller', hintText: 'Example: 1d20+1\n'),
               validator: (String? value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter a correct dice expression.';
