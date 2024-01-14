@@ -9,8 +9,16 @@ import 'package:fantasy_weather_app/main.dart';
 
 import 'create_custom_page.dart';
 
-class MyDrawer extends StatelessWidget {
+class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
+
+  @override
+  State<MyDrawer> createState() => _MyDrawerState();
+
+}
+
+class _MyDrawerState extends State<MyDrawer> {
+  final Stream<QuerySnapshot> _pageStream = FirebaseFirestore.instance.collection('custom_page_data').snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -115,8 +123,20 @@ class MyDrawer extends StatelessWidget {
             ),
             const Divider(),
 
+            const AboutListTile(
+              icon: Icon(
+                Icons.info,
+              ),
+              applicationIcon: Icon(
+                Icons.local_play,
+              ),
+              applicationName: 'D20Weather',
+              applicationVersion: '0.2.0',
+              applicationLegalese:
+              'D20Weather © 2023 by Christopher Leidich and Francesco Quarta is licensed under CC BY-NC-SA 4.0',
+              child: Text('About app'),
+            ),
             /// Divider between main and sub-drawer
-            const SubDrawer(),
           ],
         ),
       );
@@ -179,72 +199,56 @@ class MyDrawer extends StatelessWidget {
             const Divider(),
 
             /// Divider between main and sub-drawer
-            const SubDrawer(),
+            StreamBuilder<QuerySnapshot>(
+              stream: _pageStream,
+              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasError) {
+                  return Text('Something went wrong ${snapshot.error}',
+                    style: const TextStyle(
+                      color: Colors.red,
+                    ),
+                  );
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Column(
+                      children: [
+                        CircularProgressIndicator(),
+                        Text("loading..."),
+                      ]
+                  );
+                }
+                final List<QueryDocumentSnapshot> documents = snapshot.data!.docs;
+
+                return ListView.builder(
+                  itemCount: documents.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    Map<String, dynamic> data = documents[index].data()! as Map<String, dynamic>;
+                    return ListTile(
+                      title: Text(data['title']!.toString(),),
+                      subtitle: Text(data['region_name']!.toString()),
+                    );
+                  },
+                );
+              },
+            ),
+            const AboutListTile(
+              icon: Icon(
+                Icons.info,
+              ),
+
+              applicationIcon: Icon(
+                Icons.local_play,
+              ),
+              applicationName: 'D20Weather',
+              applicationVersion: '0.2.0',
+              applicationLegalese:
+              'D20Weather © 2023 by Christopher Leidich and Francesco Quarta is licensed under CC BY-NC-SA 4.0',
+              child: Text('About app'),
+            ),
           ],
         ),
       );
     }
-  }
-}
-
-class SubDrawer extends StatefulWidget {
-  const SubDrawer({super.key});
-
-  @override
-  State<SubDrawer> createState() => _SubDrawerState();
-}
-
-class _SubDrawerState extends State<SubDrawer> {
-  final Stream<QuerySnapshot> _pageStream = FirebaseFirestore.instance.collection('custom_page_data').snapshots();
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-    StreamBuilder<QuerySnapshot>(
-    stream: _pageStream,
-      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-        if (snapshot.hasError) {
-          return Text('Something went wrong ${snapshot.error}',
-            style: const TextStyle(
-              color: Colors.red,
-              ),
-            );
-        }
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Column(
-              children: [
-                CircularProgressIndicator(),
-                Text("loading..."),
-              ]
-            );
-        }
-        return ListView(
-          children: snapshot.data!.docs.map((DocumentSnapshot document) {
-            Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
-            return ListTile(
-              title: Text(data['title']),
-              subtitle: Text(data['region_name']),
-            );
-          }).toList(),
-        );
-      },
-      ),
-        const AboutListTile(
-          icon: Icon(
-            Icons.info,
-          ),
-          applicationIcon: Icon(
-            Icons.local_play,
-          ),
-          applicationName: 'D20Weather',
-          applicationVersion: '0.2.0',
-          applicationLegalese:
-              'D20Weather © 2023 by Christopher Leidich and Francesco Quarta is licensed under CC BY-NC-SA 4.0',
-          child: Text('About app'),
-        ),
-      ],
-    );
   }
 }
 
