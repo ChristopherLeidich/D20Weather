@@ -15,7 +15,7 @@ import 'PresetPages/ocean.dart';
 
 class CarouselSliderWidget extends StatefulWidget {
   const CarouselSliderWidget({
-    required this.controller,
+    required this.pageController,
     required this.onIndexChanged,
     required this.onPageChanged,
     super.key,
@@ -23,7 +23,7 @@ class CarouselSliderWidget extends StatefulWidget {
   });
 
   final int randIndex;
-  final CarouselController controller;
+  final CarouselController pageController;
   final ValueChanged<int> onIndexChanged;
   final VoidCallback onPageChanged;
 
@@ -35,7 +35,7 @@ class _CarouselSliderWidgetState extends State<CarouselSliderWidget> {
   @override
   Widget build(BuildContext context) {
     return CarouselSlider(
-      carouselController: widget.controller,
+      carouselController: widget.pageController,
       items: [
         switch (randIndex) {
           0 => Container(

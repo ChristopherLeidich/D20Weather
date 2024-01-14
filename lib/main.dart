@@ -8,6 +8,7 @@ import 'package:fantasy_weather_app/Widgets/Models/lists.dart';
 import 'package:fantasy_weather_app/Widgets/starviewfield.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'Widgets/dice_roller_dialog.dart';
+import 'Widgets/jump_region_dialog.dart';
 import 'Widgets/randomizer.dart';
 import 'firebase_options.dart';
 import 'package:fantasy_weather_app/Widgets/expandablefab.dart';
@@ -27,6 +28,13 @@ void diceRollScreen(BuildContext context) {
   showDialog<void>(
     context: context,
     builder: (context) => const DiceRollDialog(),
+  );
+}
+
+void jumpRegionScreen(BuildContext context) {
+  showDialog<void>(
+    context: context,
+    builder: (context) => const RegionJumpDialog(),
   );
 }
 
@@ -171,7 +179,7 @@ class _WeatherD20state extends State<WeatherD20> {
           Column(
             children: [
               CarouselSliderWidget(
-                controller: _carouselController,
+                pageController: _carouselController,
                 onIndexChanged: (index) {
                   setState(() {
                     randIndex = index;
@@ -204,8 +212,8 @@ class _WeatherD20state extends State<WeatherD20> {
             icon: const Icon(Icons.casino),
           ),
           ActionButton(
-            onPressed: () => {},
-            icon: const Icon(Icons.insert_photo),
+            onPressed: () => jumpRegionScreen(context),
+            icon: const Icon(Icons.cloud),
           ),
           ActionButton(
             onPressed: () => {},
