@@ -1,16 +1,24 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:fantasy_weather_app/Widgets/PresetPages/custom_page.dart';
+//import 'package:fantasy_weather_app/Widgets/PresetPages/custom_page.dart';
 import 'package:fantasy_weather_app/Widgets/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fantasy_weather_app/second_page.dart';
 import 'package:fantasy_weather_app/main.dart';
-import 'package:palette_generator/palette_generator.dart';
+//import 'package:palette_generator/palette_generator.dart';
 
 import 'create_custom_page.dart';
 
-class MyDrawer extends StatelessWidget {
+class MyDrawer extends StatefulWidget {
   const MyDrawer({super.key});
+
+  @override
+  State<MyDrawer> createState() => _MyDrawerState();
+
+}
+
+class _MyDrawerState extends State<MyDrawer> {
+  final Stream<QuerySnapshot> _pageStream = FirebaseFirestore.instance.collection('custom_page_data').snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -115,8 +123,20 @@ class MyDrawer extends StatelessWidget {
             ),
             const Divider(),
 
+            const AboutListTile(
+              icon: Icon(
+                Icons.info,
+              ),
+              applicationIcon: Icon(
+                Icons.local_play,
+              ),
+              applicationName: 'D20Weather',
+              applicationVersion: '0.2.0',
+              applicationLegalese:
+              'D20Weather © 2023 by Christopher Leidich and Francesco Quarta is licensed under CC BY-NC-SA 4.0',
+              child: Text('About app'),
+            ),
             /// Divider between main and sub-drawer
-            const SubDrawer(),
           ],
         ),
       );
@@ -179,94 +199,56 @@ class MyDrawer extends StatelessWidget {
             const Divider(),
 
             /// Divider between main and sub-drawer
-            const SubDrawer(),
-          ],
-        ),
-      );
-    }
-  }
-}
+            StreamBuilder<QuerySnapshot>(
+              stream: _pageStream,
+              builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+                if (snapshot.hasError) {
+                  return Text('Something went wrong ${snapshot.error}',
+                    style: const TextStyle(
+                      color: Colors.red,
+                    ),
+                  );
+                }
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Column(
+                      children: [
+                        CircularProgressIndicator(),
+                        Text("loading..."),
+                      ]
+                  );
+                }
+                final List<QueryDocumentSnapshot> documents = snapshot.data!.docs;
 
-class SubDrawer extends StatefulWidget {
-  const SubDrawer({super.key});
-
-  @override
-  State<SubDrawer> createState() => _SubDrawerState();
-}
-
-class _SubDrawerState extends State<SubDrawer> {
-  late Future<List<String>>
-      itemListFuture; // Use 'late' keyword to indicate it will be initialized later
-
-  Future<List<String>> itemListProvider() async {
-    try {
-      final snapshot =
-          await FirebaseFirestore.instance.collection("custom_page_data").get();
-      final itemList =
-          snapshot.docs.map((document) => document.reference.id).toList();
-      return itemList;
-    } catch (error) {
-      rethrow; // Rethrow the error so that FutureBuilder can catch it
-    }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    itemListFuture = itemListProvider();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        FutureBuilder<List<String>>(
-          future: itemListFuture,
-          builder: (_, snapshot) {
-            if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
-            }
-            if (snapshot.connectionState == ConnectionState.waiting) {
-              return const Center(child: CircularProgressIndicator());
-            }
-
-            final items = snapshot.data ?? [];
-
-            return ListView.builder(
-              itemCount: items.length,
-              itemBuilder: (_, index) {
-                return ListTile(
-                  leading: const Icon(Icons.star),
-                  title: Text(items[index]),
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            ItemDetails(itemId: items[index].toString()),
-                      ),
+                return ListView.builder(
+                  itemCount: documents.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    Map<String, dynamic> data = documents[index].data()! as Map<String, dynamic>;
+                    return ListTile(
+                      title: Text(data['title']!.toString(),),
+                      subtitle: Text(data['region_name']!.toString()),
                     );
                   },
                 );
               },
-            );
-          },
-        ),
-        const AboutListTile(
-          icon: Icon(
-            Icons.info,
-          ),
-          applicationIcon: Icon(
-            Icons.local_play,
-          ),
-          applicationName: 'D20Weather',
-          applicationVersion: '0.2.0',
-          applicationLegalese:
+            ),
+            const AboutListTile(
+              icon: Icon(
+                Icons.info,
+              ),
+
+              applicationIcon: Icon(
+                Icons.local_play,
+              ),
+              applicationName: 'D20Weather',
+              applicationVersion: '0.2.0',
+              applicationLegalese:
               'D20Weather © 2023 by Christopher Leidich and Francesco Quarta is licensed under CC BY-NC-SA 4.0',
-          child: Text('About app'),
+              child: Text('About app'),
+            ),
+          ],
         ),
-      ],
-    );
+      );
+    }
   }
 }
 

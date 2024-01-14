@@ -256,19 +256,5 @@ var dirlist = [
   'South-East'
 ];
 
-var wetterbedingunsliste = [
-  'Umbral-Storm',
-  'Radiant-Storm',
-  'Thunderstorm',
-  'Phantasmal-Rain',
-  'Rain',
-  'Sun',
-  'Drought',
-  'Storm',
-  'Snow',
-  'Hail',
-  'Drizzle',
-  'Cloudy'
-];
 
 final roller = D20();
