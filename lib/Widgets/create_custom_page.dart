@@ -229,7 +229,7 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
                       String image = imageUrl;
 
                       // Create a Map of data
-                      Map<String, dynamic> dataToSend = {
+                      _reference.add({
                         'title': itemName,
                         'region_name': regionName,
                         'region_effect': regionEffect,
@@ -238,9 +238,8 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
                         'negative_temperature': isCold,
                         'negative_temperature_limit': negativeTemperatureLimit,
                         'ImageURL': image,
-                      };
+                      });
                       // Add a new item
-                      _reference.add(dataToSend);
                   },
                   child: const Text('Create Page'))
 
