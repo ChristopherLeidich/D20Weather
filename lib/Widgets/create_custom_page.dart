@@ -18,10 +18,10 @@ class CreateCustomPage extends StatefulWidget {
 }
 
 class _CreateCustomPageState extends State<CreateCustomPage> {
-  final TextEditingController _titlecontroller = TextEditingController();
-  final TextEditingController _regioncontroller = TextEditingController();
-  final TextEditingController _regioneffectcontroller = TextEditingController();
-  final TextEditingController _regiondescriptioncontroller = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _regionController = TextEditingController();
+  final TextEditingController _regionEffectController = TextEditingController();
+  final TextEditingController _regionDescriptionController = TextEditingController();
   final TextEditingController _positiveTemperatureLimit = TextEditingController();
   final TextEditingController _negativeTemperatureLimit = TextEditingController();
 
@@ -79,7 +79,7 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
                 icon: const Icon(Icons.camera_alt)
               ),
               TextFormField(
-                controller: _titlecontroller,
+                controller: _titleController,
                 decoration: const InputDecoration(
                     labelText: 'Title',
                     hintText: 'Enter a Title'
@@ -96,7 +96,7 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
 
               ),
               TextFormField(
-                controller: _regioncontroller,
+                controller: _regionController,
                 decoration: const InputDecoration(
                     labelText: 'Region',
                     hintText: 'Enter a Region Name'
@@ -114,7 +114,7 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
               TextFormField(
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
-                controller: _regiondescriptioncontroller,
+                controller: _regionDescriptionController,
                 decoration: const InputDecoration(
                     labelText: 'Description',
                     hintText: 'Enter a Description for your Region'
@@ -132,7 +132,7 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
               TextFormField(
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
-                controller: _regioneffectcontroller,
+                controller: _regionEffectController,
                 decoration: const InputDecoration(
                     labelText: 'Region Effect',
                     hintText: 'Enter a Region Effect'
@@ -192,10 +192,10 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
               ElevatedButton(
 
                   onPressed: () async {
-                      String itemName = _titlecontroller.text;
-                      String regionName = _regioncontroller.text;
-                      String regionEffect = _regioneffectcontroller.text;
-                      String regionDescription = _regiondescriptioncontroller.text;
+                      String itemName = _titleController.text;
+                      String regionName = _regionController.text;
+                      String regionEffect = _regionEffectController.text;
+                      String regionDescription = _regionDescriptionController.text;
 
                       double positiveTemperatureLimit = 0;
                       double negativeTemperatureLimit = 0;
