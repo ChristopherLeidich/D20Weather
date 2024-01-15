@@ -193,7 +193,6 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
               ElevatedButton(
 
                   onPressed: () async {
-                    if (key.currentState!.validate()) {
                       String itemName = _titlecontroller.text;
                       String regionName = _regioncontroller.text;
                       String regionEffect = _regioneffectcontroller.text;
@@ -240,10 +239,8 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
                         'negative_temperature_limit': negativeTemperatureLimit,
                         'ImageURL': image,
                       };
-
                       // Add a new item
                       _reference.add(dataToSend);
-                    }
                   },
                   child: const Text('Create Page'))
 

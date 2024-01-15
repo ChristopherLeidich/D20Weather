@@ -18,7 +18,7 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDrawerState extends State<MyDrawer> {
-  final Stream<QuerySnapshot> _pageStream = FirebaseFirestore.instance.collection('custom_page_data').snapshots();
+  final Stream<QuerySnapshot> _pageStream = FirebaseFirestore.instance.collection('custom_page_data').snapshots(includeMetadataChanges: true);
 
   @override
   Widget build(BuildContext context) {
