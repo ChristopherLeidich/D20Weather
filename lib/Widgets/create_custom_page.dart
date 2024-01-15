@@ -252,20 +252,3 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
     );
   }
 }
-
-/*
-description "default_description"
-(String)
-negative_temperature false
-(Boolesch)
-negative_temperature_limit 1
-(Zahl)
-positive_temperature_limit 1
-(Zahl)
-region_description "default_description"
-(String)
-region_effekt "default_effect"
-(String)
-region_name "default_region"
-(String)
-title "default_name" */
