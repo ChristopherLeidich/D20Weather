@@ -102,7 +102,11 @@ class _MyDrawerState extends State<MyDrawer> {
               absorbing: false,
               child: ListTile(
                 leading: const Icon(Icons.add_box_outlined),
-                title: const Text('Custom Page Builder'),
+                title: const Text('Custom Page Builder',
+                  style: TextStyle(
+                    color: Colors.blueGrey,
+                  ),
+                ),
                 onTap: () {
                   Navigator.pop(context);
                   if (context.mounted) {
@@ -110,14 +114,11 @@ class _MyDrawerState extends State<MyDrawer> {
                         content: Text(
                             'Could not open Page. \n You need to be logged in to open this Page. \n Redirecting to Login Screen')));
                   }
+                  Navigator.pop(context);
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const CreateCustomPage(
-                                title: '',
-                                description: '',
-                                pageName: '',
-                              )));
+                          builder: (context) => const LoginPage()));
                 },
               ),
             ),
