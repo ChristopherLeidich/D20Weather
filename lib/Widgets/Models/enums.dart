@@ -1,6 +1,6 @@
 // enums.dart
 
-import 'package:fantasy_weather_app/Widgets/randomizer.dart';
+import 'package:fantasy_weather_app/Widgets/expandables/randomizer.dart';
 
 enum Pictures {
   picture1,

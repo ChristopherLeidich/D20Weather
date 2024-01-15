@@ -1,5 +1,5 @@
 import 'dart:math' as math;
-import 'package:fantasy_weather_app/Widgets/randomizer.dart';
+import 'package:fantasy_weather_app/Widgets/expandables/randomizer.dart';
 import 'package:flutter/material.dart';
 
 @immutable

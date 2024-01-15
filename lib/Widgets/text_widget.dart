@@ -1,4 +1,4 @@
-import 'package:fantasy_weather_app/Widgets/randomizer.dart';
+import 'package:fantasy_weather_app/Widgets/expandables/randomizer.dart';
 import 'package:flutter/material.dart';
 import 'package:d20/d20.dart';
 import 'package:flutter/rendering.dart';

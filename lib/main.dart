@@ -5,13 +5,13 @@ import 'package:fantasy_weather_app/Widgets/carousel_slider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:fantasy_weather_app/Widgets/drawer_widget.dart';
 import 'package:fantasy_weather_app/Widgets/Models/lists.dart';
-import 'package:fantasy_weather_app/Widgets/starviewfield.dart';
+import 'package:fantasy_weather_app/Widgets/expandables/starviewfield.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'Widgets/dice_roller_dialog.dart';
-import 'Widgets/jump_region_dialog.dart';
-import 'Widgets/randomizer.dart';
+import 'Widgets/expandables/dice_roller_dialog.dart';
+import 'Widgets/expandables/jump_region_dialog.dart';
+import 'Widgets/expandables/randomizer.dart';
 import 'firebase_options.dart';
-import 'package:fantasy_weather_app/Widgets/expandablefab.dart';
+import 'package:fantasy_weather_app/Widgets/expandables/expandablefab.dart';
 import 'package:flutter_weather_bg_null_safety/flutter_weather_bg.dart';
 import 'package:parallax_rain/parallax_rain.dart';
 

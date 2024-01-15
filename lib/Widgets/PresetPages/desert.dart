@@ -6,8 +6,8 @@ import 'package:parallax_rain/parallax_rain.dart';
 
 import '../Models/lists.dart';
 import '../drawer_widget.dart';
-import '../randomizer.dart';
-import '../starviewfield.dart';
+import '../expandables/randomizer.dart';
+import '../expandables/starviewfield.dart';
 import '../text_widget.dart';
 
 class DesertPage extends StatefulWidget {

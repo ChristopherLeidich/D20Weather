@@ -1,7 +1,7 @@
 import 'package:fantasy_weather_app/Widgets/Models/lists.dart';
 import 'package:fantasy_weather_app/Widgets/PresetPages/desert.dart';
 import 'package:fantasy_weather_app/Widgets/PresetPages/forest.dart';
-import 'package:fantasy_weather_app/Widgets/randomizer.dart';
+import 'package:fantasy_weather_app/Widgets/expandables/randomizer.dart';
 import 'package:flutter/material.dart';
 
 //import 'Widgets/themes.dart';
