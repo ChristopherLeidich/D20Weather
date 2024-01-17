@@ -31,7 +31,7 @@ void main() {
     await tester.pumpAndSettle();
 
     // Verify that the drawer is opened.
-    verify(navigatorObserver.didPush(any, any));
+    verify(navigatorObserver.didPush( () as Route, any));
 
     // You can add more assertions based on your specific requirements.
   });
@@ -42,8 +42,6 @@ void main() {
   testWidgets('Dice roll screen should be displayed', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
 
-    // Trigger the diceRollScreen function.
-    diceRollScreen(tester.binding.buildContext);
 
     // Verify that the DiceRollDialog is displayed.
     expect(find.byType(DiceRollDialog), findsOneWidget);
