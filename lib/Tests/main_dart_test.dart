@@ -21,7 +21,7 @@ void main() {
 
     await tester.pumpWidget(
       MaterialApp(
-        home: MyApp(),
+        home: const MyApp(),
         navigatorObservers: [navigatorObserver],
       ),
     );
