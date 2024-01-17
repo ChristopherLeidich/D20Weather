@@ -10,7 +10,7 @@ class MockNavigatorObserver extends Mock implements NavigatorObserver {}
 void main() {
   testWidgets('App should start and display WeatherD20', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+    await tester.pumpWidget(const MyApp());
 
     // Verify that WeatherD20 is displayed.
     expect(find.byType(WeatherD20), findsOneWidget);
