@@ -30,7 +30,7 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
   final CollectionReference _reference = FirebaseFirestore.instance.collection('custom_page_data');
 
   bool cold = false;
-  String imageUrl = 'https://static.thenounproject.com/png/4974686-200.png';
+  String imageUrl = 'https://static.thenounproject.com/png/4974686-200.png'; /// Static Default Image that is royalty free
 
   final MaterialStateProperty<Icon?> thumbIcon =
   MaterialStateProperty.resolveWith<Icon?>(
