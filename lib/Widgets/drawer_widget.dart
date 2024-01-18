@@ -18,7 +18,6 @@ class MyDrawer extends StatefulWidget {
 }
 
 class _MyDrawerState extends State<MyDrawer> {
-  final Stream<QuerySnapshot> _pageStream = FirebaseFirestore.instance.collection('custom_page_data').snapshots(includeMetadataChanges: true);
 
   @override
   Widget build(BuildContext context) {
@@ -201,7 +200,7 @@ class _MyDrawerState extends State<MyDrawer> {
 
             /// Divider between main and sub-drawer
             StreamBuilder<QuerySnapshot>(
-              stream: _pageStream,
+              stream: FirebaseFirestore.instance.collection('custom_page_data').snapshots(includeMetadataChanges: true),
               builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
                 if (snapshot.hasError) {
                   return Text('Something went wrong ${snapshot.error}',
