@@ -1,10 +1,7 @@
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:fantasy_weather_app/Widgets/PresetPages/beach.dart';
 import 'package:fantasy_weather_app/Widgets/expandables/randomizer.dart';
 import 'package:flutter/material.dart';
-import 'package:fantasy_weather_app/Widgets/Models/lists.dart';
-import 'package:fantasy_weather_app/Widgets/carousel_slider.dart';
 
 class RegionJumpDialog extends StatefulWidget {
   const RegionJumpDialog({super.key});
@@ -28,6 +25,7 @@ enum RegionLabel {
 
 class _RegionJumpDialogState extends State<RegionJumpDialog> {
   final TextEditingController jumpController = TextEditingController();
+  late final CarouselController carouselController;
   RegionLabel? selectedRegion;
 
   @override
@@ -73,7 +71,13 @@ class _RegionJumpDialogState extends State<RegionJumpDialog> {
       actions: [
         TextButton(
           onPressed: () =>
-              CarouselController().jumpToPage(selectedRegion!.regionIndex),
+              //carouselController.jumpToPage(selectedRegion!.regionIndex),
+              setState(
+            () {
+              randIndex = selectedRegion!.regionIndex;
+              carouselController.animateToPage(randIndex);
+            },
+          ),
           child: const Text('JUMP'),
         ),
         TextButton(

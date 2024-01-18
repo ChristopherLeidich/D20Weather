@@ -33,9 +33,7 @@ void diceRollScreen(BuildContext context) {
 
 void jumpRegionScreen(BuildContext context) {
   showDialog<void>(
-    context: context,
-    builder: (context) => const RegionJumpDialog(),
-  );
+      context: context, builder: (context) => const RegionJumpDialog());
 }
 
 class MyApp extends StatelessWidget {
@@ -217,7 +215,7 @@ class _WeatherD20state extends State<WeatherD20> {
           ),
           ActionButton(
             onPressed: () => {},
-            icon: const Icon(Icons.videocam),
+            icon: const Icon(Icons.auto_stories),
           ),
         ],
       ),
