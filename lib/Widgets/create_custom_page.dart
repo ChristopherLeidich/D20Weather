@@ -237,10 +237,12 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
                         'negative_temperature': isCold,
                         'negative_temperature_limit': negativeTemperatureLimit,
                         'ImageURL': image,
-                      });
+                      }).then(
+                          (value) => ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Upload Successful'))),
+                      );
                       // Add a new item
                   },
-                  child: const Text('Create Page'))
+                  child: const Text('Create Page', style: TextStyle(color: Colors.white),))
 
 
               // Your form widgets go here
