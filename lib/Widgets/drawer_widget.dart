@@ -198,40 +198,42 @@ class _MyDrawerState extends State<MyDrawer> {
             ),
             const Divider(),
 
+            // stream: FirebaseFirestore.instance.collection('custom_page_data').snapshots(includeMetadataChanges: true),
+
             /// Divider between main and sub-drawer
             StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance.collection('custom_page_data').snapshots(includeMetadataChanges: true),
               builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-                if (snapshot.hasError) {
-                  return Text('Something went wrong ${snapshot.error}',
-                    style: const TextStyle(
-                      color: Colors.red,
-                    ),
-                  );
-                }
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Column(
-                      children: [
-                        CircularProgressIndicator(),
-                        Text("loading..."),
-                      ]
-                  );
-                }
-                final List<QueryDocumentSnapshot> documents = snapshot.data!.docs;
-
-                return ListView.builder(
-                  itemCount: documents.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    Map<String, dynamic> data = documents[index].data()! as Map<String, dynamic>;
-                    return ListTile(
-                      title: Text(data['title']!.toString(),),
-                      subtitle: Text(data['region_name']!.toString()),
-                    );
-                  },
+              if (snapshot.hasError) {
+                return Text(
+                'Something went wrong ${snapshot.error}',
+                  style: const TextStyle(
+                  color: Colors.red,
+                  ),
                 );
-              },
-            ),
-            const AboutListTile(
+              }
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Column(
+                    children: [
+                      CircularProgressIndicator(),
+                      Text("loading..."),
+                    ]
+                  );
+                }
+                return SizedBox(
+                  height: double.maxFinite,
+                  child: snapshot.hasData?ListView(
+                  children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                          Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
+                           return ListTile(
+                              title: Text(data['title']),
+                              subtitle: Text(data['region_name']),
+                          );
+                        }).toList(),
+                      ):const Text("Leer"));
+            },
+          ),
+          const AboutListTile(
               icon: Icon(
                 Icons.info,
               ),
