@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fantasy_weather_app/Widgets/PresetPages/custom_page.dart';
 //import 'package:fantasy_weather_app/Widgets/PresetPages/custom_page.dart';
 import 'package:fantasy_weather_app/Widgets/logins/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -227,7 +228,17 @@ class _MyDrawerState extends State<MyDrawer> {
                           Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
                            return ListTile(
                               title: Text(data['title']),
-                              subtitle: Text(data['region_name']),
+                              subtitle: Text(FirebaseFirestore.instance.collection('custom_page_data').doc().id.toString()),
+                             onTap: () {
+                               // Handle about
+                               Navigator.pop(context);
+
+                               Navigator.push(
+                                   context,
+                                   MaterialPageRoute(
+                                       builder: (context) => ItemDetails(itemId: FirebaseFirestore.instance.collection('custom_page_data').doc().id.toString(),
+                                       )));
+                             },
                           );
                         }).toList(),
                       ):const Text("Leer"));
