@@ -12,12 +12,11 @@ import '../expandables/starviewfield.dart';
 
 class ItemDetails extends StatefulWidget{
 
-
   ItemDetails({super.key, required this.itemId}) {
     final reference = FirebaseFirestore.instance.collection('custom_page_data').doc(itemId);
     _futureData = reference.get();
-
   }
+
   late final Future<DocumentSnapshot> _futureData;
   final String itemId;
 
@@ -105,7 +104,7 @@ class _ItemdetailState extends State<ItemDetails> {
 
         if (snapshot.hasData) {
           //Get the data
-          DocumentSnapshot documentSnapshot = snapshot.data;
+          DocumentSnapshot documentSnapshot = snapshot.data!;
           data = documentSnapshot.data() as Map;
 
           //display the data
