@@ -141,11 +141,19 @@ final List<Regional> regionList = [
       negativeTemperature: true),
   Regional(
       regionalName: 'Desert',
-      regionalDescription: 'Description for Item 3',
-      effectRegionalName: ' ',
-      effectRegionaldescription: ' ',
-      effectRegional: ' ',
-      regionalTemperatureLimitPositive: 54,
+      regionalDescription:  'A desert is a landscape where little precipitation occurs and, consequently, '
+                            'living conditions create unique biomes and ecosystems. Only few Creatures posses '
+                            'the Ability to survive in such an environment and most of them are natural predators '
+                            'because feeding on each other is in most cases easier than fighting for the scarce '
+                            'amount of Plants. Due to this the Aslanti had the word "dēsertum" for such a place '
+                            'which means translated in to common "the abandoned place" or "the empty place".',
+      effectRegionalName: 'Extreme Heat',
+      effectRegionaldescription: 'The Almost constant Heat makes it really hard for anything to survive under the burning sun.',
+      effectRegional: 'While the Temperture is between 41°C and 45°C you are subjected to the effects of Severe Heat:\n One Stack '
+                      'of Fatigue every 4 hours without rest as well as [[1d4]] fire damage every [[1d2]] hours.\n At a higher '
+                      'Temperature you are instead subjected to the effects of Extreme Heat:\n One Stack of Fatigue every 4 hours '
+                      'and [[1d4]] fire damage every [[1d10]] Minutes',
+      regionalTemperatureLimitPositive: 59,
       regionalTemperatureLimitNegative: -10,
       negativeTemperature: true),
 ];
