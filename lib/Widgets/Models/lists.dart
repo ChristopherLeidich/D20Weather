@@ -149,9 +149,9 @@ final List<Regional> regionList = [
                             'which means translated in to common "the abandoned place" or "the empty place".',
       effectRegionalName: 'Extreme Heat',
       effectRegionaldescription: 'The Almost constant Heat makes it really hard for anything to survive under the burning sun.',
-      effectRegional: 'While the Temperture is between 41°C and 45°C you are subjected to the effects of Severe Heat:\n One Stack '
-                      'of Fatigue every 4 hours without rest as well as [[1d4]] fire damage every [[1d2]] hours.\n At a higher '
-                      'Temperature you are instead subjected to the effects of Extreme Heat:\n One Stack of Fatigue every 4 hours '
+      effectRegional: 'While the Temperture is between 41°C and 45°C you are subjected to the effects of Severe Heat:\nOne Stack '
+                      'of Fatigue every 4 hours without rest as well as [[1d4]] fire damage every [[1d2]] hours.\nAt a higher '
+                      'Temperature you are instead subjected to the effects of Extreme Heat:\nOne Stack of Fatigue every 4 hours '
                       'and [[1d4]] fire damage every [[1d10]] Minutes',
       regionalTemperatureLimitPositive: 59,
       regionalTemperatureLimitNegative: -10,
