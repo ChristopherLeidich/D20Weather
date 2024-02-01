@@ -4,7 +4,7 @@ import 'package:fantasy_weather_app/Widgets/PresetPages/custom_page.dart';
 import 'package:fantasy_weather_app/Widgets/logins/login_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:fantasy_weather_app/second_page.dart';
+//import 'package:fantasy_weather_app/second_page.dart';
 import 'package:fantasy_weather_app/main.dart';
 import 'package:flutter/rendering.dart';
 //import 'package:palette_generator/palette_generator.dart';
@@ -85,7 +85,7 @@ class _MyDrawerState extends State<MyDrawer> {
                     MaterialPageRoute(builder: (context) => const MyApp()));
               },
             ),
-            ListTile(
+            /*ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Settings'),
               onTap: () {
@@ -98,7 +98,7 @@ class _MyDrawerState extends State<MyDrawer> {
                       builder: (context) => const SecondPage(title: ''),
                     ));
               },
-            ),
+            ),*/
             AbsorbPointer(
               absorbing: false,
               child: ListTile(
