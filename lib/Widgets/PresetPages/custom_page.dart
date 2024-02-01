@@ -12,13 +12,8 @@ import '../expandables/starviewfield.dart';
 
 class ItemDetails extends StatefulWidget{
 
-  ItemDetails({super.key, required this.itemId}) {
-    final reference = FirebaseFirestore.instance.collection('custom_page_data').doc(itemId);
-    _futureData = reference.get();
-  }
-
-  late final Future<DocumentSnapshot> _futureData;
-  final String itemId;
+  const ItemDetails({super.key, required this.itemId});
+  final  Map<String, dynamic> itemId;
 
   @override
   State<ItemDetails> createState() => _ItemdetailState();
@@ -27,7 +22,6 @@ class ItemDetails extends StatefulWidget{
 class _ItemdetailState extends State<ItemDetails> {
 
 
-  late final String itemId;
   late final DocumentReference reference;
 
   late final Map data;
@@ -43,7 +37,6 @@ class _ItemdetailState extends State<ItemDetails> {
       255 - color.blue,
     );
   }
-
 
 
   @override
@@ -95,19 +88,19 @@ class _ItemdetailState extends State<ItemDetails> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<DocumentSnapshot>(
-      future: widget._futureData,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
+    return StreamBuilder<QuerySnapshot>(
+      stream: FirebaseFirestore.instance.collection('custom_page_data').snapshots(includeMetadataChanges: true),
+      builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
         if (snapshot.hasError) {
           return Center(child: Text('An error occurred ${snapshot.error}'));
         }
 
         if (snapshot.hasData) {
           //Get the data
-          DocumentSnapshot documentSnapshot = snapshot.data!;
+          DocumentSnapshot documentSnapshot = snapshot.data! as DocumentSnapshot<Object?>;
           data = documentSnapshot.data() as Map;
 
-          //display the data
+          ///display the data
           return Scaffold(
             appBar: AppBar(
               toolbarHeight: 36,
