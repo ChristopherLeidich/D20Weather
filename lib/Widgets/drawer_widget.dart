@@ -169,7 +169,7 @@ class _MyDrawerState extends State<MyDrawer> {
                         MaterialPageRoute(builder: (context) => const MyApp()));
                   },
                 ),
-                ListTile(
+                /*ListTile(
                   leading: const Icon(Icons.settings),
                   title: const Text('Settings'),
                   onTap: () {
@@ -184,7 +184,7 @@ class _MyDrawerState extends State<MyDrawer> {
                               title: '',
                             )));
                   },
-                ),
+                ),*/
                 ListTile(
                   leading: const Icon(Icons.add_box_outlined),
                   title: const Text('Custom Page Builder'),
@@ -204,68 +204,73 @@ class _MyDrawerState extends State<MyDrawer> {
                   },
                 ),
                 const Divider(),
-
-                // stream: FirebaseFirestore.instance.collection('custom_page_data').snapshots(includeMetadataChanges: true),
-
-                /// Divider between main and sub-drawer
-                StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance.collection('custom_page_data')
-                      .snapshots(includeMetadataChanges: true),
-                  builder: (BuildContext context,
-                      AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.hasError) {
-                      return Text(
-                        'Something went wrong ${snapshot.error}',
-                        style: const TextStyle(
-                          color: Colors.red,
-                        ),
-                      );
-                    }
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Column(
-                          children: [
-                            CircularProgressIndicator(),
-                            Text("loading..."),
-                          ]
-                      );
-                    }
-                    return SizedBox(
-                        height: double.maxFinite,
-                        child: snapshot.hasData ? ListView(
-                          children: snapshot.data!.docs.map((
-                              DocumentSnapshot document) {
-                            Map<String, dynamic> data = document.data()! as Map<
-                                String,
-                                dynamic>;
-                            return ListTile(
-                              title: Text(data['title']),
-                              subtitle: Text(data.toString()),
-                              onTap: () {
-                                // Handle about
-                                Navigator.pop(context);
-
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            ItemDetails(itemId: data,
-                                            )));
-                                //FirebaseFirestore.instance.collection('custom_page_data').doc().
-                              },
-                            );
-                          }).toList(),
-                        ) : const Text("Leer"));
-                  },
-                ),
                 const AboutListTile(
-                  applicationIcon: Icon(
-                    Icons.local_play,
-                  ),
+                  applicationIcon: Icon( Icons.local_play,),
                   applicationName: 'D20Weather',
                   applicationVersion: '0.2.0',
                   applicationLegalese:
                   'D20Weather © 2023 by Christopher Leidich and Francesco Quarta is licensed under CC BY-NC-SA 4.0',
                   child: Text('About app'),
+                ),
+                // stream: FirebaseFirestore.instance.collection('custom_page_data').snapshots(includeMetadataChanges: true),
+                const Divider(),
+                const Divider(),
+                const Text("Created Pages:", style: TextStyle(fontSize: 18,),),
+
+                /// Divider between main and sub-drawer
+                Flexible(
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: StreamBuilder<QuerySnapshot>(
+                    stream: FirebaseFirestore.instance.collection('custom_page_data')
+                        .snapshots(includeMetadataChanges: true),
+                    builder: (BuildContext context,
+                        AsyncSnapshot<QuerySnapshot> snapshot) {
+                      if (snapshot.hasError) {
+                        return Text(
+                          'Something went wrong ${snapshot.error}',
+                          style: const TextStyle(
+                            color: Colors.red,
+                          ),
+                        );
+                      }
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Column(
+                            children: [
+                              CircularProgressIndicator(),
+                              Text("loading..."),
+                            ]
+                        );
+                      }
+                      return SizedBox(
+                          height: double.maxFinite,
+                          child: snapshot.hasData ? ListView(
+                            children: snapshot.data!.docs.map((
+                                DocumentSnapshot document) {
+                              Map<String, dynamic> data = document.data()! as Map<
+                                  String,
+                                  dynamic>;
+                              return ListTile(
+                                title: Text(data['title']),
+                                subtitle: Text(data['ImageURL']),
+                                onTap: () {
+                                  // Handle about
+                                  Navigator.pop(context);
+
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ItemDetails(itemId: data,
+                                              )));
+                                  //FirebaseFirestore.instance.collection('custom_page_data').doc().
+                                },
+                              );
+                            }).toList(),
+                          ) : const Text("Leer"));
+                    },
+                  ),
+                ),
                 ),
               ],
             );
