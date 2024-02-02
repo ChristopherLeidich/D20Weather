@@ -203,10 +203,24 @@ class _ItemdetailState extends State<ItemDetails> {
                 },
                 Column(
                   children: [
-                  Image.network('${data['ImageURL']}',
-                        height: MediaQuery.of(context).size.height / 4,
-                        width: MediaQuery.of(context).size.width,
-                        fit: BoxFit.fill),
+                    Stack(
+                      children: [
+                        Image.network('${data['ImageURL']}',
+                              height: MediaQuery.of(context).size.height / 4,
+                              width: MediaQuery.of(context).size.width,
+                              fit: BoxFit.fill
+                        ),
+                        Container(
+                            alignment: Alignment.topRight,
+                            child: Text( '$preSymbol $printableValues °C',
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 28,
+                                ),
+                            ),
+                        ),
+                      ],
+                  ),
                   Flexible(
                     child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
