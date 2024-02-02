@@ -245,14 +245,11 @@ class _MyDrawerState extends State<MyDrawer> {
                       return SizedBox(
                           height: double.maxFinite,
                           child: snapshot.hasData ? ListView(
-                            children: snapshot.data!.docs.map((
-                                DocumentSnapshot document) {
-                              Map<String, dynamic> data = document.data()! as Map<
-                                  String,
-                                  dynamic>;
+                            children: snapshot.data!.docs.map((DocumentSnapshot document) {
+                              Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
                               return ListTile(
                                 title: Text(data['title']),
-                                subtitle: Text(data['ImageURL']),
+                                subtitle: Text(document.id),
                                 onTap: () {
                                   // Handle about
                                   Navigator.pop(context);
@@ -261,7 +258,9 @@ class _MyDrawerState extends State<MyDrawer> {
                                       context,
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              ItemDetails(itemId: data,
+                                              ItemDetails(
+                                                itemID: document.id,
+                                                imageMap: data,
                                               )));
                                   //FirebaseFirestore.instance.collection('custom_page_data').doc().
                                 },
