@@ -168,16 +168,45 @@ class TextWidget extends StatelessWidget {
                         padding: const EdgeInsets.all(5.0),
                         child: Text(weatherList[weatherIndex].weatherName,
                             style: const TextStyle(
-                              height: 4.0,
+                              height: 2.0,
                               backgroundColor: Colors.transparent,
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
+                              fontSize: 16
                             )),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: ExpandableText(
                           weatherList[weatherIndex].weatherDescription,
+                          style: const TextStyle(
+                            height: 2.0,
+                            backgroundColor: Colors.transparent,
+                            color: Colors.white,
+                          ),
+                          expandText: 'show more',
+                          collapseText: 'show less',
+                          maxLines: 1,
+                          linkColor: Colors.black,
+                          animation: true,
+                          expanded: true,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: Text(weatherList[weatherIndex].weatherEffectname,
+                            style: const TextStyle(
+                              height: 2.0,
+                              backgroundColor: Colors.transparent,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 14
+                            )),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(5.0),
+                        child: ExpandableText(
+                          "${weatherList[weatherIndex].weatherEffectdescription}\n${weatherList[weatherIndex].weatherEffect}",
                           style: const TextStyle(
                             height: 2.0,
                             backgroundColor: Colors.transparent,
