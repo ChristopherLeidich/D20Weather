@@ -31,7 +31,7 @@ class _ItemdetailState extends State<ItemDetails> {
   late final Map data = widget.imageMap;
 
   late final List<PaletteColor> colors;
-  final List<Color> invertedColors = [];
+  final List<Color> invertedColors = [Colors.white, Colors.black, Colors.blue, Colors.amber, Colors.cyanAccent, Colors.blueGrey, Colors.transparent];
 
   Color getInvertedColor(Color color) {
     return Color.fromARGB(
@@ -42,6 +42,43 @@ class _ItemdetailState extends State<ItemDetails> {
     );
   }
 
+  _updatePalettes() async{
+    final PaletteGenerator generator =
+    await PaletteGenerator.fromImageProvider(
+        NetworkImage(data['ImageURL']),
+        size: const Size(200, 100)
+    );
+    colors.add(generator.lightMutedColor != null    //0
+        ? generator.lightMutedColor!
+        : PaletteColor(Colors.blue, 0));
+
+    colors.add(generator.darkMutedColor != null     //1
+        ? generator.darkMutedColor!
+        : PaletteColor(Colors.blue, 1));
+
+    colors.add(generator.darkVibrantColor != null   //2
+        ? generator.darkVibrantColor!
+        : PaletteColor(Colors.blue, 2));
+
+    colors.add(generator.lightVibrantColor != null   //3
+        ? generator.lightVibrantColor!
+        : PaletteColor(Colors.blue, 3));
+
+    colors.add(generator.dominantColor != null      //4
+        ? generator.dominantColor!
+        : PaletteColor(Colors.blue, 4));
+
+    colors.add(generator.vibrantColor != null       //5
+        ? generator.vibrantColor!
+        : PaletteColor(Colors.blue, 5));
+
+    for (PaletteColor paletteColor in colors) {
+      Color invertedColor = getInvertedColor(paletteColor.color);
+      invertedColors.add(invertedColor);
+    }
+    setState(() {
+    });
+  }
 
   @override
   void initState(){
@@ -50,43 +87,7 @@ class _ItemdetailState extends State<ItemDetails> {
     _updatePalettes();
   }
 
-  _updatePalettes() async{
-      final PaletteGenerator generator =
-      await PaletteGenerator.fromImageProvider(
-          NetworkImage(data['ImageURL']),
-          size: const Size(200, 100)
-      );
-      colors.add(generator.lightMutedColor != null    //0
-          ? generator.lightMutedColor!
-          : PaletteColor(Colors.blue, 2));
 
-      colors.add(generator.darkMutedColor != null     //1
-          ? generator.darkMutedColor!
-          : PaletteColor(Colors.blue, 2));
-
-      colors.add(generator.darkVibrantColor != null   //2
-          ? generator.darkVibrantColor!
-          : PaletteColor(Colors.blue, 2));
-
-      colors.add(generator.lightVibrantColor != null   //3
-          ? generator.lightVibrantColor!
-          : PaletteColor(Colors.blue, 2));
-
-      colors.add(generator.dominantColor != null      //4
-          ? generator.dominantColor!
-          : PaletteColor(Colors.blue, 2));
-
-      colors.add(generator.vibrantColor != null       //5
-          ? generator.vibrantColor!
-          : PaletteColor(Colors.blue, 2));
-
-      for (PaletteColor paletteColor in colors) {
-        Color invertedColor = getInvertedColor(paletteColor.color);
-        invertedColors.add(invertedColor);
-      }
-
-      setState(() {});
-  }
 
   final RegExp dicePattern = RegExp(r'\[\[(\d+)d(\d+)\]\]');
 
@@ -101,8 +102,8 @@ class _ItemdetailState extends State<ItemDetails> {
                     colors: [
                       colors[4].color,
                       colors[5].color,
-                      colors[0].color
-                    ], // Your gradient colors
+                      colors[0].color,
+                    ], /// Generated gradient colors
                   ),
                 ),
               ),
@@ -201,245 +202,307 @@ class _ItemdetailState extends State<ItemDetails> {
                     height: MediaQuery.of(context).size.height,
                   ),
                 },
-                Column(
-                  children: [
-                    Stack(
+               colors.isNotEmpty ?
+                  Column(
                       children: [
-                        Image.network('${data['ImageURL']}',
-                              height: MediaQuery.of(context).size.height / 4,
-                              width: MediaQuery.of(context).size.width,
-                              fit: BoxFit.fill
-                        ),
-                        Container(
-                            alignment: Alignment.topRight,
-                            child: Text( '$preSymbol $printableValues °C',
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 28,
-                                ),
+                        Stack(
+                          children: [
+                            Image.network('${data['ImageURL']}',
+                                height: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .height / 4,
+                                width: MediaQuery
+                                    .of(context)
+                                    .size
+                                    .width,
+                                fit: BoxFit.fill
                             ),
-                        ),
-                      ],
-                  ),
-                  Flexible(
-                    child: SingleChildScrollView(
-                    scrollDirection: Axis.vertical,
-                    child: Container(
-                      padding: const EdgeInsets.all(8.0),
-                      margin: const EdgeInsets.all(4.0),
-                      decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0),
-                      border: Border.all(width: 0.1, color: Colors.black54),
-                      borderRadius: const BorderRadius.all(
-                      Radius.circular(20) // Add a black border
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.blueAccent.withOpacity(0.4),
-                          spreadRadius: 6,
-                          blurRadius: 8,
-                          offset: const Offset(0, 3), // changes position of shadow
-                          ),
-                        ],
-                      ),
-                    child: Scrollable(
-                      axisDirection: AxisDirection.down,
-                      viewportBuilder: (BuildContext context, ViewportOffset position) {
-                        String substitutedEffectRegional = data['region_effect'];
-
-                        Iterable<Match> matches =
-                        dicePattern.allMatches(data['region_effect']);
-
-                      /// Extract the matched strings without brackets
-                        List<String> diceStrings =
-                        matches.map((match) => match.group(1)!).toList();
-                        List<String> diceSides =
-                        matches.map((match) => match.group(2)!).toList();
-                        List<String> diceValues = [];
-                        List<String> diceResults = [];
-
-                        for (int i = 0; i < diceStrings.length;) {
-                          diceValues.add("${diceStrings[i]}d${diceSides[i]}");
-                          diceResults.add('[${roller.roll(diceValues[i]).toString()}]'
-                          );
-
-                          final sub = Substitute(
-                            find: r'\[\[(\d+)d(\d+)\]\]',
-                            replacement: diceResults[i],
-                            global: false,
-                          );
-                          i++;
-
-                          substitutedEffectRegional =
-                          sub.apply(substitutedEffectRegional);
-                        }
-                        return Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Row(children: [
-                              Padding(
-                                padding: const EdgeInsets.all(3.0),
-                                child: Text(data['region_name'],
+                            Container(
+                              alignment: Alignment.topRight,
+                              child: Text('$preSymbol $printableValues °C',
                                 style: const TextStyle(
-                                  height: 2.0,
-                                  backgroundColor: Colors.transparent,
                                   color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                  )
+                                  fontSize: 28,
                                 ),
                               ),
-                              Tooltip(
-                              triggerMode: TooltipTriggerMode.manual,
-                              richMessage: WidgetSpan(
-                                alignment: PlaceholderAlignment.baseline,
-                                baseline: TextBaseline.alphabetic,
-                                child: Column(
-                                    children: [
-                                    Text(
-                                    "Positive Temperature Limit: +${data['positive_temperature_limit'].toString()}"),
-                                    Text(
-                                    "Negative Temperature Limit: -${data['negative_temperature_limit'].toString()}"),
-                                    Text(
-                                    "Maximum Wind Speed: ${weatherList[weatherIndex].weatherWindspeed.toString()} km/h"),
-                                    ]
-                                  )
-                                ),
-                                child: const Icon(Icons.info_outline, size: 12),
+                            ),
+                          ],
+                        ),
+                        Flexible(
+                            child: SingleChildScrollView(
+                                scrollDirection: Axis.vertical,
+                                child: Container(
+                                    padding: const EdgeInsets.all(8.0),
+                                    margin: const EdgeInsets.all(4.0),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white.withOpacity(0),
+                                      border: Border.all(
+                                          width: 0.1, color: Colors.black54),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(
+                                              20) // Add a black border
+                                      ),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.blueAccent.withOpacity(
+                                              0.4),
+                                          spreadRadius: 6,
+                                          blurRadius: 8,
+                                          offset: const Offset(0,
+                                              3), // changes position of shadow
+                                        ),
+                                      ],
+                                    ),
+                                    child: Scrollable(
+                                      axisDirection: AxisDirection.down,
+                                      viewportBuilder: (BuildContext context,
+                                          ViewportOffset position) {
+                                        String substitutedEffectRegional = data['region_effect'];
+
+                                        Iterable<Match> matches =
+                                        dicePattern.allMatches(
+                                            data['region_effect']);
+
+                                        /// Extract the matched strings without brackets
+                                        List<String> diceStrings =
+                                        matches.map((match) => match.group(1)!)
+                                            .toList();
+                                        List<String> diceSides =
+                                        matches.map((match) => match.group(2)!)
+                                            .toList();
+                                        List<String> diceValues = [];
+                                        List<String> diceResults = [];
+
+                                        for (int i = 0; i <
+                                            diceStrings.length;) {
+                                          diceValues.add(
+                                              "${diceStrings[i]}d${diceSides[i]}");
+                                          diceResults.add(
+                                              '[${roller.roll(diceValues[i])
+                                                  .toString()}]'
+                                          );
+
+                                          final sub = Substitute(
+                                            find: r'\[\[(\d+)d(\d+)\]\]',
+                                            replacement: diceResults[i],
+                                            global: false,
+                                          );
+                                          i++;
+
+                                          substitutedEffectRegional =
+                                              sub.apply(
+                                                  substitutedEffectRegional);
+                                        }
+                                        return Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment: MainAxisAlignment
+                                                .start,
+                                            crossAxisAlignment: CrossAxisAlignment
+                                                .start,
+                                            children: <Widget>[
+                                              Row(children: [
+                                                Padding(
+                                                  padding: const EdgeInsets.all(
+                                                      3.0),
+                                                  child: Text(
+                                                      data['region_name'],
+                                                      style: const TextStyle(
+                                                        height: 2.0,
+                                                        backgroundColor: Colors
+                                                            .transparent,
+                                                        color: Colors.white,
+                                                        fontWeight: FontWeight
+                                                            .bold,
+                                                        fontSize: 18,
+                                                      )
+                                                  ),
+                                                ),
+                                                Tooltip(
+                                                  triggerMode: TooltipTriggerMode
+                                                      .manual,
+                                                  richMessage: WidgetSpan(
+                                                      alignment: PlaceholderAlignment
+                                                          .baseline,
+                                                      baseline: TextBaseline
+                                                          .alphabetic,
+                                                      child: Column(
+                                                          children: [
+                                                            Text(
+                                                                "Positive Temperature Limit: +${data['positive_temperature_limit']
+                                                                    .toString()}"),
+                                                            Text(
+                                                                "Negative Temperature Limit: -${data['negative_temperature_limit']
+                                                                    .toString()}"),
+                                                            Text(
+                                                                "Maximum Wind Speed: ${weatherList[weatherIndex]
+                                                                    .weatherWindspeed
+                                                                    .toString()} km/h"),
+                                                          ]
+                                                      )
+                                                  ),
+                                                  child: const Icon(
+                                                      Icons.info_outline,
+                                                      size: 12),
+                                                )
+                                              ]
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.all(
+                                                    5.0),
+                                                child: ExpandableText(
+                                                  data['region_description'],
+                                                  style: const TextStyle(
+                                                    height: 2.0,
+                                                    backgroundColor: Colors
+                                                        .transparent,
+                                                    color: Colors.white,
+                                                  ),
+                                                  expandText: 'show more',
+                                                  collapseText: 'show less',
+                                                  maxLines: 1,
+                                                  linkColor: Colors.black,
+                                                  animation: true,
+                                                  expanded: true,
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.all(
+                                                    5.0),
+                                                child: Text(
+                                                  data['region_effect_name'],
+                                                  style: const TextStyle(
+                                                    height: 2.0,
+                                                    backgroundColor: Colors
+                                                        .transparent,
+                                                    color: Colors.white,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 18,
+                                                  ),
+                                                ),
+                                              ),
+                                              Column(
+                                                children: [
+                                                  Padding(
+                                                    padding: const EdgeInsets
+                                                        .all(5.0),
+                                                    child: ExpandableText(
+                                                      substitutedEffectRegional,
+                                                      style: const TextStyle(
+                                                        height: 2.0,
+                                                        backgroundColor: Colors
+                                                            .transparent,
+                                                        color: Colors.white,
+                                                      ),
+                                                      expandText: 'show more',
+                                                      collapseText: 'show less',
+                                                      maxLines: 1,
+                                                      linkColor: Colors.black,
+                                                      animation: true,
+                                                      expanded: true,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.all(
+                                                    5.0),
+                                                child: Text(
+                                                    weatherList[weatherIndex]
+                                                        .weatherName,
+                                                    style: const TextStyle(
+                                                      height: 4.0,
+                                                      backgroundColor: Colors
+                                                          .transparent,
+                                                      color: Colors.white,
+                                                      fontWeight: FontWeight
+                                                          .bold,
+                                                    )
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.all(
+                                                    5.0),
+                                                child: ExpandableText(
+                                                  weatherList[weatherIndex]
+                                                      .weatherDescription,
+                                                  style: const TextStyle(
+                                                    height: 2.0,
+                                                    backgroundColor: Colors
+                                                        .transparent,
+                                                    color: Colors.white,
+                                                  ),
+                                                  expandText: 'show more',
+                                                  collapseText: 'show less',
+                                                  maxLines: 1,
+                                                  linkColor: Colors.black,
+                                                  animation: true,
+                                                  expanded: true,
+                                                ),
+                                              ),
+                                              const Padding(
+                                                padding: EdgeInsets.all(5.0),
+                                                child: Text('Wind: ',
+                                                    style: TextStyle(
+                                                      height: 2.0,
+                                                      backgroundColor: Colors
+                                                          .transparent,
+                                                      color: Colors.white,
+                                                      fontWeight: FontWeight
+                                                          .bold,
+                                                    )
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.all(
+                                                    5.0),
+                                                child: Text(
+                                                    'Wind Direction: $direction',
+                                                    style: const TextStyle(
+                                                      height: 2.0,
+                                                      backgroundColor: Colors
+                                                          .transparent,
+                                                      color: Colors.white,
+                                                    )),
+                                              ),
+                                              Padding(
+                                                padding: const EdgeInsets.all(
+                                                    5.0),
+                                                child: Text(
+                                                    'Wind-Speed: $wind km/h',
+                                                    style: const TextStyle(
+                                                      height: 2.0,
+                                                      backgroundColor: Colors
+                                                          .transparent,
+                                                      color: Colors.white,
+                                                    )),
+                                              ),
+                                            ]);
+                                      },
+                                    )
                                 )
-                              ]
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: ExpandableText(
-                                  data['region_description'],
-                                  style: const TextStyle(
-                                  height: 2.0,
-                                  backgroundColor: Colors.transparent,
-                                  color: Colors.white,
-                                ),
-                                expandText: 'show more',
-                                collapseText: 'show less',
-                                maxLines: 1,
-                                linkColor: Colors.black,
-                                animation: true,
-                                expanded: true,
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Text(
-                                data['region_effect_name'],
-                                style: const TextStyle(
-                                  height: 2.0,
-                                  backgroundColor: Colors.transparent,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 18,
-                                  ),
-                              ),
-                            ),
-                            Column(
-                              children: [
-                              Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: ExpandableText(
-                                substitutedEffectRegional,
-                                style: const TextStyle(
-                                  height: 2.0,
-                                  backgroundColor: Colors.transparent,
-                                  color: Colors.white,
-                                ),
-                                expandText: 'show more',
-                                collapseText: 'show less',
-                                maxLines: 1,
-                                linkColor: Colors.black,
-                                animation: true,
-                                expanded: true,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: Text(weatherList[weatherIndex].weatherName,
-                              style: const TextStyle(
-                                height: 4.0,
-                                backgroundColor: Colors.transparent,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              )
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(5.0),
-                            child: ExpandableText(
-                              weatherList[weatherIndex].weatherDescription,
-                              style: const TextStyle(
-                                height: 2.0,
-                                backgroundColor: Colors.transparent,
-                                color: Colors.white,
-                              ),
-                              expandText: 'show more',
-                              collapseText: 'show less',
-                              maxLines: 1,
-                              linkColor: Colors.black,
-                              animation: true,
-                              expanded: true,
-                            ),
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.all(5.0),
-                            child: Text('Wind: ',
-                              style: TextStyle(
-                                height: 2.0,
-                                backgroundColor: Colors.transparent,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                              )
-                            ),
-                          ),
-                          Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Text('Wind Direction: $direction',
-                          style: const TextStyle(
-                          height: 2.0,
-                          backgroundColor: Colors.transparent,
-                          color: Colors.white,
-                          )),
-                          ),
-                          Padding(
-                          padding: const EdgeInsets.all(5.0),
-                          child: Text('Wind-Speed: $wind km/h',
-                          style: const TextStyle(
-                          height: 2.0,
-                          backgroundColor: Colors.transparent,
-                          color: Colors.white,
-                          )),
-                          ),
-                          ]);
-                      },
+                            )
+                        )
+                      ]
                   )
-                 )
-               )
-              )
-            ]
-          )
+                  :  const Center(
+                      child: CircularProgressIndicator(), // Step 2: Display loading indicator if colors are not loaded
+                    ),
         ]
       )
     );
   }
 }
-
-/* Column(
-              children: [
-                Image.network('${data['ImageURL']}',
-                    height: MediaQuery.of(context).size.height / 4,
-                    width: MediaQuery.of(context).size.width,
-                    fit: BoxFit.fill),
-                Text('${data['region_name']}'),
-                Text('${data['region_description']}'),
-                Text('${data['region_effekt']}'),
-              ], */
+/// Here is an Example how the collected Data is being called:
+///
+///    Column(
+///           children: [
+///              Image.network('${data['ImageURL']}',
+///                 height: MediaQuery.of(context).size.height / 4,
+///                 width: MediaQuery.of(context).size.width,
+///                 fit: BoxFit.fill),
+///                 Text('${data['region_name']}'),
+///                 Text('${data['region_description']}'),
+///                 Text('${data['region_effect']}'),
+///                 ],
+///              )
