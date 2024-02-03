@@ -20,8 +20,10 @@ class CreateCustomPage extends StatefulWidget {
 class _CreateCustomPageState extends State<CreateCustomPage> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _regionController = TextEditingController();
-  final TextEditingController _regionEffectController = TextEditingController();
+
   final TextEditingController _regionDescriptionController = TextEditingController();
+  final TextEditingController _regionEffectTitleController = TextEditingController();
+  final TextEditingController _regionEffectController = TextEditingController();
   final TextEditingController _positiveTemperatureLimit = TextEditingController();
   final TextEditingController _negativeTemperatureLimit = TextEditingController();
 
@@ -132,11 +134,29 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
               TextFormField(
                 keyboardType: TextInputType.multiline,
                 maxLines: null,
+                controller: _regionEffectTitleController,
+                decoration: const InputDecoration(
+                    labelText: 'Region Effect Title',
+                    hintText: 'Enter a Title for your custom Regional Effect'
+                ),
+              ),
+              TextFormField(
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
                 controller: _regionEffectController,
                 decoration: const InputDecoration(
-                    labelText: 'Region Effect',
-                    hintText: 'Enter a Region Effect'
+                    labelText: 'Description',
+                    hintText: 'Enter a Description for your Regional Effect\nYou may use Dice Roll Notations like "[[1d4]]" etc'
                 ),
+                validator: (String? value){
+
+                  if(value==null || value.isEmpty)
+                  {
+                    return 'Please enter some Text before submitting';
+                  }
+
+                  return null;
+                },
               ),
               TextFormField(
                 controller: _positiveTemperatureLimit,
@@ -194,6 +214,7 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
                   onPressed: () async {
                       String itemName = _titleController.text;
                       String regionName = _regionController.text;
+                      String regionEffectTitle = _regionEffectTitleController.text;
                       String regionEffect = _regionEffectController.text;
                       String regionDescription = _regionDescriptionController.text;
 
@@ -207,7 +228,10 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
                         }
                       } catch (e) {
                         // Handle invalid input for positive temperature limit
-                        print('Invalid positive temperature limit input: ${_positiveTemperatureLimit.text}');
+                        if (context.mounted) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Invalid positive temperature limit input: ${_positiveTemperatureLimit.text}')));
+                        }
                         return;
                       }
 
@@ -219,7 +243,10 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
                           }
                         } catch (e) {
                           // Handle invalid input for negative temperature limit
-                          print('Invalid negative temperature limit input: ${_negativeTemperatureLimit.text}');
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text('Invalid positive temperature limit input: ${_negativeTemperatureLimit.text}')));
+                          }
                           return;
                         }
                       }
@@ -231,6 +258,7 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
                       _reference.add({
                         'title': itemName,
                         'region_name': regionName,
+                        'region_effect_name': regionEffectTitle,
                         'region_effect': regionEffect,
                         'region_description': regionDescription,
                         'positive_temperature_limit': positiveTemperatureLimit,
