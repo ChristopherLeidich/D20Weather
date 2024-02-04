@@ -33,7 +33,12 @@ class _DiceRollDialogState extends State<DiceRollDialog> {
               controller: diceController,
               maxLength: 8,
               decoration: const InputDecoration(
-                  labelText: 'Dice Roller', hintText: 'Example: 1d20+1\n'),
+                  labelText: 'Dice Roller', hintText: 'Example: 1d20+1\n',
+                  floatingLabelStyle: TextStyle(
+                    fontSize: 12,
+                    color: Colors.white,
+                  )
+              ),
               validator: (String? value) {
                 if (value == null || value.isEmpty) {
                   return 'Please enter a correct dice expression.';
@@ -58,11 +63,11 @@ class _DiceRollDialogState extends State<DiceRollDialog> {
               diceResult = tempResult;
             });
           },
-          child: const Text('ROLL'),
+          child: const Text('ROLL', style: TextStyle( fontSize: 12, color: Colors.white),),
         ),
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text('CLOSE'),
+          child: const Text('CLOSE', style: TextStyle( fontSize: 12, color: Colors.white),),
         ),
       ],
     );

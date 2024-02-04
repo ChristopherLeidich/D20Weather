@@ -139,68 +139,68 @@ class _ItemdetailState extends State<ItemDetails> {
                     ],
                     trail: true,
                   ),
-                  "Radiant-Storm" => ParallaxRain(
-                    dropColors: const [
-                      Colors.yellow,
-                      Colors.yellowAccent,
-                      Colors.white70,
-                      Colors.lightBlue,
-                      Color(0xFFc9c165),
-                      Color(0xFFcc9654)
-                      ],
-                      trail: true,
-                  ),
-                  "Thunderstorm" => WeatherBg(
-                    weatherType: WeatherType.thunder,
+                    "Radiant-Storm" => ParallaxRain(
+                      dropColors: const [
+                        Colors.yellow,
+                        Colors.yellowAccent,
+                        Colors.white70,
+                        Colors.lightBlue,
+                        Color(0xFFc9c165),
+                        Color(0xFFcc9654)
+                        ],
+                        trail: true,
+                    ),
+                    "Thunderstorm" => WeatherBg(
+                      weatherType: WeatherType.thunder,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                    ),
+                    "Phantasmal-Rain" => const StarsViewBackground(),
+                    "Rain" => WeatherBg(
+                      weatherType: WeatherType.middleRainy,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                    ),
+                    "Sun" => WeatherBg(
+                      weatherType: WeatherType.sunny,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                    ),
+                    "Drought" => WeatherBg(
+                      weatherType: WeatherType.hazy,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                    ),
+                    "Storm" => WeatherBg(
+                    weatherType: WeatherType.heavyRainy,
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
-                  ),
-                  "Phantasmal-Rain" => const StarsViewBackground(),
-                  "Rain" => WeatherBg(
-                    weatherType: WeatherType.middleRainy,
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                  ),
-                  "Sun" => WeatherBg(
-                    weatherType: WeatherType.sunny,
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                  ),
-                  "Drought" => WeatherBg(
-                    weatherType: WeatherType.hazy,
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                  ),
-                  "Storm" => WeatherBg(
-                  weatherType: WeatherType.heavyRainy,
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height,
-                  ),
-                  "Snow" => WeatherBg(
-                    weatherType: WeatherType.middleSnow,
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                  ),
-                  "Hail" => WeatherBg(
-                    weatherType: WeatherType.heavySnow,
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                  ),
-                  "Drizzle" => WeatherBg(
-                    weatherType: WeatherType.lightRainy,
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                  ),
-                  "Cloudy" => WeatherBg(
-                    weatherType: WeatherType.foggy,
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                  ),
-                  _ => WeatherBg(
-                    weatherType: WeatherType.overcast,
-                    width: MediaQuery.of(context).size.width,
-                    height: MediaQuery.of(context).size.height,
-                  ),
+                    ),
+                    "Snow" => WeatherBg(
+                      weatherType: WeatherType.middleSnow,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                    ),
+                    "Hail" => WeatherBg(
+                      weatherType: WeatherType.heavySnow,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                    ),
+                    "Drizzle" => WeatherBg(
+                      weatherType: WeatherType.lightRainy,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                    ),
+                    "Cloudy" => WeatherBg(
+                      weatherType: WeatherType.foggy,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                    ),
+                    _ => WeatherBg(
+                      weatherType: WeatherType.overcast,
+                      width: MediaQuery.of(context).size.width,
+                      height: MediaQuery.of(context).size.height,
+                    ),
                 },
                colors.isNotEmpty ?
                   Column(

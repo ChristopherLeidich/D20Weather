@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 //import 'package:fantasy_weather_app/second_page.dart';
 import 'package:fantasy_weather_app/main.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 //import 'package:palette_generator/palette_generator.dart';
 
 import 'create_custom_page.dart';
@@ -27,12 +28,13 @@ class _MyDrawerState extends State<MyDrawer> {
     if (user == null) {
       ///if user is not logged it return Drawer 1 else Return Drawer with User Data and more Features.
       return Drawer(
+        backgroundColor: const Color(0xff6593a1),
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
             DrawerHeader(
               decoration: const BoxDecoration(
-                color: Color(0xFF813181),
+                color: Color(0x98ABD7CC),
 
                 /// Set a background color for the header
               ),
@@ -51,7 +53,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   ElevatedButton.icon(
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size.fromHeight(25),
-                      backgroundColor: const Color(0x51DF17AA),
+                      backgroundColor:  const Color(0x98ABD7CC),
                     ),
                     icon: const Icon(Icons.lock_open),
                     label: const Text(
@@ -144,19 +146,51 @@ class _MyDrawerState extends State<MyDrawer> {
       );
     } else {
       return Drawer(
+          backgroundColor: Colors.blue,
           child: Scrollable(
           axisDirection: AxisDirection.down,
           viewportBuilder: (BuildContext context, ViewportOffset position) {
             return ListView(
               padding: EdgeInsets.zero,
               children: <Widget>[
-                UserAccountsDrawerHeader(
-                  accountName: Text(user.displayName!),
-                  accountEmail: Text(user.email!),
-                  currentAccountPicture: const CircleAvatar(
-                    backgroundColor: Colors.white,
-                    child: Icon(Icons.person),
+                SizedBox(
+                height: 230,
+                child: GestureDetector(
+                  onTap: () async {
+                    await Clipboard.setData(ClipboardData(text: user.uid)).then((_) {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("UID saved to clipboard")));
+                    });
+                  },
+                  child: UserAccountsDrawerHeader(
+                    accountName: Align(
+                      alignment: Alignment.topLeft,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                              Text(user.displayName!, textAlign: TextAlign.start),
+                              Text(user.uid, style: const TextStyle(fontSize: 10),)
+                        ]
+                      ) ,
+                    ),
+                    accountEmail: Text(user.email!),
+                    currentAccountPicture: const CircleAvatar(
+                      backgroundColor: Colors.white,
+                      child: Icon(Icons.person),
+                    ),
+                    decoration: const BoxDecoration(
+                      color: Color(0xff3fb990),
+                      gradient: LinearGradient(
+                        colors: [
+                          Colors.blue,
+                          Colors.lightBlue,
+                          Color(0xff1affff),
+                        ], // Your gradient colors
+                      ),
+                      /// Set a background color for the header
+                    ),
                   ),
+                ),
                 ),
                 ListTile(
                   leading: const Icon(Icons.home),
@@ -215,7 +249,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 // stream: FirebaseFirestore.instance.collection('custom_page_data').snapshots(includeMetadataChanges: true),
                 const Divider(),
                 const Divider(),
-                const Text("Created Pages:", style: TextStyle(fontSize: 18,),),
+                const Text(" Created Pages:", style: TextStyle(fontSize: 18,),),
 
                 /// Divider between main and sub-drawer
                 Flexible(

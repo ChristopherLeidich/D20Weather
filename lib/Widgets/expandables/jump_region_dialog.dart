@@ -77,6 +77,7 @@ class _RegionJumpDialogState extends State<RegionJumpDialog> {
               () {
                 randIndex = selectedRegion!.regionIndex;
                 carouselController.animateToPage(randIndex);
+                randomizer();
               },
             ),
             Navigator.of(context).pop()
