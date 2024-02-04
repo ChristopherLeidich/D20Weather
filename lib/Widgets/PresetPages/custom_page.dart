@@ -24,7 +24,6 @@ class ItemDetails extends StatefulWidget{
 
   @override
   State<ItemDetails> createState() => _ItemdetailState();
-
 }
 
 class _ItemdetailState extends State<ItemDetails> {
