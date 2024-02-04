@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,6 +15,7 @@ import '../drawer_widget.dart';
 import '../expandables/randomizer.dart';
 import '../expandables/starviewfield.dart';
 
+
 class ItemDetails extends StatefulWidget{
 
   const ItemDetails({super.key, required this.imageMap, required this.itemID});
@@ -21,17 +24,42 @@ class ItemDetails extends StatefulWidget{
 
   @override
   State<ItemDetails> createState() => _ItemdetailState();
+
 }
 
 class _ItemdetailState extends State<ItemDetails> {
-
 
   late final DocumentReference reference;
 
   late final Map data = widget.imageMap;
 
   late final List<PaletteColor> colors;
-  final List<Color> invertedColors = [Colors.white, Colors.black, Colors.blue, Colors.amber, Colors.cyanAccent, Colors.blueGrey, Colors.transparent];
+  final List<Color> invertedColors = [];
+
+  late double negativeTempL = data['negative_temperature_limit'];
+  late double positiveTempL = data['positive_temperature_limit'];
+  late bool negativeTemp = data['negative_temperature'];
+  int cases = 0;
+  String temperature ="";
+
+  void temp() {
+    cases = Random().nextInt(2);
+    if(negativeTemp == true){
+      switch(cases){
+        case 0:
+          temperature = '+ ${(Random().nextDouble() * positiveTempL + weatherList[weatherIndex].weatherTemperatureModifer).abs().toStringAsFixed(1)} °C';
+          break;
+        case 1:
+          temperature = '- ${(Random().nextDouble() * negativeTempL + weatherList[weatherIndex].weatherTemperatureModifer).abs().toStringAsFixed(1)} °C';
+          break;
+        default:
+          temperature = '+ ${(Random().nextDouble() * positiveTempL + weatherList[weatherIndex].weatherTemperatureModifer).abs().toStringAsFixed(1)} °C';
+          break;
+      }
+    } else {
+      temperature = '+ ${(Random().nextDouble() * positiveTempL + weatherList[weatherIndex].weatherTemperatureModifer).abs().toStringAsFixed(1)} °C';
+    }
+  }
 
   Color getInvertedColor(Color color) {
     return Color.fromARGB(
@@ -83,11 +111,10 @@ class _ItemdetailState extends State<ItemDetails> {
   @override
   void initState(){
     super.initState();
+    temp();
     colors = [];
     _updatePalettes();
   }
-
-
 
   final RegExp dicePattern = RegExp(r'\[\[(\d+)d(\d+)\]\]');
 
@@ -220,7 +247,7 @@ class _ItemdetailState extends State<ItemDetails> {
                             ),
                             Container(
                               alignment: Alignment.topRight,
-                              child: Text('$preSymbol $printableValues °C',
+                              child: Text(temperature,
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 28,
