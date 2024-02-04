@@ -15,7 +15,6 @@ import '../drawer_widget.dart';
 import '../expandables/randomizer.dart';
 import '../expandables/starviewfield.dart';
 
-
 class ItemDetails extends StatefulWidget{
 
   const ItemDetails({super.key, required this.imageMap, required this.itemID});
