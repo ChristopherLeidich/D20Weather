@@ -74,7 +74,7 @@ class _RegionJumpDialogState extends State<RegionJumpDialog> {
             Navigator.of(context).setState(
               () {
                 randIndex = selectedRegion!.regionIndex;
-                randomizer();
+                randomizeTemp();
               },
             ),
             Navigator.of(context).pop()
