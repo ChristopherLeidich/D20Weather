@@ -173,15 +173,6 @@ class _ItemdetailState extends State<ItemDetails> {
                               labelText: 'Add other users to view this page',
                               hintText: 'Paste a Friends UID here',
                             ),
-                            validator: (String? value){
-
-                              if(value==null || value.isEmpty)
-                              {
-                                return 'Please enter some Text before submitting';
-                              }
-
-                              return null;
-                            },
                           ),
                           ElevatedButton(
                             onPressed: () async {
