@@ -113,18 +113,14 @@ class _MyDrawerState extends State<MyDrawer> {
             ),
             const Divider(),
 
-            const AboutListTile(
-              icon: Icon(
-                Icons.info,
-              ),
-              applicationIcon: Icon(
-                Icons.local_play,
-              ),
+            AboutListTile(
+              icon: const Icon( Icons.local_play),
+              applicationIcon: Image.asset('assets/icons/IconD20Cloud2.png', height: 53, width: 53,),
               applicationName: 'D20Weather',
-              applicationVersion: '0.2.0',
+              applicationVersion: '0.4.6',
               applicationLegalese:
-              'D20Weather © 2023 by Christopher Leidich and Francesco Quarta is licensed under CC BY-NC-SA 4.0',
-              child: Text('About app'),
+              'D20Weather © 2023-2024 by Christopher Leidich and Francesco Quarta is licensed under CC BY-NC-SA 4.0',
+              child: const Text('About app'),
             ),
             /// Divider between main and sub-drawer
           ],
@@ -189,22 +185,6 @@ class _MyDrawerState extends State<MyDrawer> {
                         MaterialPageRoute(builder: (context) => const MyApp()));
                   },
                 ),
-                /*ListTile(
-                  leading: const Icon(Icons.settings),
-                  title: const Text('Settings'),
-                  onTap: () {
-                    // Handle settings or navigation
-                    Navigator.pop(context); // Close the drawer
-                    // Navigate to the second page
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                            const SecondPage(
-                              title: '',
-                            )));
-                  },
-                ),*/
                 ListTile(
                   leading: const Icon(Icons.add_box_outlined),
                   title: const Text('Custom Page Builder'),
@@ -224,13 +204,22 @@ class _MyDrawerState extends State<MyDrawer> {
                   },
                 ),
                 const Divider(),
-                const AboutListTile(
-                  applicationIcon: Icon( Icons.local_play,),
+
+                AboutListTile(
+                  icon: const Icon( Icons.local_play),
+                  applicationIcon: Image.asset('assets/icons/IconD20Cloud2.png', height: 53, width: 53,),
                   applicationName: 'D20Weather',
-                  applicationVersion: '0.2.0',
+                  applicationVersion: '0.4.6',
                   applicationLegalese:
                   'D20Weather © 2023-2024 by Christopher Leidich and Francesco Quarta is licensed under CC BY-NC-SA 4.0',
-                  child: Text('About app'),
+                  child: const Text('About app'),
+                ),
+                ListTile(
+                  leading: const Icon(Icons.logout),
+                  title: const Text("Logout"),
+                  onTap: () async {
+                    await FirebaseAuth.instance.signOut();
+                  },
                 ),
                 // stream: FirebaseFirestore.instance.collection('custom_page_data').snapshots(includeMetadataChanges: true),
                 const Divider(),

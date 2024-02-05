@@ -31,6 +31,7 @@ class _ItemdetailState extends State<ItemDetails> {
   final user = FirebaseAuth.instance.currentUser;
 
   late final DocumentReference reference;
+  late final docID = widget.itemID;
 
   late final Map data = widget.imageMap;
 
@@ -117,6 +118,8 @@ class _ItemdetailState extends State<ItemDetails> {
     });
   }
 
+  final TextEditingController _addAllowedUsers = TextEditingController();
+
   @override
   void initState(){
     super.initState();
@@ -156,8 +159,44 @@ class _ItemdetailState extends State<ItemDetails> {
                 ),
                 Visibility(
                   visible: creator(),
-                  child: Icon(Icons.star, color: invertedColors[0])
-            )
+                  child: GestureDetector(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context){
+                          return Column(
+                            children: [
+                            TextFormField(
+                            controller: _addAllowedUsers,
+                            maxLines: 1,
+                            decoration: const InputDecoration(
+                              labelText: 'Add other users to view this page',
+                              hintText: 'Paste a Friends UID here to add them to the List of People that can see this Page',
+                            ),
+                            validator: (String? value){
+
+                              if(value==null || value.isEmpty)
+                              {
+                                return 'Please enter some Text before submitting';
+                              }
+
+                              return null;
+                            },
+                          ),
+                          ElevatedButton(
+                            onPressed: () async {
+                            String addAllowedUser = _addAllowedUsers.text;
+                            FirebaseFirestore.instance.collection('custom_page_data').doc(docID).update(<String, dynamic>{'allowedUsers': data['allowedUsers'].add(addAllowedUser)});
+                          }, 
+                            child: const Text("Add a Friend"),)
+                          ]
+                          );
+                        }
+                        );
+                      },
+                      child: Icon(Icons.star, color: invertedColors[0])
+                      )
+                    )
                    ]
                 )
               ),
