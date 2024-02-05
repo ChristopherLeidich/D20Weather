@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:expandable_text/expandable_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/rendering.dart';
@@ -26,6 +27,8 @@ class ItemDetails extends StatefulWidget{
 }
 
 class _ItemdetailState extends State<ItemDetails> {
+
+  final user = FirebaseAuth.instance.currentUser;
 
   late final DocumentReference reference;
 
@@ -56,6 +59,14 @@ class _ItemdetailState extends State<ItemDetails> {
       }
     } else {
       temperature = '+ ${(Random().nextDouble() * positiveTempL + weatherList[weatherIndex].weatherTemperatureModifer).abs().toStringAsFixed(1)} °C';
+    }
+  }
+
+  bool creator(){
+    if(data['allowedUsers'][0] == user?.uid){
+      return true;
+    } else{
+      return false;
     }
   }
 
@@ -114,7 +125,7 @@ class _ItemdetailState extends State<ItemDetails> {
     _updatePalettes();
   }
 
-  final RegExp dicePattern = RegExp(r'\[\[(\d+)d(\d+)\]\]');
+  final RegExp dicePattern = RegExp(r'\[\[(\d+)d((\d+)(\+\d+)?)\]\]');
 
   @override
   Widget build(BuildContext context) {
@@ -134,11 +145,21 @@ class _ItemdetailState extends State<ItemDetails> {
               ),
               title: Align(
                 alignment: Alignment.centerRight,
-                child: Text('${data['title']}',
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                  Text('${data['title']}',
                   style: TextStyle(
                     color: invertedColors[0]
                   ),
                 ),
+                Visibility(
+                  visible: creator(),
+                  child: Icon(Icons.star, color: invertedColors[0])
+            )
+                   ]
+                )
               ),
               leading: Builder(
                 builder: (context) =>
@@ -283,51 +304,70 @@ class _ItemdetailState extends State<ItemDetails> {
                                       axisDirection: AxisDirection.down,
                                       viewportBuilder: (BuildContext context,
                                           ViewportOffset position) {
-                                        String substitutedEffectRegional = data['region_effect'];
+                                        String subFireData = data['region_effect'];
 
                                         Iterable<Match> matches =
-                                        dicePattern.allMatches(
-                                            data['region_effect']);
+                                        dicePattern.allMatches(data['region_effect']);
 
                                         /// Extract the matched strings without brackets
-                                        List<String> diceStrings =
-                                        matches.map((match) => match.group(1)!)
-                                            .toList();
-                                        List<String> diceSides =
-                                        matches.map((match) => match.group(2)!)
-                                            .toList();
+                                        List<String> diceStrings = matches.map((match) => match.group(1)!).toList();
+                                        List<String> diceSides = matches.map((match) => match.group(2)!).toList();
                                         List<String> diceValues = [];
                                         List<String> diceResults = [];
 
-                                        for (int i = 0; i <
-                                            diceStrings.length;) {
-                                          diceValues.add(
-                                              "${diceStrings[i]}d${diceSides[i]}");
-                                          diceResults.add(
-                                              '[${roller.roll(diceValues[i])
-                                                  .toString()}]'
+                                        for (int i = 0; i < diceStrings.length;) {
+                                          diceValues.add("${diceStrings[i]}d${diceSides[i]}");
+                                          diceResults.add('[${roller.roll(diceValues[i]).toString()}]'
                                           );
 
                                           final sub = Substitute(
-                                            find: r'\[\[(\d+)d(\d+)\]\]',
+                                            find: r'\[\[(\d+)d((\d+)(\+\d+)?)\]\]',
                                             replacement: diceResults[i],
                                             global: false,
                                           );
                                           i++;
 
-                                          substitutedEffectRegional =
-                                              sub.apply(
-                                                  substitutedEffectRegional);
+                                          subFireData = sub.apply(subFireData);
                                         }
                                         return Column(
                                             mainAxisSize: MainAxisSize.min,
-                                            mainAxisAlignment: MainAxisAlignment
-                                                .start,
-                                            crossAxisAlignment: CrossAxisAlignment
-                                                .start,
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: <Widget>[
-                                              Row(children: [
-                                                Padding(
+                                                GestureDetector(
+                                                  onTap: () {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (
+                                                      BuildContext context) {
+                                                    return AlertDialog(
+                                                      title: Text('Basic Stats of ${data['region_name']}'),
+                                                      content: Container( // Wrapping with a container to apply constraints
+                                                    constraints: BoxConstraints( // Apply constraints here
+                                                    minWidth: 0,
+                                                      minHeight: 0,// Min width is 0, to allow the widget to be as small as possible
+                                                    maxWidth: MediaQuery.of(context).size.width,
+                                                    maxHeight: MediaQuery.of(context).size.height * 0.1,
+                                                    ),
+                                                      child: Column(
+                                                          mainAxisAlignment: MainAxisAlignment.start,
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: [
+                                                            Text(
+                                                                "Positive Temperature Limit: \t+${data['positive_temperature_limit']
+                                                                    .toString()}"),
+                                                            Text(
+                                                                "Negative Temperature Limit: \t-${data['negative_temperature_limit'].toString()}"),
+                                                            Text(
+                                                                "Maximum Wind Speed:\t\t\t\t${weatherList[weatherIndex].weatherWindspeed.toString()} km/h"),
+                                                          ]
+                                                        )
+                                                      )
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                                child: Padding(
                                                   padding: const EdgeInsets.all(
                                                       3.0),
                                                   child: Text(
@@ -343,34 +383,6 @@ class _ItemdetailState extends State<ItemDetails> {
                                                       )
                                                   ),
                                                 ),
-                                                Tooltip(
-                                                  triggerMode: TooltipTriggerMode
-                                                      .manual,
-                                                  richMessage: WidgetSpan(
-                                                      alignment: PlaceholderAlignment
-                                                          .baseline,
-                                                      baseline: TextBaseline
-                                                          .alphabetic,
-                                                      child: Column(
-                                                          children: [
-                                                            Text(
-                                                                "Positive Temperature Limit: +${data['positive_temperature_limit']
-                                                                    .toString()}"),
-                                                            Text(
-                                                                "Negative Temperature Limit: -${data['negative_temperature_limit']
-                                                                    .toString()}"),
-                                                            Text(
-                                                                "Maximum Wind Speed: ${weatherList[weatherIndex]
-                                                                    .weatherWindspeed
-                                                                    .toString()} km/h"),
-                                                          ]
-                                                      )
-                                                  ),
-                                                  child: const Icon(
-                                                      Icons.info_outline,
-                                                      size: 12),
-                                                )
-                                              ]
                                               ),
                                               Padding(
                                                 padding: const EdgeInsets.all(
@@ -412,7 +424,7 @@ class _ItemdetailState extends State<ItemDetails> {
                                                     padding: const EdgeInsets
                                                         .all(5.0),
                                                     child: ExpandableText(
-                                                      substitutedEffectRegional,
+                                                      subFireData,
                                                       style: const TextStyle(
                                                         height: 2.0,
                                                         backgroundColor: Colors

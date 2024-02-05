@@ -87,20 +87,6 @@ class _MyDrawerState extends State<MyDrawer> {
                     MaterialPageRoute(builder: (context) => const MyApp()));
               },
             ),
-            /*ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: () {
-                // Handle settings or navigation
-                Navigator.pop(context); // Close the drawer
-                // Navigate to the second page
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const SecondPage(title: ''),
-                    ));
-              },
-            ),*/
             AbsorbPointer(
               absorbing: false,
               child: ListTile(
@@ -243,7 +229,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   applicationName: 'D20Weather',
                   applicationVersion: '0.2.0',
                   applicationLegalese:
-                  'D20Weather © 2023 by Christopher Leidich and Francesco Quarta is licensed under CC BY-NC-SA 4.0',
+                  'D20Weather © 2023-2024 by Christopher Leidich and Francesco Quarta is licensed under CC BY-NC-SA 4.0',
                   child: Text('About app'),
                 ),
                 // stream: FirebaseFirestore.instance.collection('custom_page_data').snapshots(includeMetadataChanges: true),
@@ -256,7 +242,7 @@ class _MyDrawerState extends State<MyDrawer> {
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   child: StreamBuilder<QuerySnapshot>(
-                    stream: FirebaseFirestore.instance.collection('custom_page_data')
+                    stream: FirebaseFirestore.instance.collection('custom_page_data').where("allowedUsers", arrayContains: user.uid)
                         .snapshots(includeMetadataChanges: true),
                     builder: (BuildContext context,
                         AsyncSnapshot<QuerySnapshot> snapshot) {

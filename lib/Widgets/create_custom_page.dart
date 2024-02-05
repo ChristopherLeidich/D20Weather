@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -26,6 +27,9 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
   final TextEditingController _regionEffectController = TextEditingController();
   final TextEditingController _positiveTemperatureLimit = TextEditingController();
   final TextEditingController _negativeTemperatureLimit = TextEditingController();
+  final TextEditingController _allowedUsers = TextEditingController();
+
+  List<String> allowedUsers = [''];
 
   GlobalKey<FormState> key=GlobalKey();
 
@@ -47,6 +51,8 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+    allowedUsers[0] = user!.uid;  /// set the first Element of List allowedUsers to the UID of the Creator. This way we can later check inside the firebase firestore whoms UID is in the first Position. Only the user with the UID at position index = 0 can edit the file or add new Reader
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.pageName),
@@ -209,6 +215,14 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
                   ),
 
               ),
+              TextFormField(
+                controller: _allowedUsers,
+                maxLines: 1,
+                decoration: const InputDecoration(
+                  labelText: "Allow a Friend to view this",
+                  hintText: 'Enter the UID of a Friend to let them see this Page'
+                ),
+              ),
               ElevatedButton(
 
                   onPressed: () async {
@@ -217,10 +231,14 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
                       String regionEffectTitle = _regionEffectTitleController.text;
                       String regionEffect = _regionEffectController.text;
                       String regionDescription = _regionDescriptionController.text;
+                      String nextUser = _allowedUsers.text;
 
                       double positiveTemperatureLimit = 0;
                       double negativeTemperatureLimit = 0;
 
+                      if(nextUser.isNotEmpty) {
+                        allowedUsers.add(nextUser);
+                      }
                       // Convert positive temperature limit
                       try {
                         if (_positiveTemperatureLimit.text.isNotEmpty) {
@@ -265,6 +283,7 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
                         'negative_temperature': isCold,
                         'negative_temperature_limit': negativeTemperatureLimit,
                         'ImageURL': image,
+                        'allowedUsers': allowedUsers,
                       }).then(
                           (value) => ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Upload Successful'))),
                       );
