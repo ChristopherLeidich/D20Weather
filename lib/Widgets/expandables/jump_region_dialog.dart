@@ -70,13 +70,10 @@ class _RegionJumpDialogState extends State<RegionJumpDialog> {
       ),
       actions: [
         TextButton(
-          onPressed: () =>
-              //carouselController.jumpToPage(selectedRegion!.regionIndex),
-              [
+          onPressed: () => [
             Navigator.of(context).setState(
               () {
                 randIndex = selectedRegion!.regionIndex;
-                carouselController.animateToPage(randIndex);
                 randomizer();
               },
             ),

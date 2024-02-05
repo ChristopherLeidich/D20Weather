@@ -203,15 +203,21 @@ class _WeatherD20state extends State<WeatherD20> {
 
       /// column of FABs that expand on click of main FAB
       floatingActionButton: ExpandableFab(
-        distance: 112,
+        distance: 80,
         children: [
           ActionButton(
             onPressed: () => diceRollScreen(context),
-            icon: const Icon(Icons.casino),
+            icon: const Icon(
+              Icons.casino,
+              color: Colors.white,
+            ),
           ),
           ActionButton(
             onPressed: () => jumpRegionScreen(context),
-            icon: const Icon(Icons.cloud),
+            icon: const Icon(
+              Icons.cloud,
+              color: Colors.white,
+            ),
           ),
           /*ActionButton(
             onPressed: () => {},
