@@ -171,7 +171,7 @@ class _ItemdetailState extends State<ItemDetails> {
                             maxLines: 1,
                             decoration: const InputDecoration(
                               labelText: 'Add other users to view this page',
-                              hintText: 'Paste a Friends UID here to add them to the List of People that can see this Page',
+                              hintText: 'Paste a Friends UID here',
                             ),
                             validator: (String? value){
 
