@@ -386,7 +386,7 @@ class _ItemdetailState extends State<ItemDetails> {
                                                     minWidth: 0,
                                                     minHeight: 0,// Min width is 0, to allow the widget to be as small as possible
                                                     maxWidth: MediaQuery.of(context).size.width * 0.9,
-                                                    maxHeight: MediaQuery.of(context).size.height * 0.1,
+                                                    maxHeight: MediaQuery.of(context).size.height * 0.2,
                                                     ),
                                                       child: Expanded(
                                                         child: Column(
