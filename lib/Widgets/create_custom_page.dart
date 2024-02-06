@@ -202,7 +202,7 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
                         labelText: 'Positive Temperature Limit',
-                        hintText: 'Enter a Positive Temperature Limit in Celsius'
+                        hintText: 'Enter a Negative Temperature Limit in Celsius'
                     ),
                     validator: (String? value){
                       if(value != num as String)
