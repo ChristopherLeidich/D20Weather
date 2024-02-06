@@ -302,11 +302,11 @@ class _ItemdetailState extends State<ItemDetails> {
                                 style: TextStyle(
                                   color: colors[2].color,
                                   fontSize: 28,
-                                  shadows: <Shadow>[
+                                  shadows: const <Shadow>[
                                   Shadow(
-                                    offset: const Offset(8.0, 8.0),
+                                    offset: Offset(1.0, 1.0),
                                     blurRadius: 0.2,
-                                    color: invertedColors[3],
+                                    color: Colors.white,
                                   ),
                                   ]
                                 ),
