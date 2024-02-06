@@ -97,21 +97,53 @@ class TextWidget extends StatelessWidget {
                                 fontSize: 18,
                               )),
                         ),
-                        Tooltip(
-                          triggerMode: TooltipTriggerMode.manual,
-                          richMessage: WidgetSpan(
-                              alignment: PlaceholderAlignment.baseline,
-                              baseline: TextBaseline.alphabetic,
-                              child: Column(children: [
-                                Text(
-                                    "Positive Temperature Limit: +${region.regionalTemperatureLimitPositive.toString()}"),
-                                Text(
-                                    "Negative Temperature Limit: -${region.regionalTemperatureLimitNegative.toString()}"),
-                                Text(
-                                    "Maximum Wind Speed: ${weatherList[weatherIndex].weatherWindspeed.toString()} km/h"),
-                              ])),
-                          child: const Icon(Icons.info_outline, size: 12),
-                        )
+                        GestureDetector(
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (
+                                  BuildContext context) {
+                                return AlertDialog(
+                                    title: Text('Basic Stats of ${region.regionalName}'),
+                                    content: Container( // Wrapping with a container to apply constraints
+                                        constraints: BoxConstraints( // Apply constraints here
+                                          minWidth: 0,
+                                          minHeight: 0,// Min width is 0, to allow the widget to be as small as possible
+                                          maxWidth: MediaQuery.of(context).size.width * 0.9,
+                                          maxHeight: MediaQuery.of(context).size.height * 0.1,
+                                        ),
+                                        child: Expanded(
+                                          child: Column(
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                    "Positive Temperature Limit: \t+${region.regionalTemperatureLimitPositive
+                                                        .toString()}"),
+                                                Text(
+                                                    "Negative Temperature Limit: \t-${region.regionalTemperatureLimitNegative}"),
+                                                Text(
+                                                    "Maximum Wind Speed:\t\t\t\t${weatherList[weatherIndex].weatherWindspeed.toString()} km/h"),
+                                              ]
+                                          ),
+                                        )
+                                    )
+                                );
+                              },
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(3.0),
+                            child: Text(region.regionalName,
+                                style: const TextStyle(
+                                  height: 2.0,
+                                  backgroundColor: Colors.transparent,
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18,
+                                )),
+                          ),
+                        ),
                       ]),
                       Padding(
                         padding: const EdgeInsets.all(5.0),
