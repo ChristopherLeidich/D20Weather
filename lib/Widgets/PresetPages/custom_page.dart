@@ -133,7 +133,7 @@ class _ItemdetailState extends State<ItemDetails> {
       TextButton(
         onPressed: () async {
           Navigator.of(context).pop();
-          String addAllowedUser = _addAllowedUsers.text;
+          String addAllowedUser = _addAllowedUsers.text.trim();
           users.add(addAllowedUser);
           await FirebaseFirestore.instance.collection('custom_page_data').doc(docID).update({'allowedUsers': users});
       },
