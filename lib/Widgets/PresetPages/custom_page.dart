@@ -377,11 +377,12 @@ class _ItemdetailState extends State<ItemDetails> {
                                                       content: Container( // Wrapping with a container to apply constraints
                                                     constraints: BoxConstraints( // Apply constraints here
                                                     minWidth: 0,
-                                                      minHeight: 0,// Min width is 0, to allow the widget to be as small as possible
-                                                    maxWidth: MediaQuery.of(context).size.width,
+                                                    minHeight: 0,// Min width is 0, to allow the widget to be as small as possible
+                                                    maxWidth: MediaQuery.of(context).size.width * 0.9,
                                                     maxHeight: MediaQuery.of(context).size.height * 0.1,
                                                     ),
-                                                      child: Column(
+                                                      child: Expanded(
+                                                        child: Column(
                                                           mainAxisAlignment: MainAxisAlignment.start,
                                                           crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [
@@ -392,7 +393,8 @@ class _ItemdetailState extends State<ItemDetails> {
                                                                 "Negative Temperature Limit: \t-${data['negative_temperature_limit'].toString()}"),
                                                             Text(
                                                                 "Maximum Wind Speed:\t\t\t\t${weatherList[weatherIndex].weatherWindspeed.toString()} km/h"),
-                                                          ]
+                                                            ]
+                                                          ),
                                                         )
                                                       )
                                                     );

@@ -258,7 +258,7 @@ class _MyDrawerState extends State<MyDrawer> {
                               Map<String, dynamic> data = document.data()! as Map<String, dynamic>;
                               return ListTile(
                                 title: Text(data['title']),
-                                subtitle: Text(document.id),
+                                subtitle: Text(data['region_name']),
                                 onTap: () {
                                   // Handle about
                                   Navigator.pop(context);
