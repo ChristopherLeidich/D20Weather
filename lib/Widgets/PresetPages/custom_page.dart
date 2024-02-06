@@ -299,9 +299,16 @@ class _ItemdetailState extends State<ItemDetails> {
                             Container(
                               alignment: Alignment.topRight,
                               child: Text(temperature,
-                                style: const TextStyle(
-                                  color: Colors.white,
+                                style: TextStyle(
+                                  color: colors[2].color,
                                   fontSize: 28,
+                                  shadows: <Shadow>[
+                                  Shadow(
+                                    offset: const Offset(8.0, 8.0),
+                                    blurRadius: 0.2,
+                                    color: invertedColors[3],
+                                  ),
+                                  ]
                                 ),
                               ),
                             ),
@@ -323,7 +330,7 @@ class _ItemdetailState extends State<ItemDetails> {
                                       ),
                                       boxShadow: [
                                         BoxShadow(
-                                          color: Colors.blueAccent.withOpacity(
+                                          color: colors[5].color.withOpacity(
                                               0.4),
                                           spreadRadius: 6,
                                           blurRadius: 8,
