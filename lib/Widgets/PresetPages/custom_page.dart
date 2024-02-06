@@ -33,7 +33,10 @@ class _ItemdetailState extends State<ItemDetails> {
   late final DocumentReference reference;
   late final docID = widget.itemID;
 
+
   late final Map data = widget.imageMap;
+
+  late final List<dynamic> users = data['allowedUsers'];
 
   late final List<PaletteColor> colors;
   final List<Color> invertedColors = [];
@@ -117,8 +120,27 @@ class _ItemdetailState extends State<ItemDetails> {
     setState(() {
     });
   }
-
   final TextEditingController _addAllowedUsers = TextEditingController();
+
+  Future openDialog() => showDialog(context: context, builder: (context) => AlertDialog(
+    title: const Text('Add other users to view this page'),
+    content: TextField(
+      autofocus: true,
+      controller: _addAllowedUsers,
+      decoration: const InputDecoration(hintText: "Paste a Friends UID here"),
+    ),
+    actions: [
+      TextButton(
+        onPressed: () async {
+          Navigator.of(context).pop();
+          String addAllowedUser = _addAllowedUsers.text;
+          users.add(addAllowedUser);
+          await FirebaseFirestore.instance.collection('custom_page_data').doc(docID).update({'allowedUsers': users});
+      },
+          child: const Text("Add to List"))
+    ],
+  ));
+
 
   @override
   void initState(){
@@ -161,29 +183,7 @@ class _ItemdetailState extends State<ItemDetails> {
                   visible: creator(),
                   child: GestureDetector(
                       onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context){
-                          return Column(
-                            children: [
-                            TextFormField(
-                            controller: _addAllowedUsers,
-                            maxLines: 1,
-                            decoration: const InputDecoration(
-                              labelText: 'Add other users to view this page',
-                              hintText: 'Paste a Friends UID here',
-                            ),
-                          ),
-                          ElevatedButton(
-                            onPressed: () async {
-                            String addAllowedUser = _addAllowedUsers.text;
-                            FirebaseFirestore.instance.collection('custom_page_data').doc(docID).update(<String, dynamic>{'allowedUsers': data['allowedUsers'].add(addAllowedUser)});
-                          }, 
-                            child: const Text("Add a Friend"),)
-                          ]
-                          );
-                        }
-                        );
+                        openDialog();
                       },
                       child: Icon(Icons.star, color: invertedColors[0])
                       )
