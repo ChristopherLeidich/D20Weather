@@ -85,18 +85,6 @@ class TextWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Row(children: [
-                        Padding(
-                          padding: const EdgeInsets.all(3.0),
-                          child: Text(region.regionalName,
-                              style: const TextStyle(
-                                height: 2.0,
-                                backgroundColor: Colors.transparent,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 18,
-                              )),
-                        ),
                         GestureDetector(
                           onTap: () {
                             showDialog(
@@ -134,7 +122,9 @@ class TextWidget extends StatelessWidget {
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(3.0),
-                            child: Text(region.regionalName,
+                            child: Row(
+                              children: [
+                              Text('${region.regionalName} ',
                                 style: const TextStyle(
                                   height: 2.0,
                                   backgroundColor: Colors.transparent,
@@ -142,9 +132,10 @@ class TextWidget extends StatelessWidget {
                                   fontWeight: FontWeight.bold,
                                   fontSize: 18,
                                 )),
+                              const Icon(Icons.info_outline, size: 14,)
+                            ])
                           ),
                         ),
-                      ]),
                       Padding(
                         padding: const EdgeInsets.all(5.0),
                         child: ExpandableText(
