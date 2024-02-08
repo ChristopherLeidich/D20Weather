@@ -175,34 +175,57 @@ Widget build(BuildContext context) {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: &lt;Widget&gt;[
-                    Row(children: [
-                      Padding(
-                        padding: const EdgeInsets.all(3.0),
-                        child: Text(region.regionalName,
-                            style: const TextStyle(
-                              height: 2.0,
-                              backgroundColor: Colors.transparent,
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 18,
-                            )),
+                      GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (
+                                BuildContext context) {
+                              return AlertDialog(
+                                  title: Text(&#39;Basic Stats of ${region.regionalName}&#39;),
+                                  content: Container( &#47;&#47; Wrapping with a container to apply constraints
+                                      constraints: BoxConstraints( &#47;&#47; Apply constraints here
+                                        minWidth: 0,
+                                        minHeight: 0,&#47;&#47; Min width is 0, to allow the widget to be as small as possible
+                                        maxWidth: MediaQuery.of(context).size.width * 0.9,
+                                        maxHeight: MediaQuery.of(context).size.height * 0.1,
+                                      ),
+                                      child: Expanded(
+                                        child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                  &quot;Positive Temperature Limit: \t+${region.regionalTemperatureLimitPositive
+                                                      .toString()}&quot;),
+                                              Text(
+                                                  &quot;Negative Temperature Limit: \t-${region.regionalTemperatureLimitNegative}&quot;),
+                                              Text(
+                                                  &quot;Maximum Wind Speed:\t\t\t\t${weatherList[weatherIndex].weatherWindspeed.toString()} km&#47;h&quot;),
+                                            ]
+                                        ),
+                                      )
+                                  )
+                              );
+                            },
+                          );
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(3.0),
+                          child: Row(
+                            children: [
+                            Text(&#39;${region.regionalName} &#39;,
+                              style: const TextStyle(
+                                height: 2.0,
+                                backgroundColor: Colors.transparent,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              )),
+                            const Icon(Icons.info_outline, size: 14,)
+                          ])
+                        ),
                       ),
-                      Tooltip(
-                        triggerMode: TooltipTriggerMode.manual,
-                        richMessage: WidgetSpan(
-                            alignment: PlaceholderAlignment.baseline,
-                            baseline: TextBaseline.alphabetic,
-                            child: Column(children: [
-                              Text(
-                                  &quot;Positive Temperature Limit: +${region.regionalTemperatureLimitPositive.toString()}&quot;),
-                              Text(
-                                  &quot;Negative Temperature Limit: -${region.regionalTemperatureLimitNegative.toString()}&quot;),
-                              Text(
-                                  &quot;Maximum Wind Speed: ${weatherList[weatherIndex].weatherWindspeed.toString()} km&#47;h&quot;),
-                            ])),
-                        child: const Icon(Icons.info_outline, size: 12),
-                      )
-                    ]),
                     Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: ExpandableText(
@@ -258,16 +281,45 @@ Widget build(BuildContext context) {
                       padding: const EdgeInsets.all(5.0),
                       child: Text(weatherList[weatherIndex].weatherName,
                           style: const TextStyle(
-                            height: 4.0,
+                            height: 2.0,
                             backgroundColor: Colors.transparent,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
+                            fontSize: 16
                           )),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(5.0),
                       child: ExpandableText(
                         weatherList[weatherIndex].weatherDescription,
+                        style: const TextStyle(
+                          height: 2.0,
+                          backgroundColor: Colors.transparent,
+                          color: Colors.white,
+                        ),
+                        expandText: &#39;show more&#39;,
+                        collapseText: &#39;show less&#39;,
+                        maxLines: 1,
+                        linkColor: Colors.black,
+                        animation: true,
+                        expanded: true,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Text(weatherList[weatherIndex].weatherEffectname,
+                          style: const TextStyle(
+                            height: 2.0,
+                            backgroundColor: Colors.transparent,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 14
+                          )),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: ExpandableText(
+                        &quot;${weatherList[weatherIndex].weatherEffectdescription}\n${weatherList[weatherIndex].weatherEffect}&quot;,
                         style: const TextStyle(
                           height: 2.0,
                           backgroundColor: Colors.transparent,
