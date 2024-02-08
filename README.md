@@ -20,6 +20,8 @@ In case the Projects doesn't load Properly you can find an [app-release.apk](htt
 
 [Here](https://gitlab.ai.it.hs-worms.de/inf3900/appdevprojekt/-/blob/main/D20_Weather.pptx) you can find a Small Powerpoint Presentation about the App(! It is made in German! International Version may be following at a later date)
 
+Follow [this](https://mswocloud-my.sharepoint.com/:x:/g/personal/inf4144_stud_mswocloud_hs-worms_de/EWLSXcWfCXxGgFbBysynQN0BcjvO3H5a6fyu2Ubu8S8TKQ?e=hnfqc5) Link to find our TimeTable
+
 ## Licence
 
 fantasy_weather_app © 2023 by [Christopher Leidich](https://gitlab.ai.it.hs-worms.de/inf3900) and [Francesco Quarta](https://gitlab.ai.it.hs-worms.de/inf4144) is licensed under [CC BY-NC-SA 4.0](http://creativecommons.org/licenses/by-nc-sa/4.0/)
