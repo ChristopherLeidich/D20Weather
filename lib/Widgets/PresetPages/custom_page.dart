@@ -23,6 +23,7 @@ class ItemDetails extends StatefulWidget{
   final Map<String, dynamic> imageMap;
   final String itemID;
 
+
   @override
   State<ItemDetails> createState() => _ItemdetailState();
 }
@@ -170,8 +171,7 @@ class _ItemdetailState extends State<ItemDetails> {
             TextButton(onPressed: () async {
               Navigator.of(context).pop();
               Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                  ItemDetails(
-                    imageMap: widget.imageMap, itemID: widget.itemID,)));
+              const MyApp()));
               String updatedRegionName = editTitle.text.trim();
               await FirebaseFirestore.instance.collection('custom_page_data')
                   .doc(docID).update({'region_name': updatedRegionName})
@@ -201,8 +201,7 @@ class _ItemdetailState extends State<ItemDetails> {
               TextButton(onPressed: () async {
                 Navigator.of(context).pop();
                 Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                    ItemDetails(
-                      imageMap: widget.imageMap, itemID: widget.itemID,)));
+                const MyApp()));
                 String updatedRegionDescription = editDescription.text.trim();
                 await FirebaseFirestore.instance.collection('custom_page_data')
                     .doc(docID).update(
@@ -232,8 +231,7 @@ class _ItemdetailState extends State<ItemDetails> {
               TextButton(onPressed: () async {
                 Navigator.of(context).pop();
                 Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                    ItemDetails(
-                      imageMap: widget.imageMap, itemID: widget.itemID,)));
+                const MyApp()));
                 String updatedEffectTitle = editEffectTitle.text.trim();
                 await FirebaseFirestore.instance.collection('custom_page_data')
                     .doc(docID).update(
@@ -248,6 +246,7 @@ class _ItemdetailState extends State<ItemDetails> {
             ],
           ));
     }
+
 
     Future editEffectDescription() {
       final TextEditingController editEffect = TextEditingController(text: data['region_effect']);
@@ -264,8 +263,7 @@ class _ItemdetailState extends State<ItemDetails> {
               TextButton(onPressed: () async {
                 Navigator.of(context).pop();
                 Navigator.push(context, MaterialPageRoute(builder: (context) =>
-                    ItemDetails(
-                      imageMap: widget.imageMap, itemID: widget.itemID,)));
+                const MyApp()));
                 String updatedRegionEffect = editEffect.text.trim();
                 await FirebaseFirestore.instance.collection('custom_page_data')
                     .doc(docID).update({'region_effect': updatedRegionEffect})
