@@ -18,9 +18,11 @@ In case the Projects doesn't load Properly you can find an [app-release.apk](htt
 
 [Class Diagramm of the dart.main](https://gitlab.ai.it.hs-worms.de/inf3900/appdevprojekt/-/raw/main/ClassDiagramm.png)
 
-[Here](https://gitlab.ai.it.hs-worms.de/inf3900/appdevprojekt/-/blob/main/D20_Weather.pptx) you can find a Small Powerpoint Presentation about the App(! It is made in German! International Version may be following at a later date)
+[Here](https://gitlab.ai.it.hs-worms.de/inf3900/appdevprojekt/-/blob/main/D20_Weather.pptx) you can find a Small Powerpoint Presentation about the App(It is in German! International Version may be following at a later date)
 
 Follow [this](https://mswocloud-my.sharepoint.com/:x:/g/personal/inf4144_stud_mswocloud_hs-worms_de/EWLSXcWfCXxGgFbBysynQN0BcjvO3H5a6fyu2Ubu8S8TKQ?e=hnfqc5) Link to find our TimeTable
+
+[Here](https://gitlab.ai.it.hs-worms.de/inf3900/appdevprojekt/-/blob/main/D20Weather_Basic_Functions_Recording.mp4) you can find a Video showing the Basic Functions of the App.
 
 ## Licence
 
