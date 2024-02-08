@@ -201,17 +201,9 @@ class _CreateCustomPageState extends State<CreateCustomPage> {
                     controller: _negativeTemperatureLimit,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(
-                        labelText: 'Positive Temperature Limit',
+                        labelText: 'Negative Temperature Limit',
                         hintText: 'Enter a Negative Temperature Limit in Celsius'
                     ),
-                    validator: (String? value){
-                      if(value != num as String)
-                      {
-                        return 'Must be a Number';
-                      }
-
-                      return null;
-                    },
                   ),
 
               ),

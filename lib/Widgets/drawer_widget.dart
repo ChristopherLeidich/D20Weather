@@ -178,9 +178,9 @@ class _MyDrawerState extends State<MyDrawer> {
                   leading: const Icon(Icons.home),
                   title: const Text('Home'),
                   onTap: () {
-                    // Handle settings or navigation
+                    /// Handle settings or navigation
                     Navigator.pop(context); // Close the drawer
-                    // Navigate to the second page
+                    /// Navigate to the main page
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => const MyApp()));
                   },
