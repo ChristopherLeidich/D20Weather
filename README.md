@@ -12,7 +12,7 @@ If you have any questions whatsoever concerning Licences or general question ple
 
 Status: ongoing/hiatus
 
-#### Getting Started
+## Getting Started
 
 In case the Projects doesn't load Properly you can find an [app-release.apk](https://gitlab.ai.it.hs-worms.de/inf3900/appdevprojekt/-/blob/main/app-release.apk) in the Default Directory of the Repository
 
