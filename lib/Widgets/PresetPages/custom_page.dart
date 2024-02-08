@@ -278,6 +278,68 @@ class _ItemdetailState extends State<ItemDetails> {
           ));
     }
 
+  Future editTemperatureP() {
+    final TextEditingController editTempP = TextEditingController(text: data['positive_temperature_limit']);
+    return showDialog(context: context, builder: (context) =>
+        AlertDialog(
+          title: const Text('Edit Positive Temperature Limit'),
+          content: TextFormField(
+            keyboardType: TextInputType.number,
+            autofocus: true,
+            minLines: 1,
+            maxLines: null,
+            controller: editTempP,
+          ),
+          actions: [
+            TextButton(onPressed: () async {
+              Navigator.of(context).pop();
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>
+              const MyApp()));
+              double updatedPTemperature = double.parse(editTempP.text.trim());
+              await FirebaseFirestore.instance.collection('custom_page_data')
+                  .doc(docID).update({'positive_temperature_limit': updatedPTemperature})
+                  .then((_) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Update successful")));
+              });
+            },
+                child: const Text(
+                  'Submit', style: TextStyle(color: Colors.white),))
+          ],
+        ));
+  }
+
+  Future editTemperatureN() {
+    final TextEditingController editTempN = TextEditingController(text: data['negative_temperature_limit']);
+    return showDialog(context: context, builder: (context) =>
+        AlertDialog(
+          title: const Text('Edit Positive Temperature Limit'),
+          content: TextFormField(
+            keyboardType: TextInputType.number,
+            autofocus: true,
+            minLines: 1,
+            maxLines: null,
+            controller: editTempN,
+          ),
+          actions: [
+            TextButton(onPressed: () async {
+              Navigator.of(context).pop();
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>
+              const MyApp()));
+              double updatedNTemperature = double.parse(editTempN.text.trim()).abs();
+              await FirebaseFirestore.instance.collection('custom_page_data')
+                  .doc(docID).update({'negative_temperature_limit': updatedNTemperature})
+                  .then((_) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text("Update successful")));
+              });
+            },
+                child: const Text(
+                  'Submit', style: TextStyle(color: Colors.white),))
+          ],
+        ));
+  }
+
 
     @override
     void initState(){
@@ -530,11 +592,41 @@ class _ItemdetailState extends State<ItemDetails> {
                                                                         mainAxisAlignment: MainAxisAlignment.start,
                                                                         crossAxisAlignment: CrossAxisAlignment.start,
                                                                         children: [
-                                                                          Text(
-                                                                              "Positive Temperature Limit: \t+${data['positive_temperature_limit']
-                                                                                  .toString()}"),
-                                                                          Text(
-                                                                              "Negative Temperature Limit: \t-${data['negative_temperature_limit'].toString()}"),
+                                                                          Row(
+                                                                            children: [
+                                                                              Text(
+                                                                                  "Positive Temperature Limit: \t+${data['positive_temperature_limit']
+                                                                                      .toString()}"),
+                                                                              Visibility(
+                                                                                  visible: creator(),
+                                                                                  child:
+                                                                                  GestureDetector(
+                                                                                    onTap: (){
+                                                                                      editTemperatureP();
+                                                                                    },
+                                                                                    child: const Icon(Icons.edit),
+                                                                                  )
+                                                                              )
+                                                                             ]
+                                                                          ),
+                                                                          Row(
+                                                                            children: [
+                                                                              Text(
+                                                                                  "Negative Temperature Limit: \t-${data['negative_temperature_limit']
+                                                                                      .toString()}"),
+                                                                              Visibility(
+                                                                                  visible: creator(),
+                                                                                  child:
+                                                                                  GestureDetector(
+                                                                                    onTap: (){
+                                                                                      editTemperatureN();
+                                                                                    },
+                                                                                    child: const Icon(Icons.edit),
+                                                                                  )
+                                                                              )
+                                                                              ]
+                                                                          ),
+
                                                                           Text(
                                                                               "Maximum Wind Speed:\t\t\t\t${weatherList[weatherIndex].weatherWindspeed.toString()} km/h"),
                                                                         ]
