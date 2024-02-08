@@ -14,12 +14,11 @@ Status: ongoing/hiatus
 
 #### Getting Started
 
-In case the Projects doesnT load Properly you can find an [app-release.apk](https://gitlab.ai.it.hs-worms.de/inf3900/appdevprojekt/-/blob/main/app-release.apk) in the Default Directory of the Repository
+In case the Projects doesn't load Properly you can find an [app-release.apk](https://gitlab.ai.it.hs-worms.de/inf3900/appdevprojekt/-/blob/main/app-release.apk) in the Default Directory of the Repository
 
-[label] = https://gitlab.ai.it.hs-worms.de/inf3900/appdevprojekt/-/raw/main/ClassDiagramm.png
+[Class Diagramm of the dart.main](https://gitlab.ai.it.hs-worms.de/inf3900/appdevprojekt/-/raw/main/ClassDiagramm.png)
 
-![no-alt-text][label]
-<sub>Class Diagramm of the dart.main</sub>
+[Here](https://gitlab.ai.it.hs-worms.de/inf3900/appdevprojekt/-/blob/main/D20_Weather.pptx) you can find a Small Powerpoint Presentation about the App(! It is made in German! International Version may be following at a later date)
 
 ## Licence
 
