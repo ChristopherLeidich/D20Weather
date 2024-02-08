@@ -16,9 +16,10 @@ Status: ongoing/hiatus
 
 In case the Projects doesnT load Properly you can find an [app-release.apk](https://gitlab.ai.it.hs-worms.de/inf3900/appdevprojekt/-/blob/main/app-release.apk) in the Default Directory of the Repository
 
-!label = [https://gitlab.ai.it.hs-worms.de/inf3900/appdevprojekt/-/raw/main/ClassDiagramm.png]
+[label] = https://gitlab.ai.it.hs-worms.de/inf3900/appdevprojekt/-/raw/main/ClassDiagramm.png
 
-label
+![no-alt-text][label]
+<sub>Class Diagramm of the dart.main</sub>
 
 ## Licence
 
