@@ -218,6 +218,7 @@ class _MyDrawerState extends State<MyDrawer> {
                   leading: const Icon(Icons.logout),
                   title: const Text("Logout"),
                   onTap: () async {
+                    Navigator.of(context).pop();
                     await FirebaseAuth.instance.signOut();
                   },
                 ),
