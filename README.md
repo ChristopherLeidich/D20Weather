@@ -8,18 +8,19 @@ Later Iterations will have Changing Theme Styles available. Please Wait for furt
 The Following Program is solely Edited by the 2 Product Owners Christopher Leidich(@inf3900) and Francesco Quarta(@inf4144). 
 If you have any questions whatsoever concerning Licences or general question please refer to on the 2 Editors.
 
+## Status
+
+Status: ongoing/hiatus
+
 #### Getting Started
 
-<sub>This project is a starting point for a Flutter application.</sub>
+In case the Projects doesn't load Properly you can find an [app-release.apk](https://gitlab.ai.it.hs-worms.de/inf3900/appdevprojekt/-/blob/main/app-release.apk) in the Default Directory of the Repository
 
-<sub>A few resources to get you started if this is your first Flutter project:</sub>
+[Class Diagramm of the dart.main](https://gitlab.ai.it.hs-worms.de/inf3900/appdevprojekt/-/raw/main/ClassDiagramm.png)
 
-- <sub>[Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)</sub>
-- <sub>[Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)</sub>
+[Here](https://gitlab.ai.it.hs-worms.de/inf3900/appdevprojekt/-/blob/main/D20_Weather.pptx) you can find a Small Powerpoint Presentation about the App(! It is made in German! International Version may be following at a later date)
 
-<sub>For help getting started with Flutter development, view the</sub>
-<sub>[online documentation](https://docs.flutter.dev/), which offers tutorials,</sub>
-<sub>samples, guidance on mobile development, and a full API reference.</sub>
+Follow [this](https://mswocloud-my.sharepoint.com/:x:/g/personal/inf4144_stud_mswocloud_hs-worms_de/EWLSXcWfCXxGgFbBysynQN0BcjvO3H5a6fyu2Ubu8S8TKQ?e=hnfqc5) Link to find our TimeTable
 
 ## Licence
 
