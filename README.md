@@ -26,7 +26,7 @@ Follow [this](https://mswocloud-my.sharepoint.com/:x:/g/personal/inf4144_stud_ms
 
 ## Licence
 
-fantasy_weather_app © 2023 by [Christopher Leidich](https://gitlab.ai.it.hs-worms.de/inf3900) and [Francesco Quarta](https://gitlab.ai.it.hs-worms.de/inf4144) is licensed under [CC BY-NC-SA 4.0](http://creativecommons.org/licenses/by-nc-sa/4.0/)
+fantasy_weather_app © 2023-2024 by [Christopher Leidich](https://gitlab.ai.it.hs-worms.de/inf3900) and [Francesco Quarta](https://gitlab.ai.it.hs-worms.de/inf4144) is licensed under [CC BY-NC-SA 4.0](http://creativecommons.org/licenses/by-nc-sa/4.0/)
 
 ## Documentation
 
